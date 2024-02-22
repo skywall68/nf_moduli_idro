@@ -1,0 +1,16 @@
+.checklist {
+    background-color: rgb(248, 248, 172);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */
+}
+
+
+.bottone {
+ 
+    margin-top: 20px;
+    background-color: bisque;
+    height: 40px;
+}
+
+.tabella {
+    margin-top: 10px;
+}

@@ -1,0 +1,201 @@
+import React, {useState, useEffect} from 'react'
+import 'react-pdf/dist/Page/AnnotationLayer.css';
+
+import './App.css';
+import Impostazioni from './components/Impostazioni';
+import SaldatoriView from './components/ui/SaldatoriView';
+import MacchineView from './components/ui/MacchineView';
+import Compilatore from './components/ui/Compilatore';
+import ElementiSaldati from './components/ui/ElementiSaldati';
+import ElementiLavorati from './components/ui/ElementiLavorati';
+import TipologiaView from './components/ui/TipologiaView';
+import CheckListPj8View1 from './components/ui/CheckListPj8View1'; //modulo da compilare
+import CheckListPj16View from './components/ui/CheckListPj16View1';
+import SeePdf from './components/ui/SeePdf';
+import Footer from './components/ui/Footer';
+import Operatore from './components/ui/Operatore';
+import CheckListDimensioniPj8View from './components/ui/CheckListDimensioniPj8View';
+
+
+
+
+function App() {
+  const [pj8App, setpj8App]=useState();//porto il file pdf preso da Impostazioni.js
+  const [pj16App, setpj16App]= useState();//porto il file pdf preso da Impostazioni.js
+  const [numeroPages, setNumeroPages] = useState('0');
+  const [appLista, setAppLista]= useState('');
+  const [appCliente, setAppCliente] = useState('');
+  const [appCantiere, setAppCantiere] = useState('');
+  const [appOpera, setAppOpera] = useState('');
+  const [appPlan, setAppPlan] = useState('');
+  const [appOperatore, setAppOperatore] = useState ('');
+  const [appRecuperaMiaLista, setAppRecuperaLista]= useState('List 23997 - Items list.pdf') //recupero la lista da eventuale click
+  const[saldatoreSceltoApp, setSaldatoreSceltoApp] = useState('')
+  const [tipologiaSceltaApp, setTipologiaSceltaApp]= useState('Scegli')
+  const[macchinaSceltaApp, setMacchinaSceltaApp]= useState('')
+  const [appElementi, setAppElementi]= useState([]) //mi compila la dropdown list di elementi saldati o lavorati
+  const [appElementoScelto,setAppElementoScelto]=useState('')
+  const [appControllatoNdi, setAppControllatoNdi]= useState('') // al numero di elementi appartiene l'elemento controllato
+  const [visualizzaModulo, setVisualizzaModulo]= useState(false)
+  const [sceltaModuloApp, setSceltaModuloApp]= useState('0') //se è 8 pj8 se è 16 pj16 questo mi permette di creare moduli diversi a seconda della scelta
+  //const [filePj8Json1App, setFilePj8Json1App]= useState([]) //recupero il modulo pj8 da visualizzare in una tabella
+  const [filePj16JsonApp, setFilePj16JsonApp]= useState([]) //recupero il modulo pj16 da visualizzare in una tabella
+  const [listaPagina1Pj8App, setListaPagina1Pj8App]=useState([]) //recupero i valori pagina 1 pj8 da mandare in stampa
+  const [listaPagina2Pj8App, setListaPagina2Pj8App]=useState([]) //recupero i valori pagina 2 pj8 da mandare in stampa
+  const [listaPagina1Pj16App, setListaPagina1Pj16App]=useState([]) //recupero i valori pagina 1 pj16 da mandare in stampa
+  const [listaPagina2Pj16, setListaPagina2Pj16]=useState([]) //recupero i valori pagina 2 pj16 da mandare in stampa
+
+  //recupero il numero dopo N. di elementi dalla stringa ricevuta da appControllatoNdi che arriva da ElementiSaldati.js
+  useEffect(()=>{
+    //creo una funzione che riceve una stringa 'bla bla N.4' mi recupera solo '4' viene poi richiamata dando in pasto appElementoScelto che è la stringa che arriva da ElementiSaldati.js
+    // e poi da ElementiLavorati.js
+    const trovaNElementoDi = (testo)=>{
+     const posizioneN = testo.indexOf('N.')
+      if(posizioneN !== -1){
+        // Trova la posizione dello spazio successivo dopo 'N.'
+        const posizioneSpazio = testo.indexOf(' ', posizioneN);
+        // Estrai i caratteri dopo 'N.' fino allo spazio successivo
+        const caratteriDopoN = testo.substring(posizioneN + 2, posizioneSpazio);
+        setAppControllatoNdi(caratteriDopoN)
+      } else {
+        setAppControllatoNdi('1')
+      }
+  }
+  trovaNElementoDi(appElementoScelto)
+  console.log('NUMERO ELEMENTI SALDATI:',appControllatoNdi)
+  },
+  [tipologiaSceltaApp,appElementoScelto])
+
+
+  
+  //creiamo la condizione di vedere o non vedere gli elementi :
+  let impostazioni;
+  let seePdf;
+  let compilatore;
+  let operatore;
+  let saldatoriView;
+  let macchineView;
+  let elementiSaldati;
+  let elementiLavorati;
+  let tipologia;
+  let checkListPj8View1;
+  let checkListDimensioniPj8View;
+  let checklistPj16View;
+  let footer;
+  
+
+  if(visualizzaModulo){   //se il modulo è true allora...
+     seePdf = <SeePdf
+              //leggiFile={leggiFile}   //non ricordo a xchè lo messo
+              setNumeroPages={setNumeroPages}
+              setAppLista={setAppLista}
+              setAppCliente={setAppCliente}
+              setAppCantiere={setAppCantiere}
+              setAppOpera= {setAppOpera}
+              setAppPlan = {setAppPlan}
+              setAppElementi= { setAppElementi}  /* mi legge gli elementi nel pdf*/ 
+              appRecuperaMiaLista = {appRecuperaMiaLista}
+              sceltaModuloApp={sceltaModuloApp} //mi dice se è 8pj o 16pj
+                />
+    compilatore = <Compilatore
+              numeroPages={numeroPages} 
+              appLista={appLista}
+              appCliente={appCliente}
+              appCantiere={appCantiere}
+              appOpera={appOpera}
+              appPlan={appPlan}
+                />
+    operatore = <Operatore setAppOperatore={setAppOperatore} />            
+    //Scelta della scheda Saldatori o Macchine
+        if(sceltaModuloApp === '8pj'){
+          console.log('in App il modulo scelto è:',sceltaModuloApp)
+          saldatoriView = <SaldatoriView setSaldatoreSceltoApp={setSaldatoreSceltoApp}  />
+          checkListPj8View1=<CheckListPj8View1  setListaPagina1Pj8App={setListaPagina1Pj8App} appLista={appLista}/> //mi carica la prima pagina per la spunta option
+          checkListDimensioniPj8View=<CheckListDimensioniPj8View setListaPagina2Pj8App={setListaPagina2Pj8App} /> //mi carica la seconda pagina per la spunta checkbox
+           //Visualizza Elenco elementi saldati
+          elementiSaldati =<ElementiSaldati
+                      appElementi={appElementi} 
+                     setAppElementoScelto={setAppElementoScelto}
+                     />   
+        } else if( sceltaModuloApp === '16pj') {
+          console.log('in App il modulo scelto è:',sceltaModuloApp)
+          macchineView = <MacchineView setMacchinaSceltaApp={setMacchinaSceltaApp}  />
+          checklistPj16View = <CheckListPj16View setListaPagina1Pj16App={setListaPagina1Pj16App} />
+          elementiLavorati=<ElementiLavorati
+                      appElementi={appElementi} 
+                      setAppElementoScelto={setAppElementoScelto} 
+                      />
+        } else {
+          console.log('in App il modulo scelto è:',sceltaModuloApp)
+          return
+        }
+    
+     //Visualizza tipologia elementi
+     tipologia = <TipologiaView setTipologiaSceltaApp={setTipologiaSceltaApp} />
+    
+  } else {
+    
+    impostazioni=
+    <Impostazioni 
+    setpj8App={setpj8App} 
+    setpj16App={setpj16App} 
+    setVisualizzaModulo={setVisualizzaModulo} 
+    setSceltaModuloApp={setSceltaModuloApp}
+    setFilePj16JsonApp={setFilePj16JsonApp}
+    />
+  }
+  //console.log('dentro macchina scelta.',macchinaSceltaApp)
+  //console.log('pdf8 su App.js:',pj8App)
+  console.log('tipologia dentro App:',tipologiaSceltaApp, 'modulo:',sceltaModuloApp)
+  console.log('Scelta del modulo:')
+
+  return (
+    <div>
+    <div style={{display:'-ms-flexbox',position:'relative', alignItems: 'center', textAlign:'center'}}>
+    {impostazioni}
+    </div>
+    
+  
+       {/* Colonna sinistra: PDF */}
+          
+            {visualizzaModulo ?
+             <div  style={{display:'flex'}}>
+                <div className='pdf' style={{flex:1 }}>
+                {seePdf}
+                </div>
+            
+                <div style={{
+                  width:'50%',
+                  position:'sticky', 
+                  top:'0', 
+                  height: '100vh', 
+                  overflow:'auto'
+                  }}> 
+                  {compilatore}
+                  <h2>{appOperatore}</h2>
+                    <div className='contenitore'>
+                      {operatore}
+                      {saldatoriView}
+                      {macchineView}
+                      {elementiSaldati}
+                      {elementiLavorati}
+                      {tipologia}
+                    </div>
+                  
+                  {checkListPj8View1}
+                  {checkListDimensioniPj8View}
+                  {checklistPj16View}
+                  {footer}
+                  </div>
+            </div>
+            : <p></p>
+            }
+            
+       
+
+        
+   </div>
+  );
+}
+
+export default App;
