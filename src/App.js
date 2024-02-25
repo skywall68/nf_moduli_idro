@@ -15,6 +15,7 @@ import SeePdf from './components/ui/SeePdf';
 import Footer from './components/ui/Footer';
 import Operatore from './components/ui/Operatore';
 import CheckListDimensioniPj8View from './components/ui/CheckListDimensioniPj8View';
+import CheckListDimensioniPj16View from './components/ui/CheckListDimensioniPj16View';
 
 
 
@@ -38,12 +39,12 @@ function App() {
   const [appControllatoNdi, setAppControllatoNdi]= useState('') // al numero di elementi appartiene l'elemento controllato
   const [visualizzaModulo, setVisualizzaModulo]= useState(false)
   const [sceltaModuloApp, setSceltaModuloApp]= useState('0') //se è 8 pj8 se è 16 pj16 questo mi permette di creare moduli diversi a seconda della scelta
-  //const [filePj8Json1App, setFilePj8Json1App]= useState([]) //recupero il modulo pj8 da visualizzare in una tabella
+  //const [filePj8Json1App, setFilePj8Json1App]= useState([]) //recupero il modulo pj8 da visualizzare in una tabella CANCELLATO, HO USATO LOCAL STORAGE
   const [filePj16JsonApp, setFilePj16JsonApp]= useState([]) //recupero il modulo pj16 da visualizzare in una tabella
   const [listaPagina1Pj8App, setListaPagina1Pj8App]=useState([]) //recupero i valori pagina 1 pj8 da mandare in stampa
   const [listaPagina2Pj8App, setListaPagina2Pj8App]=useState([]) //recupero i valori pagina 2 pj8 da mandare in stampa
   const [listaPagina1Pj16App, setListaPagina1Pj16App]=useState([]) //recupero i valori pagina 1 pj16 da mandare in stampa
-  const [listaPagina2Pj16, setListaPagina2Pj16]=useState([]) //recupero i valori pagina 2 pj16 da mandare in stampa
+  const [listaPagina2Pj16App, setListaPagina2Pj16App]=useState([]) //recupero i valori pagina 2 pj16 da mandare in stampa
 
   //recupero il numero dopo N. di elementi dalla stringa ricevuta da appControllatoNdi che arriva da ElementiSaldati.js
   useEffect(()=>{
@@ -62,7 +63,7 @@ function App() {
       }
   }
   trovaNElementoDi(appElementoScelto)
-  console.log('NUMERO ELEMENTI SALDATI:',appControllatoNdi)
+  //console.log('NUMERO ELEMENTI SALDATI:',appControllatoNdi)
   },
   [tipologiaSceltaApp,appElementoScelto])
 
@@ -80,6 +81,7 @@ function App() {
   let tipologia;
   let checkListPj8View1;
   let checkListDimensioniPj8View;
+  let checkListDimensioniPj16View
   let checklistPj16View;
   let footer;
   
@@ -108,7 +110,7 @@ function App() {
     operatore = <Operatore setAppOperatore={setAppOperatore} />            
     //Scelta della scheda Saldatori o Macchine
         if(sceltaModuloApp === '8pj'){
-          console.log('in App il modulo scelto è:',sceltaModuloApp)
+          //console.log('in App il modulo scelto è:',sceltaModuloApp)
           saldatoriView = <SaldatoriView setSaldatoreSceltoApp={setSaldatoreSceltoApp}  />
           checkListPj8View1=<CheckListPj8View1  setListaPagina1Pj8App={setListaPagina1Pj8App} appLista={appLista}/> //mi carica la prima pagina per la spunta option
           checkListDimensioniPj8View=<CheckListDimensioniPj8View setListaPagina2Pj8App={setListaPagina2Pj8App} /> //mi carica la seconda pagina per la spunta checkbox
@@ -116,23 +118,51 @@ function App() {
           elementiSaldati =<ElementiSaldati
                       appElementi={appElementi} 
                      setAppElementoScelto={setAppElementoScelto}
-                     />   
+                     />
+         
+
         } else if( sceltaModuloApp === '16pj') {
-          console.log('in App il modulo scelto è:',sceltaModuloApp)
+         // console.log('in App il modulo scelto è:',sceltaModuloApp)
           macchineView = <MacchineView setMacchinaSceltaApp={setMacchinaSceltaApp}  />
-          checklistPj16View = <CheckListPj16View setListaPagina1Pj16App={setListaPagina1Pj16App} />
+          checklistPj16View = <CheckListPj16View setListaPagina1Pj16App={setListaPagina1Pj16App} />  //mi carica la prima pagina per la spunta option
+          checkListDimensioniPj16View=<CheckListDimensioniPj16View setListaPagina2Pj16App={setListaPagina2Pj16App} /> //mi carica la seconda pagina per la spunta checkbox
           elementiLavorati=<ElementiLavorati
                       appElementi={appElementi} 
                       setAppElementoScelto={setAppElementoScelto} 
                       />
         } else {
-          console.log('in App il modulo scelto è:',sceltaModuloApp)
+          //console.log('in App il modulo scelto è:',sceltaModuloApp)
           return
         }
     
      //Visualizza tipologia elementi
      tipologia = <TipologiaView setTipologiaSceltaApp={setTipologiaSceltaApp} />
-    
+
+      //******************Raccolta dati per la stampa:
+      footer=<Footer 
+      setAppRecuperaLista={setAppRecuperaLista}
+      appLista={appLista}
+      appCliente={appCliente} 
+      appCantiere={appCantiere}
+      appOperatore={appOperatore}
+      pj8App={pj8App}
+      pj16App={pj16App}
+      listaPagina1Pj8App={listaPagina1Pj8App}
+      listaPagina2Pj8App={listaPagina2Pj8App}
+      listaPagina1Pj16App={listaPagina1Pj16App}
+      listaPagina2Pj16App={listaPagina2Pj16App}
+      saldatoreSceltoApp={saldatoreSceltoApp}
+      appElementoScelto={appElementoScelto}
+      tipologiaSceltaApp={tipologiaSceltaApp}
+      macchinaSceltaApp={macchinaSceltaApp}
+      appControllatoNdi={appControllatoNdi}
+      appOpera={appOpera}
+      appPlan={appPlan}
+
+
+
+      />
+    //***************************fine raccolta per la stampa******************************************** */
   } else {
     
     impostazioni=
@@ -141,13 +171,13 @@ function App() {
     setpj16App={setpj16App} 
     setVisualizzaModulo={setVisualizzaModulo} 
     setSceltaModuloApp={setSceltaModuloApp}
-    setFilePj16JsonApp={setFilePj16JsonApp}
+    //setFilePj16JsonApp={setFilePj16JsonApp}
     />
   }
   //console.log('dentro macchina scelta.',macchinaSceltaApp)
   //console.log('pdf8 su App.js:',pj8App)
-  console.log('tipologia dentro App:',tipologiaSceltaApp, 'modulo:',sceltaModuloApp)
-  console.log('Scelta del modulo:')
+  //console.log('tipologia dentro App:',tipologiaSceltaApp, 'modulo:',sceltaModuloApp)
+  //console.log('Scelta del modulo:')
 
   return (
     <div>
@@ -185,6 +215,7 @@ function App() {
                   {checkListPj8View1}
                   {checkListDimensioniPj8View}
                   {checklistPj16View}
+                  {checkListDimensioniPj16View}
                   {footer}
                   </div>
             </div>

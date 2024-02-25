@@ -33,12 +33,15 @@ const CheckListPj8View1 = ({setListaPagina1Pj8App}) => {
     const handleOptionChange =(id, conformeValue)=>{
       const updatedItems = controlli.map(item =>{
         if (item.id === id) {
+          console.log('sono dentro handleOptionChange, id: ',id,'valore:',conformeValue)
           return { ...item, conforme: conformeValue };
+
         }
+        console.log('sono fuori')
         return item;
       });
       setControlli(updatedItems)
-      setListaPagina1Pj8App(controlli) //recupero i valori per portarli in App.js per poi stamparli
+      setListaPagina1Pj8App(updatedItems) //recupero i valori per portarli in App.js per poi stamparli
       }
       console.log('valore Recupero i valori nella option box:',controlli)
       
