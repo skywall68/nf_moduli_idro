@@ -16,21 +16,28 @@ import Footer from './components/ui/Footer';
 import Operatore from './components/ui/Operatore';
 import CheckListDimensioniPj8View from './components/ui/CheckListDimensioniPj8View';
 import CheckListDimensioniPj16View from './components/ui/CheckListDimensioniPj16View';
+import Data from './components/ui/Data';
+import RecuperaData from './components/ui/RecuperaData';
 
 
 
 
 function App() {
+  const [appParametriStampa, setParametriStampa]=useState([])
   const [pj8App, setpj8App]=useState();//porto il file pdf preso da Impostazioni.js
   const [pj16App, setpj16App]= useState();//porto il file pdf preso da Impostazioni.js
   const [numeroPages, setNumeroPages] = useState('0');
   const [appLista, setAppLista]= useState('');
+  const [appData,setAppData]=useState('')
+  
+  const [appInputValue, setAppInputValue] = useState(''); //serve per svuotare data inputvalue è dentro Data.js, setInputData è dentro Footer.js
+
   const [appCliente, setAppCliente] = useState('');
   const [appCantiere, setAppCantiere] = useState('');
   const [appOpera, setAppOpera] = useState('');
   const [appPlan, setAppPlan] = useState('');
   const [appOperatore, setAppOperatore] = useState ('');
-  const [appRecuperaMiaLista, setAppRecuperaLista]= useState('List 23997 - Items list.pdf') //recupero la lista da eventuale click
+  const [appRecuperaMiaLista, setAppRecuperaLista]= useState('') //recupero la lista da eventuale click
   const[saldatoreSceltoApp, setSaldatoreSceltoApp] = useState('')
   const [tipologiaSceltaApp, setTipologiaSceltaApp]= useState('Scegli')
   const[macchinaSceltaApp, setMacchinaSceltaApp]= useState('')
@@ -45,6 +52,22 @@ function App() {
   const [listaPagina2Pj8App, setListaPagina2Pj8App]=useState([]) //recupero i valori pagina 2 pj8 da mandare in stampa
   const [listaPagina1Pj16App, setListaPagina1Pj16App]=useState([]) //recupero i valori pagina 1 pj16 da mandare in stampa
   const [listaPagina2Pj16App, setListaPagina2Pj16App]=useState([]) //recupero i valori pagina 2 pj16 da mandare in stampa
+
+  //cancello dati nella textbox di Data.js
+   const handleCancel = ()=>{
+    setAppInputValue('')
+   }
+
+  useEffect(()=>{
+    //recupera data da Planning
+    if(appLista !==''){
+      setAppData(RecuperaData(appLista))
+      console.log('sono in App.js e recupero lista:',appLista)
+      console.log('sono in App.js e recupero data',appData)
+    }
+  
+  },[appLista])
+
 
   //recupero il numero dopo N. di elementi dalla stringa ricevuta da appControllatoNdi che arriva da ElementiSaldati.js
   useEffect(()=>{
@@ -67,11 +90,14 @@ function App() {
   },
   [tipologiaSceltaApp,appElementoScelto])
 
+  
+
 
   
   //creiamo la condizione di vedere o non vedere gli elementi :
   let impostazioni;
   let seePdf;
+  let data;
   let compilatore;
   let operatore;
   let saldatoriView;
@@ -91,12 +117,13 @@ function App() {
               //leggiFile={leggiFile}   //non ricordo a xchè lo messo
               setNumeroPages={setNumeroPages}
               setAppLista={setAppLista}
+              
               setAppCliente={setAppCliente}
               setAppCantiere={setAppCantiere}
               setAppOpera= {setAppOpera}
               setAppPlan = {setAppPlan}
               setAppElementi= { setAppElementi}  /* mi legge gli elementi nel pdf*/ 
-              appRecuperaMiaLista = {appRecuperaMiaLista}
+              //appRecuperaMiaLista = {appRecuperaMiaLista}
               sceltaModuloApp={sceltaModuloApp} //mi dice se è 8pj o 16pj
                 />
     compilatore = <Compilatore
@@ -107,6 +134,7 @@ function App() {
               appOpera={appOpera}
               appPlan={appPlan}
                 />
+    data=<Data setAppData={setAppData}  appInputValue={appInputValue} setAppInputValue={setAppInputValue}  />
     operatore = <Operatore setAppOperatore={setAppOperatore} />            
     //Scelta della scheda Saldatori o Macchine
         if(sceltaModuloApp === '8pj'){
@@ -144,9 +172,11 @@ function App() {
       appLista={appLista}
       appCliente={appCliente} 
       appCantiere={appCantiere}
+      appData={appData}
       appOperatore={appOperatore}
       pj8App={pj8App}
       pj16App={pj16App}
+      appParametriStampa={appParametriStampa}
       listaPagina1Pj8App={listaPagina1Pj8App}
       listaPagina2Pj8App={listaPagina2Pj8App}
       listaPagina1Pj16App={listaPagina1Pj16App}
@@ -158,6 +188,8 @@ function App() {
       appControllatoNdi={appControllatoNdi}
       appOpera={appOpera}
       appPlan={appPlan}
+      onCancel={handleCancel}//mi serve per eliminare il campo da Data.js
+      
 
 
 
@@ -181,6 +213,7 @@ function App() {
 
   return (
     <div>
+    
     <div style={{display:'-ms-flexbox',position:'relative', alignItems: 'center', textAlign:'center'}}>
     {impostazioni}
     </div>
@@ -189,21 +222,25 @@ function App() {
        {/* Colonna sinistra: PDF */}
           
             {visualizzaModulo ?
-             <div  style={{display:'flex'}}>
-                <div className='pdf' style={{flex:1 }}>
+             <div style={{display:'flex'}} >
+              <div className='pdf' style={{flex:1}}>
+                
                 {seePdf}
                 </div>
-            
-                <div style={{
-                  width:'50%',
+              <div style={{
+                  width:'60%',
                   position:'sticky', 
                   top:'0', 
                   height: '100vh', 
-                  overflow:'auto'
-                  }}> 
+                  overflow:'auto',
+                  }}>    
+                  
                   {compilatore}
                   <h2>{appOperatore}</h2>
+                  <h2>ultima lista stampata:{appRecuperaMiaLista}</h2>
+                  <h2>Data controllo:{appData}</h2>
                     <div className='contenitore'>
+                      {data}
                       {operatore}
                       {saldatoriView}
                       {macchineView}
@@ -225,6 +262,7 @@ function App() {
        
 
         
+   
    </div>
   );
 }

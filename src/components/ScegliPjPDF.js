@@ -18,7 +18,7 @@ const ScegliPjPDF = ({setPjPdf,setSelectedFile}) => {
 
   return (
     <div className={!isGreen ?'containerPjPdf':'containerPjPdfGreen'}>
-        <h2>ScegliPjPDF</h2>
+        <h2>Scegli il file Pj</h2>
         <label htmlFor="fileInput">Seleziona un file .pdf:</label>
         <input
         type="file"

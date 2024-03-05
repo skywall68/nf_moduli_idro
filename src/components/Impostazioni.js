@@ -11,6 +11,7 @@ import CheckListPj16 from './CheckListPj16'
 import ScegliPjPDF from './ScegliPjPDF'
 import ElencoTipologia from './ElencoTipologia'
 import { blue } from '@mui/material/colors'
+import Planning from './Planning'
 
 
 
@@ -29,8 +30,8 @@ const Impostazioni = ({
   const [selectedParametriStampa, setSelectedParametriStampa]= useState(false)//se il file è stato selezionato mi da 'true' per visualizzare il tasto 'OK'
   const [selectMacchineOrsaldatori,setSelectMacchineOrsaldatori]=useState(false)
   const [selectTipologia,setSelectTipologia]=useState(false) //controlla che abbia scelto il file tipologia
-  const [filePj8Json1, setFilePj8Json1] = useState([]) //memorizzo il file pj8 per la tabella
-  const [filePj16Json, setFilePj16Json] = useState([]) //memorizzo il file pj16 per la tabella
+  // const [filePj8Json1, setFilePj8Json1] = useState([]) //memorizzo il file pj8 per la tabella
+  // const [filePj16Json, setFilePj16Json] = useState([]) //memorizzo il file pj16 per la tabella
   const [selectedPj8OrPj16, setSelectedPj8OrPj16]=useState(false) //se il file è selezionato allore attiva il tasto 'ok'
   let modulo='';
 
@@ -68,32 +69,39 @@ const Impostazioni = ({
    
  //creiamo la condizione di vedere o non vedere gli elementi :
  let sceltaPdf;
+ let parametriStampa;
   let elencoSaldatori;
   let elencoMacchine;
   let elencoTipologia;
   let checklistPj8;
   let checlistpj16;
   let vuoto;
+  let planning;
 
   if(selectedFile === 'PJ 8 - rev 6 - IT.pdf'){
+    parametriStampa=<ParametriStampa setSelectedParametriStampa={setSelectedParametriStampa} selectedFile={selectedFile} />
     elencoSaldatori= <ElencoSaldatori setSelectMacchineOrsaldatori={setSelectMacchineOrsaldatori}/>
     checklistPj8= <CheckListPj8 setSelectedPj8OrPj16={setSelectedPj8OrPj16} /> 
     elencoTipologia = <ElencoTipologia setSelectTipologia={setSelectTipologia} />
+    planning=<Planning />
   } else if (selectedFile === 'PJ 16 - rev 2 - IT.pdf'){
+    parametriStampa=<ParametriStampa setSelectedParametriStampa={setSelectedParametriStampa} selectedFile={selectedFile} />
     elencoMacchine= <ElencoMacchine setSelectMacchineOrsaldatori={setSelectMacchineOrsaldatori} />
     checlistpj16=<CheckListPj16 setSelectedPj8OrPj16={setSelectedPj8OrPj16} />
     elencoTipologia = <ElencoTipologia setSelectTipologia={setSelectTipologia} />
+    planning=<Planning />
   } else {
     vuoto="<h2>Nessun parametro scelto!!</h2>"
   }
+  
   
   
 
  return (
     <div className='containerImpostazioni'> <h1>Impostazioni:</h1>
 
-     <ParametriStampa setSelectedParametriStampa={setSelectedParametriStampa}/>
-     {selectedParametriStampa ? <ScegliPjPDF setPjPdf={setPjPdf} setSelectedFile={setSelectedFile} /> : <h3></h3> }
+       <ScegliPjPDF setPjPdf={setPjPdf} setSelectedFile={setSelectedFile} />
+     {/* {selectedParametriStampa ? <ScegliPjPDF setPjPdf={setPjPdf} setSelectedFile={setSelectedFile} /> : <h3></h3> } */}
     
     
    
@@ -102,11 +110,13 @@ const Impostazioni = ({
         <CheckListPj8 setFilePj8Json1={setFilePj8Json1} /> 
         {selectedFile === 'PJ 16 - rev 2 - IT.pdf' && <ElencoMacchine setSelectMacchineOrsaldatori={setSelectMacchineOrsaldatori} /> }
         {!selectedFile && <h2>Vuoto</h2>} */}
+        {parametriStampa}
         {elencoSaldatori}
         {elencoMacchine}
         {elencoTipologia}
         {checklistPj8}
         {checlistpj16}
+        {planning}
       </div>
     
       {selectedFile && selectedParametriStampa && selectMacchineOrsaldatori && selectedPj8OrPj16 && selectTipologia

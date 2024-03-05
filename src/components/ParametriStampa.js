@@ -2,9 +2,10 @@ import React,{ useState} from 'react'
 
 import './ParametriStampa.css'
 
-const ParametriStampa = ({setSelectedParametriStampa}) => {
+const ParametriStampa = ({setSelectedParametriStampa,selectedFile}) => {
     const[fileJson, setFileJson]=useState(null)
     const [isGreen, setIsGreen]=useState(false)
+    const [tipopj, setTipoPj]= useState('') //mi dice quale pj è stato selezionato per poi farmi visualizzare i parametri stampa giusti visto che sono leggermente differenti
     
     
     const handleFileRead = (e) => {
@@ -34,8 +35,10 @@ const ParametriStampa = ({setSelectedParametriStampa}) => {
             <div id="customFileInput" onClick={() => document.getElementById('fileInput').click()}>
              Parametri Stampa
             </div>
-           <input id="fileInput" type="file" accept=".pst" onChange={handleFileRead} style={{ display: 'none' }} />
-            
+            { selectedFile ==='PJ 8 - rev 6 - IT.pdf' ?
+           <input id="fileInput" type="file" accept=".pst8" onChange={handleFileRead} style={{ display: 'none' }} /> :
+           <input id="fileInput" type="file" accept=".pst16" onChange={handleFileRead} style={{ display: 'none' }} />
+            }
             
         </div>
       )

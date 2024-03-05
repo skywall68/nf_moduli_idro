@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 
 import  './SeePdf.css'  /*importo file css*/ 
+import RecuperaData from './RecuperaData';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 // mi permette di vedere le liste e di recuperare le informazioni
@@ -9,12 +10,13 @@ const SeePdf = ({
   leggiFile,
   setNumeroPages, 
   setAppLista, 
+  
   setAppCliente, 
   setAppCantiere, 
   setAppOpera, 
   setAppPlan, 
   setAppElementi, //mi cattura elenco elementi
-  appRecuperaMiaLista,
+  //appRecuperaMiaLista,
   sceltaModuloApp, //mi dice se è 8pj o 16pj
  }) => {
   const [pdfPath, setPdfPath] = useState('');
@@ -27,14 +29,14 @@ const SeePdf = ({
   const [opera, setOpera]= useState('');
   const [plan, setPlan]= useState('');
   const [elementi, setElementi]= useState([]);
-  const [recuperaMiaLista , setRecuperaLista]= useState(appRecuperaMiaLista);
+  //const [recuperaMiaLista , setRecuperaLista]= useState(appRecuperaMiaLista);
   
   //console.log('(SeePdf.js)il modulo che hai scelto è:',sceltaModuloApp) //8pj oppure 16pj
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      //console.log('questo è il file scelto:', file)
+       console.log('questo è il file scelto:', file)
       //console.log('recupera lista da app.js.',recuperaMiaLista) //ho la lista che arriva da App.js
       setPdfPath(URL.createObjectURL(file));
       setLinesArray([]); // Resetta l'array quando il file cambia
@@ -79,6 +81,7 @@ const SeePdf = ({
       const posizioneLista = indexLista  // deve puntare sul valore cliente nell'array
       setLista(lista[posizioneLista])
       setAppLista(lista[posizioneLista]) //recupera la lista per mandarla tramite App.js a Compilatore.js
+      
       //recupera cliente
       const indexCliente= lista.findIndex(line => line.includes('Tabella Ferri n.')) + 4;
       setNomeCliente(lista[indexCliente])
@@ -95,6 +98,7 @@ const SeePdf = ({
       const indexPlan = lista.findIndex(line => line.includes('Tabella Ferri n.')) + 18;
       setPlan(lista[indexPlan])
       setAppPlan(lista[indexPlan]) //recupero il plan per mandarlo tramite App.js a Compilatore.js
+     
      
     } else {
       // Se 'Lista' non è trovata, resetta l'indice

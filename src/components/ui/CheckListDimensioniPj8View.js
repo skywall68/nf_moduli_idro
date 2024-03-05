@@ -62,6 +62,15 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App}) => {
   }
   //*********************************fine******************************** */
 
+  //elimino le spunte:
+  const handleClickCheckedBox = ()=>{
+    const checkboxes = document.querySelectorAll('table input[type="checkbox"]');
+    // Itera attraverso ogni checkbox e deseleziona
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+  }
+
   return (
     <div className='checklist_dimensioni'>
          <div className='bottone_check_list'></div>
@@ -107,6 +116,7 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App}) => {
                                value="true"
                                checked={controllo.conforme === true}
                                onChange={(event)=> handleCheckboxChange(event,index )}
+                              
                                style={{
                                 // display:"flex", 
                                 width: "50%", 

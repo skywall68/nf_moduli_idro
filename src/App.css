@@ -3,8 +3,11 @@
 }
 .contenitore {
   display: flex;
+ 
+
 }
 .pdf {
+  
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */
 }
 
@@ -31,7 +34,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #98e1f6;
 }
 
 @keyframes App-logo-spin {
@@ -42,3 +45,4 @@
     transform: rotate(360deg);
   }
 }
+
