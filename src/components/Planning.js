@@ -25,8 +25,14 @@ const Planning = () => {
        /////filtriamo i dati /////////////////////
        const filteredRows = allData
        .map((rowMia) =>{
-         const recuperaData = rowMia.findIndex((cell) => (typeof cell === 'string' && /\b\d{2}-\d{2}-\d{4}\b/.test(cell))||(typeof cell === 'string' && /\b\d{2}-\d{2}-\d{2}\b/.test(cell))) // se la data stringa è nn-nn-nnnn
-         
+        // const recuperaData = rowMia.findIndex((cell) => (typeof cell === 'string' && /\b\d{2}-\d{2}-\d{4}\b/.test(cell))||(typeof cell === 'string' && /\b\d{2}-\d{2}-\d{2}\b/.test(cell))||(typeof cell === 'string' && /\\b\\d{2}\/\\d{2}\/\\d{2}\\b/.test(cell))) // se la data stringa è nn-nn-nnnn
+        const recuperaData = rowMia.findIndex(
+          (cell) =>
+            (typeof cell === "string" && /\b\d{2}-\d{2}-\d{4}\b/.test(cell)) ||
+            (typeof cell === "string" && /\b\d{2}-\d{2}-\d{2}\b/.test(cell)) ||
+            (typeof cell === "string" && /\\b\\d{2}\/\\d{2}\/\\d{2}\\b/.test(cell)) ||
+            (typeof cell === "string" && /\b\d{2}\/\d{2}\/\d{2}\b/.test(cell))
+        );
          //se presente la stringa 'nn-nn-nnnn' allora copia la data
          if(recuperaData !== -1){
              const dataMia = rowMia[recuperaData] //prendi il valore dentro la cella
