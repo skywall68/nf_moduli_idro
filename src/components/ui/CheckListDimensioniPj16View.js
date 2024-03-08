@@ -1,21 +1,43 @@
 //visualizzo la seconda parte (pagina) modulo pj16
 import React, { useState, useEffect} from 'react'
 
-const CheckListDimensioniPj16View = ({setListaPagina2Pj16App}) => {
+const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,setAppPulisciCampo}) => {
    //recupero la seconda  parte del modulo pj8 da local storage
    const [controlli, setControlli] = useState([])
+   const [inizioControlli, setInizioControlli]=useState([])
    //recupero il file memorizzato
+   //*******prendo il file json da local storage recupero dal id6 al id18 dentro useState***************
+   //viene eseguito 1 sola volta
+   const filePj16Json1 =localStorage.getItem('jsonFilePj16')
    useEffect(()=>{
-    //*******prendo il file json da local storage recupero dal id7 al id20 dentro useState***************
-    const filePj16Json1 =localStorage.getItem('jsonFilePj16')
     let fileArrayOggetti =[]
     if (filePj16Json1) {
       fileArrayOggetti = JSON.parse(filePj16Json1);
     }
     const fileArrayObjFiltrato = fileArrayOggetti.filter(elemento => elemento.id >=6 && elemento.id <=18)
      setControlli(fileArrayObjFiltrato)
+     setInizioControlli(fileArrayObjFiltrato)
     },[])
-    console.log('chekdimensioni:',controlli)
+  //viene eseguito ogni volta che cambia lo stato di appPulisciCampo
+    useEffect(()=>{
+      if(appPulisciCampo){
+        //const filePj8Json1 =localStorage.getItem('jsonFilePj8') 
+        let fileArrayOggetti =[]
+        if (filePj16Json1) {
+          fileArrayOggetti = JSON.parse(filePj16Json1);
+        }
+        const fileArrayObjFiltrato = fileArrayOggetti.filter(elemento => elemento.id >=6 && elemento.id <=18)
+         setControlli(fileArrayObjFiltrato)
+         setInizioControlli(fileArrayObjFiltrato)
+         console.log('chekdimensioni prima volta 3:',controlli)
+         console.log('chekdimensioni prima volta 4:',inizioControlli)
+         setAppPulisciCampo(false)
+        
+      }
+    },[appPulisciCampo])
+
+
+   
     //******************************************************* */
     //******************mi permette di nascondere la tabella********************* */
     const [mostraTabella, setMostraTabella] = useState(true); //mi permette di nascondere la tabella

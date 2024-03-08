@@ -4,22 +4,56 @@ import React, { useState, useEffect} from 'react'
 import './CheckListDimensioniPj8View.css'
 
 
-const CheckListDimensioniPj8View = ({setListaPagina2Pj8App}) => {
+const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, setAppPulisciCampo}) => {
     //recupero la seconda  parte del modulo pj8 da local storage
     const [controlli, setControlli] = useState([])
+    const [inizioControlli, setInizioControlli]=useState([])
     //recupero il file memorizzato
-    useEffect(()=>{
     //*******prendo il file json da local storage recupero dal id7 al id20 dentro useState***************
-    const filePj8Json1 =localStorage.getItem('jsonFilePj8')
+   const filePj8Json1 =localStorage.getItem('jsonFilePj8') 
+    useEffect(()=>{
     let fileArrayOggetti =[]
     if (filePj8Json1) {
       fileArrayOggetti = JSON.parse(filePj8Json1);
     }
     const fileArrayObjFiltrato = fileArrayOggetti.filter(elemento => elemento.id >=8 && elemento.id <=20)
      setControlli(fileArrayObjFiltrato)
+     setInizioControlli(fileArrayObjFiltrato)
+     console.log('chekdimensioni prima volta 1:',controlli)
+     console.log('chekdimensioni prima volta 2:',inizioControlli)
+
     },[])
+    useEffect(()=>{
+      if(appPulisciCampo){
+        //const filePj8Json1 =localStorage.getItem('jsonFilePj8') 
+        let fileArrayOggetti =[]
+        if (filePj8Json1) {
+          fileArrayOggetti = JSON.parse(filePj8Json1);
+        }
+        const fileArrayObjFiltrato = fileArrayOggetti.filter(elemento => elemento.id >=8 && elemento.id <=20)
+         setControlli(fileArrayObjFiltrato)
+         setInizioControlli(fileArrayObjFiltrato)
+         //console.log('chekdimensioni prima volta 3:',controlli)
+         //console.log('chekdimensioni prima volta 4:',inizioControlli)
+         setAppPulisciCampo(false)
+        
+      }
+    },[appPulisciCampo])
     console.log('chekdimensioni:',controlli)
+    console.log('valore di pulisciCampo:',appPulisciCampo)
     //******************************************************* */
+    //ULTIMO LAVORO DA FARE+++++++++++++++++++++++++++++++++++++++++++++++
+    //svuoto le checkbox dove creo una funzione con un tasto per eliminarle:
+    const svuotaCheckbox =()=>{
+      // Seleziona tutti gli elementi di input di tipo checkbox nella tabella
+    const checkboxes = document.querySelectorAll('table input[type="checkbox"]');
+    
+    // Itera attraverso ogni checkbox e deseleziona
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+    }
+    //++++++++++++++++++++++fine+++++++++++++++++++++++++++++++++++++++++++
 
     //******************mi permette di nascondere la tabella********************* */
     const [mostraTabella, setMostraTabella] = useState(true); //mi permette di nascondere la tabella
@@ -62,15 +96,7 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App}) => {
   }
   //*********************************fine******************************** */
 
-  //elimino le spunte:
-  const handleClickCheckedBox = ()=>{
-    const checkboxes = document.querySelectorAll('table input[type="checkbox"]');
-    // Itera attraverso ogni checkbox e deseleziona
-    checkboxes.forEach((checkbox) => {
-      checkbox.checked = false;
-    });
-  }
-
+  
   return (
     <div className='checklist_dimensioni'>
          <div className='bottone_check_list'></div>
@@ -187,6 +213,7 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App}) => {
                 }
             </tbody>
          </table>
+         
           )}
         </div>
     </div>

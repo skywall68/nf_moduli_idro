@@ -52,6 +52,7 @@ function App() {
   const [listaPagina2Pj8App, setListaPagina2Pj8App]=useState([]) //recupero i valori pagina 2 pj8 da mandare in stampa
   const [listaPagina1Pj16App, setListaPagina1Pj16App]=useState([]) //recupero i valori pagina 1 pj16 da mandare in stampa
   const [listaPagina2Pj16App, setListaPagina2Pj16App]=useState([]) //recupero i valori pagina 2 pj16 da mandare in stampa
+  const [appPulisciCampo, setAppPulisciCampo]=useState(false)
 
   //cancello dati nella textbox di Data.js
    const handleCancel = ()=>{
@@ -141,7 +142,7 @@ function App() {
           //console.log('in App il modulo scelto è:',sceltaModuloApp)
           saldatoriView = <SaldatoriView setSaldatoreSceltoApp={setSaldatoreSceltoApp}  />
           checkListPj8View1=<CheckListPj8View1  setListaPagina1Pj8App={setListaPagina1Pj8App} appLista={appLista}/> //mi carica la prima pagina per la spunta option
-          checkListDimensioniPj8View=<CheckListDimensioniPj8View setListaPagina2Pj8App={setListaPagina2Pj8App} /> //mi carica la seconda pagina per la spunta checkbox
+          checkListDimensioniPj8View=<CheckListDimensioniPj8View setListaPagina2Pj8App={setListaPagina2Pj8App} appPulisciCampo={appPulisciCampo} setAppPulisciCampo={setAppPulisciCampo} /> //mi carica la seconda pagina per la spunta checkbox
            //Visualizza Elenco elementi saldati
           elementiSaldati =<ElementiSaldati
                       appElementi={appElementi} 
@@ -152,8 +153,8 @@ function App() {
         } else if( sceltaModuloApp === '16pj') {
          // console.log('in App il modulo scelto è:',sceltaModuloApp)
           macchineView = <MacchineView setMacchinaSceltaApp={setMacchinaSceltaApp}  />
-          checklistPj16View = <CheckListPj16View setListaPagina1Pj16App={setListaPagina1Pj16App} />  //mi carica la prima pagina per la spunta option
-          checkListDimensioniPj16View=<CheckListDimensioniPj16View setListaPagina2Pj16App={setListaPagina2Pj16App} /> //mi carica la seconda pagina per la spunta checkbox
+          checklistPj16View = <CheckListPj16View setListaPagina1Pj16App={setListaPagina1Pj16App}      />  //mi carica la prima pagina per la spunta option
+          checkListDimensioniPj16View=<CheckListDimensioniPj16View setListaPagina2Pj16App={setListaPagina2Pj16App} appPulisciCampo={appPulisciCampo} setAppPulisciCampo={setAppPulisciCampo}/> //mi carica la seconda pagina per la spunta checkbox
           elementiLavorati=<ElementiLavorati
                       appElementi={appElementi} 
                       setAppElementoScelto={setAppElementoScelto} 
@@ -189,6 +190,7 @@ function App() {
       appOpera={appOpera}
       appPlan={appPlan}
       onCancel={handleCancel}//mi serve per eliminare il campo da Data.js
+      setAppPulisciCampo={setAppPulisciCampo} //pulisce i campi di CheckListDimensioniPj8View/CheckListDimensioniPj16View
       
 
 

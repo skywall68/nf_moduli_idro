@@ -29,7 +29,8 @@ const Footer = ({
   saldatoreSceltoApp,
   tipologiaSceltaApp,
   macchinaSceltaApp,
-  onCancel
+  onCancel,
+  setAppPulisciCampo
 
 }) => {
 
@@ -261,8 +262,8 @@ const [parametriStampa, setParametriStampa]=useState('')
       setAppRecuperaLista(appLista) //mi porta su App.js il numero della lista creata
       //chiama la funzione di stampa:
       stampaFilePdf()
-      //pulisci textbox di Data.js
-      onCancel()
+      //pulisci textbox di Data.js e CheckListDimensioniPj8View/CheckListDimensioniPj16View
+      handleCancel()
     //chiudi modal
     closeModalPrintHandler();
   } else if (operatore ==='') {
@@ -284,7 +285,11 @@ const [parametriStampa, setParametriStampa]=useState('')
 
   }
   //****************************FINE*********************************************************************** */
-  
+  //cancella la textbox della data e svuota CheckListDimensioniPj8View/CheckListDimensioniPj16View
+  const handleCancel =()=>{
+    onCancel();//metodo che arriva da App.js
+    setAppPulisciCampo(true)
+  }
 
 const nodeRef = useRef(null);
 
@@ -306,7 +311,7 @@ const nodeRef = useRef(null);
       </Modal >
       <div className='footer'>
         <div className="button-container-conferma">
-              <Tasto onClick={onCancel} label="CANCEL"/>
+              <Tasto onClick={handleCancel} label="CANCEL"/>
               <Tasto onClick={openModalPrintHandler} label="conferma"/>
           </div>
       </div>
