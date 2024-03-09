@@ -65,6 +65,7 @@ function App() {
       setAppData(RecuperaData(appLista))
       console.log('sono in App.js e recupero lista:',appLista)
       console.log('sono in App.js e recupero data',appData)
+      console.log("sono in App e recupero elementi:", appElementi)
     }
   
   },[appLista])

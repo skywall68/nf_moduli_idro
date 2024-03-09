@@ -31,13 +31,16 @@ const ParametriStampa = ({setSelectedParametriStampa,selectedFile}) => {
     return (
         <div className={!isGreen ?'containerParametriStampa':'containerParametriStampaGreen'}>
             <h2>Parametri Stampa:</h2>
-            <label htmlFor="fileInput">Seleziona un file .pst:</label>
+            {/* <label htmlFor="fileInput">Seleziona un file .pst:</label>
             <div id="customFileInput" onClick={() => document.getElementById('fileInput').click()}>
              Parametri Stampa
-            </div>
+            </div> */}
+              <label htmlFor="fileInput">Seleziona un file .pdf:</label>
             { selectedFile ==='PJ 8 - rev 6 - IT.pdf' ?
-           <input id="fileInput" type="file" accept=".pst8" onChange={handleFileRead} style={{ display: 'none' }} /> :
-           <input id="fileInput" type="file" accept=".pst16" onChange={handleFileRead} style={{ display: 'none' }} />
+          //  <input id="fileInput" type="file" accept=".pst8" onChange={handleFileRead} style={{ display: 'none' }} /> :
+          //  <input id="fileInput" type="file" accept=".pst16" onChange={handleFileRead} style={{ display: 'none' }} />
+           <input id="fileInput" type="file" accept=".pst8" onChange={handleFileRead} style={{fontSize:20}} /> :
+           <input id="fileInput" type="file" accept=".pst16" onChange={handleFileRead} style={{fontSize:20}}  />
             }
             
         </div>

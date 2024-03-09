@@ -39,9 +39,9 @@ const CheckListPj16View1 = ({setListaPagina1Pj16App}) => {
      return item;
    });
    setControlli(updatedItems)
-   setListaPagina1Pj16App(controlli) //recupero i valori per portarli in App.js per poi stamparli
+   setListaPagina1Pj16App(updatedItems) //recupero i valori per portarli in App.js per poi stamparli
    }
-   console.log('valore:',controlli)
+   //console.log('valore:',controlli)
    
  //************************************************************************ */
  //******************Recupero i commenti ************************************* */

@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 
+import './Saldatori.css'
+
 
 const ElencoSaldatori = ({setSelectMacchineOrsaldatori}) => {
   
@@ -42,12 +44,13 @@ const ElencoSaldatori = ({setSelectMacchineOrsaldatori}) => {
       reader.readAsText(file)
     })
   }
+  //style={{backgroundColor: isGreen ? 'chartreuse': 'red'}}
  
   return (
-    <div style={{backgroundColor: isGreen ? 'chartreuse': 'red'}}>
+    <div className={!isGreen ? 'containerSaldatori':'containerSaldatoriGreen'}>
       <h2>  Elenco saldatori</h2>
       <label htmlFor="fileInput">Seleziona un file saldatori:</label>
-      <input type='file' accept='.saldatori' onChange={handleFileChange}/>
+      <input type='file' accept='.saldatori' onChange={handleFileChange} style={{fontSize:20}}/>
       </div>
   )
 }

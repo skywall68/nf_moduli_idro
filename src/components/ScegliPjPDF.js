@@ -25,7 +25,7 @@ const ScegliPjPDF = ({setPjPdf,setSelectedFile}) => {
         accept=".pdf"
         ref={fileInputRef}
         onChange={handleFileChange}
-        
+        style={{fontSize:20}}
       />
         </div>
   )

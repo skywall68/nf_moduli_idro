@@ -76,11 +76,11 @@ const Planning = () => {
   
      //////////////////comando click///////////////////////////
      
-
+   //className={!isGreen ?'containerPjPdf':'containerPjPdfGreen'}>
   return (
-    <div style={{backgroundColor: isGreen ? 'chartreuse': 'red'}}><h1>Planning</h1>
-    <label htmlFor="fileInput">Seleziona planning .xlsx:</label>
-     <input type="file" onChange={handleFileUpload} />
+    <div className={!isGreen ?'containerPlanning':'containerPlanningGreen'} ><h2>Planning</h2>
+    <label htmlFor="fileInput">Seleziona planning:</label>
+     <input type="file" accept='.xls' onChange={handleFileUpload} style={{fontSize:20}}/>
     </div>
   )
 }

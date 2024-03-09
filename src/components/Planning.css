@@ -1,3 +1,6 @@
 .containerPlanning {
-    background-color:red;
+    background-color: rgb(147, 145, 145);
+}
+.containerPlanningGreen {
+    background-color:chartreuse;
 }

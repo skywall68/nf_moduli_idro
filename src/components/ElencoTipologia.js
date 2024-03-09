@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
 
+import './ElencoTipologia.css'
+
 const ElencoTipologia = ({setSelectTipologia}) => {
     const [elencoTxt, setElencoTxt]=useState([])
     const [isGreen,setIsGreen]=useState(false)
@@ -42,10 +44,10 @@ const ElencoTipologia = ({setSelectTipologia}) => {
     }
    
     return (
-      <div style={{backgroundColor: isGreen ? 'chartreuse': 'red'}}>
+      <div className={!isGreen ?'containerTipologia':'containerTipologiaGreen'}>
         <h2>  Elenco tipologia elementi</h2>
         <label htmlFor="fileInput">Seleziona un file .tpl:</label>
-        <input type='file' accept='.tpl' onChange={handleFileChange}/>
+        <input type='file' accept='.tpl' onChange={handleFileChange} style={{fontSize:20}}/>
         </div>
     )
   }

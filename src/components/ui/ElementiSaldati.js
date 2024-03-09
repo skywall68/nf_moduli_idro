@@ -5,12 +5,14 @@ import './ElementiSaldati.css'
 function ElementiSaldati({appElementi, setAppElementoScelto}) {
   const [elementiSaldati, setElementiSaldati]=useState([])
   const [elementoScelto, setelementoScelto]= useState('')
+
+  //const arrayAppElementi=Object.values(appElementi)
   
   useEffect(() => {
     const copiaElementi = async () => {
       if (appElementi != null) {
         let data=[];
-
+       
         if (Array.isArray(appElementi)) {
           // Se appElementiSaldati è già un array, lo usiamo direttamente
           data = appElementi;
@@ -22,22 +24,27 @@ function ElementiSaldati({appElementi, setAppElementoScelto}) {
           // Se appElementiSaldati non è né un array né un oggetto, gestisci come desideri
           data = [];
         }
-        //console.log('Scegli elementi saldati:',data)
+        
         setElementiSaldati(data);
       } else {
         setElementiSaldati([]);
       }
     };
-    copiaElementi();       
+    copiaElementi(); 
+      
   }, [appElementi]);
   
 
 
   const  handleSelectChange = (e)=>{
-    const selectElement = e.target.value; //ho l'elemento selezionato cosa ne faccio?
-    setelementoScelto(selectElement)
-    setAppElementoScelto(selectElement)//lo mando in App.js per spedirlo in fooder.js per la stampa
-  }
+   
+    setelementoScelto(e.target.value)
+    setAppElementoScelto(e.target.value)//lo mando in App.js per spedirlo in fooder.js per la stampa
+    console.log('Elemento scelto:',e.target.value)
+}
+
+
+    
 
   return (
 

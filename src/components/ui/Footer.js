@@ -46,6 +46,7 @@ const [ azioneCurativaX, setAzioneCurativaX]= useState() //valore azione curativ
 const [controllato1DiYX, setControllato1DiYX] = useState([]) //valori x e y di Controllato 1 elemento di
 const [dataControlloYX, setDataControlloYX]= useState([])  //valori x e y di data controllo
 const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
+  
 
 //recupero parametri stampa:
   
@@ -127,17 +128,17 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     
     console.log('Dentro footer la data è in else:',appData)
     setShowModalPrint(true)// mi apre una finestra modal quando premo tasto conferma
-    console.log('font:',fontSizeX)
-    console.log('non conforme:',nonConformeX)
-    console.log('id pagina 1:',idPagina1)
-    console.log('id pagina 2:',idPagina2)
-    console.log('commenti valore x:',commentiX)
-    console.log('azione curativa:',azioneCurativaX)
-    console.log('controllato 1 di:',controllato1DiYX[0],controllato1DiYX[1])
-    console.log('data controllo:',dataControlloYX[0],dataControlloYX[1],dataControllo)
-    console.log('operatore:',operatoreYX[0],operatoreYX[1],operatore)
+    // console.log('font:',fontSizeX)
+    // console.log('non conforme:',nonConformeX)
+    // console.log('id pagina 1:',idPagina1)
+    // console.log('id pagina 2:',idPagina2)
+    // console.log('commenti valore x:',commentiX)
+    // console.log('azione curativa:',azioneCurativaX)
+    // console.log('controllato 1 di:',controllato1DiYX[0],controllato1DiYX[1])
+    // console.log('data controllo:',dataControlloYX[0],dataControlloYX[1],dataControllo)
+    // console.log('operatore:',operatoreYX[0],operatoreYX[1],operatore)
 
-    console.log('dentro modal!!!!',parametri_stampa,'pdf:',nomeAbbreviatoPDF)
+    // console.log('dentro modal!!!!',parametri_stampa,'pdf:',nomeAbbreviatoPDF)
 
      
   }
@@ -162,7 +163,9 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
   const spuntaFabbrica='x'
   const spuntaSuPiano = 'x'
   const cantiere = `${appCantiere} /`
-  const paginaUnoAlto = [spuntaFabbrica,spuntaSuPiano,tipologia,cantiere,opera,cliente,plan,lista,etichetta,saldatori,] //cicla questi valori
+  let macchinaOsaldatori=''
+  
+  
   let pdfFile=''
   let listaPagina1=''
   let listaPagina2=''
@@ -173,14 +176,17 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     listaPagina1=listaPagina1Pj8App
     listaPagina2=listaPagina2Pj8App
     nomeAbbreviatoPDF='pj8'
-    
-  }
+    macchinaOsaldatori=saldatori
+   }
   if(pj16App){
     pdfFile=pj16App
     listaPagina1=listaPagina1Pj16App
     listaPagina2=listaPagina2Pj16App
     nomeAbbreviatoPDF='pj16'
-  }
+    macchinaOsaldatori=macchina
+   }
+   const paginaUnoAlto = [spuntaFabbrica,spuntaSuPiano,tipologia,cantiere,opera,cliente,plan,lista,etichetta,macchinaOsaldatori,] //cicla questi valori
+
   //*************************FUNZIONE DI STAMPA************************************************************ */
   const stampaFilePdf = async ()=>{
     let testoDaStampare=''
@@ -201,7 +207,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
          coordinate = parametri_stampa[index]
          testoDaStampare=testo
          valoreY=coordinate.y 
-         console.log('testo da stampare:', coordinate.x,valoreY)
+         console.log('testo da stampare:','testo:',testo,'coordinate:', coordinate.x,valoreY)
          page1.drawText(testoDaStampare, {
            x: coordinate.x,
            y: height  - coordinate.y, 
@@ -216,16 +222,22 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
        let mioIdPagina1 = idPagina1  //corrisponde id:11 del file paramentri stampa
        let coordinate_pagina = []
        let xNonconforme = nonConformeX
+       console.log('lista pagina1:',listaPagina1)
+
        listaPagina1.forEach((controllo )=>{
        coordinate_pagina = parametri_stampa[mioIdPagina1]
-        if(controllo.conforme=== true) {
+        if(controllo.conforme === true) {
           page1.drawText(testo_spuntato, {
             x:coordinate_pagina.x,
             y: height - coordinate_pagina.y,
             font,
             size:fontSizeX,
             color: rgb(0, 0, 0),
-          })
+            
+          }
+          
+          )
+          console.log('stampo il testo:',testo_spuntato)
          } else if (controllo.conforme === false) {
           page1.drawText(testo_spuntato, {
             x:coordinate_pagina.x + xNonconforme,
@@ -269,6 +281,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
       let mioIdPagina2 = idPagina2 //corrisponde id:18(pj8) del file paramentri stampa
       listaPagina2.forEach((controllo)=>{
       coordinate_pagina = parametri_stampa[mioIdPagina2]
+      console.log('lista pagina2:',listaPagina2)
       if(controllo.conforme === 'Conforme' ){
         page2.drawText(testo_spuntato, {
          x:coordinate_pagina.x,
@@ -279,7 +292,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
         })
      } else if (controllo.conforme === 'Non Conforme'){
          page2.drawText(testo_spuntato, {
-         x:coordinate_pagina.x,
+         x:coordinate_pagina.x + xNonconforme,
          y: height -coordinate_pagina.y,
          font,
          size:fontSizeX,
@@ -391,7 +404,7 @@ const nodeRef = useRef(null);
       <div className='footer'>
         <div className="button-container-conferma">
               <Tasto onClick={handleCancel} label="CANCEL"/>
-              <Tasto onClick={openModalPrintHandler} label="conferma"/>
+              <Tasto onClick={openModalPrintHandler} label="CONFERMA"/>
           </div>
       </div>
     </React.Fragment>

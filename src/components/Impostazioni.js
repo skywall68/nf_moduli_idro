@@ -10,8 +10,9 @@ import CheckListPj8 from './CheckListPj8';
 import CheckListPj16 from './CheckListPj16'
 import ScegliPjPDF from './ScegliPjPDF'
 import ElencoTipologia from './ElencoTipologia'
-import { blue } from '@mui/material/colors'
+import { blue, yellow } from '@mui/material/colors'
 import Planning from './Planning'
+import './Tasto.css'
 
 
 
@@ -100,28 +101,26 @@ const Impostazioni = ({
  return (
     <div className='containerImpostazioni'> <h1>Impostazioni:</h1>
 
-       <ScegliPjPDF setPjPdf={setPjPdf} setSelectedFile={setSelectedFile} />
+      
      {/* {selectedParametriStampa ? <ScegliPjPDF setPjPdf={setPjPdf} setSelectedFile={setSelectedFile} /> : <h3></h3> } */}
     
     
    
-      <div>
-        {/* {selectedFile === 'PJ 8 - rev 6 - IT.pdf' && <ElencoSaldatori setSelectMacchineOrsaldatori={setSelectMacchineOrsaldatori}/> }
-        <CheckListPj8 setFilePj8Json1={setFilePj8Json1} /> 
-        {selectedFile === 'PJ 16 - rev 2 - IT.pdf' && <ElencoMacchine setSelectMacchineOrsaldatori={setSelectMacchineOrsaldatori} /> }
-        {!selectedFile && <h2>Vuoto</h2>} */}
+      <div style={{backgroundColor:'lightgrey'}}>
+        <ScegliPjPDF setPjPdf={setPjPdf} setSelectedFile={setSelectedFile} />
+        {planning}
         {parametriStampa}
         {elencoSaldatori}
         {elencoMacchine}
         {elencoTipologia}
         {checklistPj8}
         {checlistpj16}
-        {planning}
+        
       </div>
     
       {selectedFile && selectedParametriStampa && selectMacchineOrsaldatori && selectedPj8OrPj16 && selectTipologia
-       ? <button onClick={importPDF} style={{backgroundColor:'blue', color:'white'}}> OK </button> : <h3></h3> }
-      
+        ? <button className='button' onClick={importPDF} > OK </button> : <h3></h3> }
+       {/* ? <Tasto onClick={importPDF}>OK</Tasto> : <h3></h3> } */}
        
      
     
