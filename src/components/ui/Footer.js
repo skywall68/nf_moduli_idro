@@ -1,7 +1,7 @@
-import React, { useState,useRef } from 'react'
+import React, { useState,useRef, useEffect } from 'react'
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import { saveAs } from 'file-saver';
-import uncheckCheckboxes from '../UncheckCheckBoxes'
+
 
 import Tasto from '../Tasto'
 import Modal from './Modal'
@@ -36,21 +36,84 @@ const Footer = ({
 
 
 const [showModalPrint, setShowModalPrint] = useState(false)
-const [parametriStampa, setParametriStampa]=useState('')
+const [parametriStampa, setParametriStampa]=useState([])
+const [fontSizeX,setFontSizeX]=useState() //mi recupera fontsize
+const [nonConformeX, setNonConformeX]=useState()//valore asse x per in NON CONFORME
+const [idPagina1, setIdPagina1]= useState() //mi dice da dove partire (id) a recuperare i parametri per la stampa della 1° pagina il valore ricevuto esempio=10, parte id 11
+const [idPagina2, setIdPagina2]= useState() //mi dice da dove partire (id) a recuperare i parametri per la stampa della 2° pagina
+const [commentiX, setCommentiX]=useState() //valore commenti asse x
+const [ azioneCurativaX, setAzioneCurativaX]= useState() //valore azione curativa asse x
+const [controllato1DiYX, setControllato1DiYX] = useState([]) //valori x e y di Controllato 1 elemento di
+const [dataControlloYX, setDataControlloYX]= useState([])  //valori x e y di data controllo
+const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
+
+//recupero parametri stampa:
+  
+  //console.log('PARAMETRI STAMPA:',parametriDiStampaJson)
+    const parametriDiStampaJson = localStorage.getItem('parametriStampa')
+    const paramStampa=(JSON.parse(parametriDiStampaJson))
+    
+  //carica tutti i valori necessari per la stampa recuperati dal file json
+  useEffect(()=>{
+    setParametriStampa(paramStampa)
+    const font = paramStampa.find(elemento => elemento.nome==="font")
+    const fontS = font ? font.size : "size non trovato"
+    //console.log('VALORE DI SIZE DI FONT:',fontS)
+    setFontSizeX(fontS)
+
+    const nconf= paramStampa.find(ele=>ele.nome === "non_conforme")
+    const nConforme = nconf ? nconf.x : "valore di x non trovato non_Conforme"
+    setNonConformeX(nConforme)
+
+    const idP1 = paramStampa.find(ele => ele.nome==="idPagina1")
+    const idPag1 = idP1 ? idP1.valorePartenza : "valore di id non trovato idPagina1"
+    setIdPagina1(idPag1)
+
+    const idP2 = paramStampa.find(ele => ele.nome==="idPagina2")
+    const idPag2 = idP2 ? idP2.valorePartenza : "valore di id non trovato idPagina2"
+    setIdPagina2(idPag2)
+
+    const comm = paramStampa.find(ele => ele.nome==="commenti")
+    const commX = comm ? comm.x : "valore di x non trovato commenti"
+    setCommentiX(commX)
+
+    const azioneC = paramStampa.find(ele => ele.nome==="azioni")
+    const azionC = azioneC ? azioneC.x : "valore x di azione curativa non trovato"
+    setAzioneCurativaX(azionC)
+
+    const controllato = paramStampa.find(ele => ele.nome==="controllato 1 di")
+    if(controllato){
+      const {y,x} = controllato
+      const controllatoXY = [y,x]
+      setControllato1DiYX(controllatoXY)
+      
+    }
+
+    const dataCont = paramStampa.find(ele => ele.nome === "data_controllo")
+    if(dataCont){
+      const { y, x } = dataCont
+      const dataYX = [y,x]
+      setDataControlloYX(dataYX)
+    } else {console.log('valore y, x DATA non trovato')}
+
+    const operatore = paramStampa.find( ele => ele.nome === "operatore")
+    if(operatore){
+      const { y, x} = operatore
+      const operYX = [y,x]
+      setOperatoreYX(operYX)
+    } else { console.log('valore y e x di OPERATORE NON TROVATO')}
+    
 
 
 
-
-
+  },[])
 
 
  
 
  //********************gestione del Modal************************ */
  const openModalPrintHandler = ()=>{   //chiamata dal tasto CONFERMA
-  //recupero parametri stampa:
-  const parametriDiStampaJson = localStorage.getItem('parametriStampa')
-  setParametriStampa(JSON.parse(parametriDiStampaJson))
+  
 
  
    if (appData ===''){
@@ -64,6 +127,18 @@ const [parametriStampa, setParametriStampa]=useState('')
     
     console.log('Dentro footer la data è in else:',appData)
     setShowModalPrint(true)// mi apre una finestra modal quando premo tasto conferma
+    console.log('font:',fontSizeX)
+    console.log('non conforme:',nonConformeX)
+    console.log('id pagina 1:',idPagina1)
+    console.log('id pagina 2:',idPagina2)
+    console.log('commenti valore x:',commentiX)
+    console.log('azione curativa:',azioneCurativaX)
+    console.log('controllato 1 di:',controllato1DiYX[0],controllato1DiYX[1])
+    console.log('data controllo:',dataControlloYX[0],dataControlloYX[1],dataControllo)
+    console.log('operatore:',operatoreYX[0],operatoreYX[1],operatore)
+
+    console.log('dentro modal!!!!',parametri_stampa,'pdf:',nomeAbbreviatoPDF)
+
      
   }
  } 
@@ -87,21 +162,24 @@ const [parametriStampa, setParametriStampa]=useState('')
   const spuntaFabbrica='x'
   const spuntaSuPiano = 'x'
   const cantiere = `${appCantiere} /`
-  const paginaUnoAlto = [spuntaFabbrica,spuntaSuPiano,tipologia,cantiere,opera,cliente,plan,lista,etichetta,saldatori,]
+  const paginaUnoAlto = [spuntaFabbrica,spuntaSuPiano,tipologia,cantiere,opera,cliente,plan,lista,etichetta,saldatori,] //cicla questi valori
   let pdfFile=''
   let listaPagina1=''
   let listaPagina2=''
+  let nomeAbbreviatoPDF=''
   //scelta del modulo
   if(pj8App){
     pdfFile=pj8App
     listaPagina1=listaPagina1Pj8App
     listaPagina2=listaPagina2Pj8App
+    nomeAbbreviatoPDF='pj8'
     
   }
   if(pj16App){
     pdfFile=pj16App
     listaPagina1=listaPagina1Pj16App
     listaPagina2=listaPagina2Pj16App
+    nomeAbbreviatoPDF='pj16'
   }
   //*************************FUNZIONE DI STAMPA************************************************************ */
   const stampaFilePdf = async ()=>{
@@ -118,7 +196,8 @@ const [parametriStampa, setParametriStampa]=useState('')
         //prima parte pagina 1 in alto
         let coordinate=0
         let valoreY=0
-         paginaUnoAlto.forEach((testo, index)=>{
+        //inizia un ciclo
+         paginaUnoAlto.forEach((testo, index)=>{  //è un array con i valori di intestazione
          coordinate = parametri_stampa[index]
          testoDaStampare=testo
          valoreY=coordinate.y 
@@ -127,16 +206,16 @@ const [parametriStampa, setParametriStampa]=useState('')
            x: coordinate.x,
            y: height  - coordinate.y, 
            font,
-           size:parametri_stampa[33].font,
+           size:fontSizeX,
            color: rgb(0,0,0),
          })
         })
         //partenza coordinate conforme pagina 1
        const testo_spuntato = 'x'
        //definiamo un ciclo dei controlli che conforme sia 'Conforme' o 'Non Conforme' poi  DA METTERE EVENTUALI COMMENTI ED AZIONI PER OGNI RIGA
-       let mioIdPagina1 = 10  //corrisponde id:11 del file paramentri stampa
+       let mioIdPagina1 = idPagina1  //corrisponde id:11 del file paramentri stampa
        let coordinate_pagina = []
-       let xNonconforme = parametri_stampa[34].x
+       let xNonconforme = nonConformeX
        listaPagina1.forEach((controllo )=>{
        coordinate_pagina = parametri_stampa[mioIdPagina1]
         if(controllo.conforme=== true) {
@@ -144,7 +223,7 @@ const [parametriStampa, setParametriStampa]=useState('')
             x:coordinate_pagina.x,
             y: height - coordinate_pagina.y,
             font,
-            size:parametri_stampa[33].font,
+            size:fontSizeX,
             color: rgb(0, 0, 0),
           })
          } else if (controllo.conforme === false) {
@@ -152,23 +231,23 @@ const [parametriStampa, setParametriStampa]=useState('')
             x:coordinate_pagina.x + xNonconforme,
             y: height -coordinate_pagina.y,
             font,
-            size:parametri_stampa[33].font,
+            size:fontSizeX,
             color: rgb(0, 0, 0),
           })
             //mettere if per commenti ed azioni
             if(controllo.commenti !==''){
               page1.drawText(controllo.commenti,{
-                x:parametri_stampa[31].x,
+                x:commentiX,
                 y: height -coordinate_pagina.y,
                 font,
-                size:parametri_stampa[33].font,
+                size:fontSizeX,
                 color: rgb(0, 0, 0),  
               })
               page1.drawText(controllo.azioneCurativa,{
-                x:parametri_stampa[32].x,
+                x:azioneCurativaX,
                 y: height -coordinate_pagina.y,
                 font,
-                size:parametri_stampa[33].font,
+                size:fontSizeX,
                 color: rgb(0, 0, 0),  
               })
             }
@@ -179,15 +258,15 @@ const [parametriStampa, setParametriStampa]=useState('')
       if(nElementi>1) {
         const testoCommento=`Controllato 1 elemento di ${nElementi}`
        page1.drawText(testoCommento, {
-         x:parametri_stampa[30].x,
-         y: height -parametri_stampa[30].y,
+         x:controllato1DiYX[1],
+         y: height - controllato1DiYX[0],
          font,
-         size:parametri_stampa[33].font,
+         size:fontSizeX,
          color: rgb(0, 0, 0),
        })
       } 
       //passiamo alla SECONDA PAGINA
-      let mioIdPagina2 = 17
+      let mioIdPagina2 = idPagina2 //corrisponde id:18(pj8) del file paramentri stampa
       listaPagina2.forEach((controllo)=>{
       coordinate_pagina = parametri_stampa[mioIdPagina2]
       if(controllo.conforme === 'Conforme' ){
@@ -195,7 +274,7 @@ const [parametriStampa, setParametriStampa]=useState('')
          x:coordinate_pagina.x,
          y: height -coordinate_pagina.y,
          font,
-         size:parametri_stampa[33].font,
+         size:fontSizeX,
          color: rgb(0, 0, 0),
         })
      } else if (controllo.conforme === 'Non Conforme'){
@@ -203,23 +282,23 @@ const [parametriStampa, setParametriStampa]=useState('')
          x:coordinate_pagina.x,
          y: height -coordinate_pagina.y,
          font,
-         size:parametri_stampa[33].font,
+         size:fontSizeX,
          color: rgb(0, 0, 0),
         })
         //mettere if per commenti ed azioni
         if(controllo.commenti !==''){
           page2.drawText(controllo.commenti,{
-            x:parametri_stampa[31].x,
+            x:commentiX,
             y: height -coordinate_pagina.y,
             font,
-            size:parametri_stampa[33].font,
+            size:fontSizeX,
             color: rgb(0, 0, 0),  
           })
           page2.drawText(controllo.azioneCurativa,{
-            x:parametri_stampa[32].x,
+            x:azioneCurativaX,
             y: height -coordinate_pagina.y,
             font,
-            size:parametri_stampa[33].font,
+            size:fontSizeX,
             color: rgb(0, 0, 0),  
           })
         }
@@ -229,24 +308,24 @@ const [parametriStampa, setParametriStampa]=useState('')
     //data del controllo:
     page2.drawText(dataControllo, {
       
-      x:parametri_stampa[28].x,
-      y: height -parametri_stampa[28].y,
+      x:dataControlloYX[1],
+      y: height - dataControlloYX[0],
       font,
-      size:parametri_stampa[32].font,
+      size:fontSizeX,
       color: rgb(1, 0, 0),
      })
      // //operatore:
      page2.drawText(operatore,{
-       x:parametri_stampa[29].x,
-       y: height -parametri_stampa[29].y,
+       x:operatoreYX[1],
+       y: height - operatoreYX[0],
        font,
-       size:parametri_stampa[33].font,
+       size:fontSizeX,
        color: rgb(1, 0, 0),
 
      })
      const modifiedPdfBytes = await pdfDoc.save(); //consente di salvare le modifiche apportate al documento PDF e ottenere i byte rappresentanti il PDF modificato
      const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });// crea un oggetto Blob  rappresenta un blocco di dati, in questo caso, l'array di byte che costituisce il documento PDF modificato
-     saveAs(blob, `${lista}-${dataControllo}_pj8.pdf`); /* utilizza FileSaver.js per avviare il processo di salvataggio del file nel browser. Il browser visualizzerà quindi una finestra di dialogo per il salvataggio, consentendo 
+     saveAs(blob, `${lista}-${dataControllo}_${nomeAbbreviatoPDF}.pdf`); /* utilizza FileSaver.js per avviare il processo di salvataggio del file nel browser. Il browser visualizzerà quindi una finestra di dialogo per il salvataggio, consentendo 
      all'utente di scaricare il file PDF modificato con il nome specificato ('output.pdf').*/ 
       //recupero la lista da visualizzare come ultima fatta:
       setAppRecuperaLista(appLista)
