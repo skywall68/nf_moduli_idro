@@ -38,11 +38,16 @@ const Footer = ({
 const [showModalPrint, setShowModalPrint] = useState(false)
 const [parametriStampa, setParametriStampa]=useState([])
 const [fontSizeX,setFontSizeX]=useState() //mi recupera fontsize
-const [nonConformeX, setNonConformeX]=useState()//valore asse x per in NON CONFORME
+const [nonConformeXpag1, setNonConformeXpag1]=useState()//valore asse x per in NON CONFORME
+const [nonConformeXpag2, setNonConformeXpag2]=useState()//valore asse x per in NON CONFORME
 const [idPagina1, setIdPagina1]= useState() //mi dice da dove partire (id) a recuperare i parametri per la stampa della 1° pagina il valore ricevuto esempio=10, parte id 11
 const [idPagina2, setIdPagina2]= useState() //mi dice da dove partire (id) a recuperare i parametri per la stampa della 2° pagina
-const [commentiX, setCommentiX]=useState() //valore commenti asse x
-const [ azioneCurativaX, setAzioneCurativaX]= useState() //valore azione curativa asse x
+const [commentiXpag1, setCommentiXpag1]=useState() //valore commenti asse x
+const [commentiXpag2, setCommentiXpag2]=useState() //valore commenti asse x
+
+const [ azioneCurativaXpag1, setAzioneCurativaXpag1]= useState() //valore azione curativa asse x
+const [ azioneCurativaXpag2, setAzioneCurativaXpag2]= useState() //valore azione curativa asse x
+
 const [controllato1DiYX, setControllato1DiYX] = useState([]) //valori x e y di Controllato 1 elemento di
 const [dataControlloYX, setDataControlloYX]= useState([])  //valori x e y di data controllo
 const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
@@ -62,9 +67,13 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     //console.log('VALORE DI SIZE DI FONT:',fontS)
     setFontSizeX(fontS)
 
-    const nconf= paramStampa.find(ele=>ele.nome === "non_conforme")
-    const nConforme = nconf ? nconf.x : "valore di x non trovato non_Conforme"
-    setNonConformeX(nConforme)
+    const nconf_pag1= paramStampa.find(ele=>ele.nome === "non_conforme_pag1")
+    const nConforme_pag1 = nconf_pag1 ? nconf_pag1.x : "valore di x non trovato non_Conforme_pag1"
+    setNonConformeXpag1(nConforme_pag1)
+
+    const nconf_pag2= paramStampa.find(ele=>ele.nome === "non_conforme_pag2")
+    const nConforme_pag2 = nconf_pag2 ? nconf_pag2.x : "valore di x non trovato non_Conforme_pag2"
+    setNonConformeXpag2(nConforme_pag2)
 
     const idP1 = paramStampa.find(ele => ele.nome==="idPagina1")
     const idPag1 = idP1 ? idP1.valorePartenza : "valore di id non trovato idPagina1"
@@ -74,13 +83,21 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     const idPag2 = idP2 ? idP2.valorePartenza : "valore di id non trovato idPagina2"
     setIdPagina2(idPag2)
 
-    const comm = paramStampa.find(ele => ele.nome==="commenti")
-    const commX = comm ? comm.x : "valore di x non trovato commenti"
-    setCommentiX(commX)
+    const comm_pag1 = paramStampa.find(ele => ele.nome==="commenti_pag1")
+    const commX_pag1 = comm_pag1 ? comm_pag1.x : "valore di x non trovato commenti_pag1"
+    setCommentiXpag1(commX_pag1)
 
-    const azioneC = paramStampa.find(ele => ele.nome==="azioni")
-    const azionC = azioneC ? azioneC.x : "valore x di azione curativa non trovato"
-    setAzioneCurativaX(azionC)
+    const comm_pag2 = paramStampa.find(ele => ele.nome==="commenti_pag2")
+    const commX_pag2 = comm_pag2 ? comm_pag2.x : "valore di x non trovato commenti_pag2"
+    setCommentiXpag2(commX_pag2)
+
+    const azioneC_pag1 = paramStampa.find(ele => ele.nome==="azioni_pag1")
+    const azionC_pag1 = azioneC_pag1 ? azioneC_pag1.x : "valore x di azione_pag1 curativa non trovato"
+    setAzioneCurativaXpag1(azionC_pag1)
+
+    const azioneC_pag2 = paramStampa.find(ele => ele.nome==="azioni_pag2")
+    const azionC_pag2 = azioneC_pag2 ? azioneC_pag2.x : "valore x di azione curativa non trovato"
+    setAzioneCurativaXpag2(azionC_pag2)
 
     const controllato = paramStampa.find(ele => ele.nome==="controllato 1 di")
     if(controllato){
@@ -221,7 +238,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
        //definiamo un ciclo dei controlli che conforme sia 'Conforme' o 'Non Conforme' poi  DA METTERE EVENTUALI COMMENTI ED AZIONI PER OGNI RIGA
        let mioIdPagina1 = idPagina1  //corrisponde id:11 del file paramentri stampa
        let coordinate_pagina = []
-       let xNonconforme = nonConformeX
+       //let xNonconforme = nonConformeX
        console.log('lista pagina1:',listaPagina1)
 
        listaPagina1.forEach((controllo )=>{
@@ -240,7 +257,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
           console.log('stampo il testo:',testo_spuntato)
          } else if (controllo.conforme === false) {
           page1.drawText(testo_spuntato, {
-            x:coordinate_pagina.x + xNonconforme,
+            x:coordinate_pagina.x + nonConformeXpag1,
             y: height -coordinate_pagina.y,
             font,
             size:fontSizeX,
@@ -249,14 +266,14 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
             //mettere if per commenti ed azioni
             if(controllo.commenti !==''){
               page1.drawText(controllo.commenti,{
-                x:commentiX,
+                x:commentiXpag1,
                 y: height -coordinate_pagina.y,
                 font,
                 size:fontSizeX,
                 color: rgb(0, 0, 0),  
               })
               page1.drawText(controllo.azioneCurativa,{
-                x:azioneCurativaX,
+                x:azioneCurativaXpag1,
                 y: height -coordinate_pagina.y,
                 font,
                 size:fontSizeX,
@@ -292,7 +309,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
         })
      } else if (controllo.conforme === 'Non Conforme'){
          page2.drawText(testo_spuntato, {
-         x:coordinate_pagina.x + xNonconforme,
+         x:coordinate_pagina.x + nonConformeXpag2,
          y: height -coordinate_pagina.y,
          font,
          size:fontSizeX,
@@ -301,14 +318,14 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
         //mettere if per commenti ed azioni
         if(controllo.commenti !==''){
           page2.drawText(controllo.commenti,{
-            x:commentiX,
+            x:commentiXpag2,
             y: height -coordinate_pagina.y,
             font,
             size:fontSizeX,
             color: rgb(0, 0, 0),  
           })
           page2.drawText(controllo.azioneCurativa,{
-            x:azioneCurativaX,
+            x:azioneCurativaXpag2,
             y: height -coordinate_pagina.y,
             font,
             size:fontSizeX,

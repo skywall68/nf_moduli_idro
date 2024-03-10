@@ -14,7 +14,7 @@ import { blue, yellow } from '@mui/material/colors'
 import Planning from './Planning'
 import './Tasto.css'
 
-
+// PJ 8 - rev 6 - CH    Se scelgo i CH
 
 const Impostazioni = ({
   //porto i valori su App.js
@@ -23,7 +23,7 @@ const Impostazioni = ({
   setVisualizzaModulo,
   setSceltaModuloApp,
   
-  setFilePj16JsonApp
+  
 }) => {
   
   const [pjPdf, setPjPdf] = useState() //memorizzo il file pdf
