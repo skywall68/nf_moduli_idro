@@ -2,10 +2,13 @@
   text-align: center;
 }
 .contenitore {
-  display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1em;
+}
  
 
-}
+
 .pdf {
   
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */

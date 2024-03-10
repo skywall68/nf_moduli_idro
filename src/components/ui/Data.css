@@ -1,13 +1,13 @@
 .containerData {
-    background-color: darkkhaki;
+    background-color: #dbdad5;
     justify-content: center;
-    margin:15px;
+    margin:10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */
 }
 
 .containerDataCH {
     display: flex;
-    background-color: darkkhaki;
+    background-color: #dbdad5;
     justify-content: center;
     
     margin:20px;

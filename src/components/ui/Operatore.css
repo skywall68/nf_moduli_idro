@@ -1,6 +1,6 @@
 .containerOperatore {
-    background-color: rgb(246, 228, 206);
-    margin:20px ;
+    background-color:#dbdad5;
+    margin:5px ;
     
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */
 }
@@ -25,5 +25,6 @@ h2 {
 .inputBoxOperatore {
     font-size: 15px;
     font-weight: 200;
+    margin: 17px;
     
 }

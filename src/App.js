@@ -209,7 +209,7 @@ function App() {
     data=<Data setAppData={setAppData}  appInputValue={appInputValue} setAppInputValue={setAppInputValue} sceltaModuloApp={sceltaModuloApp}  />
     operatore = <Operatore setAppOperatore={setAppOperatore} sceltaModuloApp={sceltaModuloApp} /> 
     macchineView = <MacchineView setMacchinaSceltaApp={setMacchinaSceltaApp} sceltaModuloApp={sceltaModuloApp}  />
-    checkListCHView=<CheckListCHView />
+    checkListCHView=<CheckListCHView setListaPagina1Pj8App={setListaPagina1Pj8App} />
     checkListCHDimensioniView=<CheckListCHDimensioniView />
     elencoCHView=<ElencoCHView setAppElementoCHScelto={setAppElementoCHScelto} />
   }
@@ -289,7 +289,7 @@ function App() {
               {checkListCHView}
               {checkListCHDimensioniView}
             </div>
-            : <p>non ho trovato nulla!!!</p>
+            : <p>WM</p>
             }
             
        
