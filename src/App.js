@@ -17,7 +17,7 @@ import Operatore from './components/ui/Operatore';
 import CheckListDimensioniPj8View from './components/ui/CheckListDimensioniPj8View';
 import CheckListDimensioniPj16View from './components/ui/CheckListDimensioniPj16View';
 import Data from './components/ui/Data';
-import RecuperaData from './components/ui/RecuperaData';
+
 import CheckListCHView from './components/ch/CheckListCHView';
 import CheckListCHDimensioniView from './components/ch/CheckListCHDimensioniView';
 import ElencoCHView from './components/ch/ElencoCHView';
@@ -26,10 +26,10 @@ import ElencoCHView from './components/ch/ElencoCHView';
 
 
 function App() {
-  const [appParametriStampa, setParametriStampa]=useState([])
+  const [appParametriStampa]=useState([])
   const [pj8App, setpj8App]=useState();//porto il file pdf preso da Impostazioni.js
   const [pj16App, setpj16App]= useState();//porto il file pdf preso da Impostazioni.js
-  const [pjCH, setPjCH]=useState();//porto il file pdf preso da Impostazioni.js
+  const [setPjCH]=useState();//porto il file pdf preso da Impostazioni.js
   const [numeroPages, setNumeroPages] = useState('0');
   const [appLista, setAppLista]= useState('');
   const [appData,setAppData]=useState('')
@@ -52,7 +52,7 @@ function App() {
   const [visualizzaModuloCHApp, setAppVisualizzaModuloCH]= useState(false) //se è true mi visualizza il modulo CH
   const [sceltaModuloApp, setSceltaModuloApp]= useState('0') //se è 8 pj8 se è 16 pj16 questo mi permette di creare moduli diversi a seconda della scelta
   //const [filePj8Json1App, setFilePj8Json1App]= useState([]) //recupero il modulo pj8 da visualizzare in una tabella CANCELLATO, HO USATO LOCAL STORAGE
-  const [filePj16JsonApp, setFilePj16JsonApp]= useState([]) //recupero il modulo pj16 da visualizzare in una tabella
+  //const [filePj16JsonApp, setFilePj16JsonApp]= useState([]) //recupero il modulo pj16 da visualizzare in una tabella
   const [listaPagina1Pj8App, setListaPagina1Pj8App]=useState([]) //recupero i valori pagina 1 pj8 da mandare in stampa
   const [listaPagina2Pj8App, setListaPagina2Pj8App]=useState([]) //recupero i valori pagina 2 pj8 da mandare in stampa
   const [listaPagina1Pj16App, setListaPagina1Pj16App]=useState([]) //recupero i valori pagina 1 pj16 da mandare in stampa
@@ -64,17 +64,18 @@ function App() {
     setAppInputValue('')
    }
 
-  useEffect(()=>{
-    //recupera data da Planning
-    if(appLista !==''){
-      setAppData(RecuperaData(appLista))
-      console.log('sono in App.js e recupero lista:',appLista)
-      console.log('sono in App.js e recupero data',appData)
-      console.log("sono in App e recupero elementi:", appElementi)
-    }
+  // useEffect(()=>{
+  //   //recupera data da Planning
+  //   if(appLista !==''){
+  //     setAppData(RecuperaData(appLista))
+  //     console.log('sono in App.js e recupero lista:',appLista)
+  //     console.log('sono in App.js e recupero data',appData)
+  //     console.log("sono in App e recupero elementi:", appElementi)
+  //     console.log('elemento CH scelto:', elementoCHSceltoApp)
+  //   }
   
-  },[appLista])
-
+  // },[appLista])
+  console.log('elemento CH scelto:', elementoCHSceltoApp)
 
   //recupero il numero dopo N. di elementi dalla stringa ricevuta da appControllatoNdi che arriva da ElementiSaldati.js
   useEffect(()=>{
