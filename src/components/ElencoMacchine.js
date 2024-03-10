@@ -1,5 +1,7 @@
 import React, { useState, useEffect} from 'react'
 
+import './ElencoMacchine.css'
+
 const ElencoMacchine = ({setSelectMacchineOrsaldatori}) => {
   const [elencoTxt, setElencoTxt]=useState([])
   const [isGreen, setIsGreen]=useState(false)
@@ -44,8 +46,8 @@ const ElencoMacchine = ({setSelectMacchineOrsaldatori}) => {
   }
 
   return (
-    <div style={{backgroundColor: isGreen ? "chartreuse": "red"}}><h2>Carico elenco Macchine</h2>
-    <label htmlFor="fileInput">Seleziona un file macchine:</label>
+    <div className={!isGreen ?'containerElencoMacchine':'containerElencoMacchineGreen'}><h2>Carico elenco Macchine</h2>
+    <label htmlFor="fileInput">Macchine:</label>
     <input type='file' accept='.macchine' onChange={handleFileChange} style={{fontSize:20}}/>
     </div>
   )

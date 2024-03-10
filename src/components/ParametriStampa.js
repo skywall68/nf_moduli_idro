@@ -5,7 +5,7 @@ import './ParametriStampa.css'
 const ParametriStampa = ({setSelectedParametriStampa,selectedFile}) => {
     const[fileJson, setFileJson]=useState(null)
     const [isGreen, setIsGreen]=useState(false)
-    const [tipopj, setTipoPj]= useState('') //mi dice quale pj è stato selezionato per poi farmi visualizzare i parametri stampa giusti visto che sono leggermente differenti
+    //const [tipopj, setTipoPj]= useState('') //mi dice quale pj è stato selezionato per poi farmi visualizzare i parametri stampa giusti visto che sono leggermente differenti
     
     
     const handleFileRead = (e) => {
@@ -40,7 +40,12 @@ const ParametriStampa = ({setSelectedParametriStampa,selectedFile}) => {
           //  <input id="fileInput" type="file" accept=".pst8" onChange={handleFileRead} style={{ display: 'none' }} /> :
           //  <input id="fileInput" type="file" accept=".pst16" onChange={handleFileRead} style={{ display: 'none' }} />
            <input id="fileInput" type="file" accept=".pst8" onChange={handleFileRead} style={{fontSize:20}} /> :
-           <input id="fileInput" type="file" accept=".pst16" onChange={handleFileRead} style={{fontSize:20}}  />
+            selectedFile ==='PJ 16 - rev 2 - IT.pdf' ?
+           <input id="fileInput" type="file" accept=".pst16" onChange={handleFileRead} style={{fontSize:20}}  /> :
+           selectedFile ==='PJ 8 - rev 6 - CH.pdf' ?
+           <input id="fileInput" type="file" accept=".CHST" onChange={handleFileRead} style={{fontSize:20}}  /> :
+           <input id="fileInput" type="file" onChange={handleFileRead} style={{fontSize:20}}  />
+
             }
             
         </div>

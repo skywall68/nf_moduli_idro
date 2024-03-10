@@ -1,15 +1,20 @@
 import React, { useState, useEffect} from 'react'
 import './MacchineView.css'
 
-const MacchineView = ({setMacchinaSceltaApp}) => {
+const MacchineView = ({setMacchinaSceltaApp,sceltaModuloApp}) => {
     const [macchinaSelezionata, setMacchinaSelezionata]=useState('')
     const [elencoMacchine, setElencoMacchine]= useState([])
+
+    useEffect(()=>{
+        elencoMacchineData() //chiamo la funzione per caricare elenco macchine
+    },[])
 
     const handleSelectChange=(event)=>{
         const macchina = event.target.value //recupero la macchina
         setMacchinaSelezionata(macchina)
         setMacchinaSceltaApp(macchina)
     }
+
     //memorizzo la macchina scelta
     useEffect(()=>{
         localStorage.setItem('macchina',JSON.stringify(macchinaSelezionata))
@@ -18,7 +23,7 @@ const MacchineView = ({setMacchinaSceltaApp}) => {
     //carico le macchine prendendole da local storage:
     const elencoMacchineData = async ()=>{
         try {
-            const elencoStringa = await localStorage.getItem('elencoMacchine')
+            const elencoStringa = localStorage.getItem('elencoMacchine')
             if(elencoStringa){
                 const elencoArray = JSON.parse(elencoStringa)
                 setElencoMacchine(elencoArray)
@@ -31,16 +36,16 @@ const MacchineView = ({setMacchinaSceltaApp}) => {
 
     }
 
-    const handleOptionClick =()=>{
-        elencoMacchineData()
-    }
+    // const handleOptionClick =()=>{
+    //     elencoMacchineData()
+    // }
 
 
 
   return (
-    <div className='containerMacchine'>
-        <h2>Macchine</h2>
-        <select className='select_macchine' onChange={handleSelectChange} onClick={handleOptionClick}>
+    <div className={sceltaModuloApp === 'ch' ? 'containerMacchineCH select_macchineCH' :'containerMacchine select_macchine'}>
+        <h3>Macchine:</h3>
+        <select className={sceltaModuloApp === 'ch' ? 'select_macchineCH' :' select_macchine'} onChange={handleSelectChange} >
          {
             elencoMacchine.map((macchine, index)=>(
                 <option key={index} value={macchine}>

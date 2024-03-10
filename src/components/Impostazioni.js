@@ -12,6 +12,8 @@ import ScegliPjPDF from './ScegliPjPDF'
 import ElencoTipologia from './ElencoTipologia'
 import { blue, yellow } from '@mui/material/colors'
 import Planning from './Planning'
+import CheckListCH from './ch/CheckListCH'
+import ElencoCHSceltaFile from './ch/ElencoCHSceltaFile'
 import './Tasto.css'
 
 // PJ 8 - rev 6 - CH    Se scelgo i CH
@@ -19,9 +21,12 @@ import './Tasto.css'
 const Impostazioni = ({
   //porto i valori su App.js
   setpj8App, 
-  setpj16App, 
+  setpj16App,
+  setPjCH,
   setVisualizzaModulo,
   setSceltaModuloApp,
+  setAppVisualizzaModuloCH,
+
   
   
 }) => {
@@ -30,6 +35,7 @@ const Impostazioni = ({
   const [selectedFile, setSelectedFile]= useState(null) //mi memorizza solo il nome
   const [selectedParametriStampa, setSelectedParametriStampa]= useState(false)//se il file è stato selezionato mi da 'true' per visualizzare il tasto 'OK'
   const [selectMacchineOrsaldatori,setSelectMacchineOrsaldatori]=useState(false)
+  const [selectCH, setSelectCH]=useState(false) //
   const [selectTipologia,setSelectTipologia]=useState(false) //controlla che abbia scelto il file tipologia
   // const [filePj8Json1, setFilePj8Json1] = useState([]) //memorizzo il file pj8 per la tabella
   // const [filePj16Json, setFilePj16Json] = useState([]) //memorizzo il file pj16 per la tabella
@@ -44,23 +50,30 @@ const Impostazioni = ({
           return;
         }
     const pdfFile = fileInput.files[0]; 
-    setVisualizzaModulo(true)
+    //setVisualizzaModulo(true)
     
     try {
       
-      // porto in App.js i valori dei 2 pdf 
+      // porto in App.js i valori dei 3 pdf 
       if(pdfFile.name === 'PJ 8 - rev 6 - IT.pdf'){
        modulo='8pj'
-        
-        setpj8App(pdfFile)
-       
-        setSceltaModuloApp( modulo) //determina l'apertura del modulo saldatori
+       setpj8App(pdfFile)
+       setSceltaModuloApp( modulo) //determina l'apertura del modulo saldatori
+       setVisualizzaModulo(true)
       } else if (pdfFile.name === 'PJ 16 - rev 2 - IT.pdf'){
         modulo='16pj'
         setpj16App(pdfFile)
-        //setFilePj16JsonApp(filePj16Json)
         setSceltaModuloApp(modulo)//determina l'apertura del modulo macchine
+        setVisualizzaModulo(true)
+        
+      } else if (pdfFile.name === 'PJ 8 - rev 6 - CH.pdf'){
+        modulo='ch'
+        setPjCH(pdfFile)
+        setSceltaModuloApp(modulo) // mi serve per modificare i css di operatore, macchine, data
+        setAppVisualizzaModuloCH(true) //mi determina i moduli CH che si aprono in App.js
+
       }
+
       
     } catch (error) {
       console.error("Errore durante l'analisi del documento PDF:", error.message);  
@@ -76,6 +89,8 @@ const Impostazioni = ({
   let elencoTipologia;
   let checklistPj8;
   let checlistpj16;
+  let checklistCH;
+  let elencoCHSceltaFile;
   let vuoto;
   let planning;
 
@@ -91,7 +106,14 @@ const Impostazioni = ({
     checlistpj16=<CheckListPj16 setSelectedPj8OrPj16={setSelectedPj8OrPj16} />
     elencoTipologia = <ElencoTipologia setSelectTipologia={setSelectTipologia} />
     planning=<Planning />
-  } else {
+  } else if (selectedFile === 'PJ 8 - rev 6 - CH.pdf'){
+    parametriStampa=<ParametriStampa setSelectedParametriStampa={setSelectedParametriStampa} selectedFile={selectedFile} />
+    elencoMacchine= <ElencoMacchine setSelectMacchineOrsaldatori={setSelectMacchineOrsaldatori} />
+    checklistCH=<CheckListCH setSelectCH={setSelectCH} />
+    elencoCHSceltaFile = <ElencoCHSceltaFile/> //mi memorizza il file elenco CH
+
+  }
+  else {
     vuoto="<h2>Nessun parametro scelto!!</h2>"
   }
   
@@ -115,10 +137,18 @@ const Impostazioni = ({
         {elencoTipologia}
         {checklistPj8}
         {checlistpj16}
+        {elencoCHSceltaFile}
+        {checklistCH}
+       
         
       </div>
     
-      {selectedFile && selectedParametriStampa && selectMacchineOrsaldatori && selectedPj8OrPj16 && selectTipologia
+      {selectedFile && 
+      selectedParametriStampa && 
+      selectMacchineOrsaldatori && 
+      selectedPj8OrPj16 && 
+      selectTipologia || 
+      selectCH
         ? <button className='button' onClick={importPDF} > OK </button> : <h3></h3> }
        {/* ? <Tasto onClick={importPDF}>OK</Tasto> : <h3></h3> } */}
        
