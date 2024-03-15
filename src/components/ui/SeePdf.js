@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 
 import  './SeePdf.css'  /*importo file css*/ 
@@ -10,7 +10,7 @@ const SeePdf = ({
   leggiFile,
   setNumeroPages, 
   setAppLista, 
-  
+  setAppData, //porta l'eventuale data in App
   setAppCliente, 
   setAppCantiere, 
   setAppOpera, 
@@ -38,6 +38,7 @@ const SeePdf = ({
     if (file) {
        console.log('questo è il file scelto:', file)
       //console.log('recupera lista da app.js.',recuperaMiaLista) //ho la lista che arriva da App.js
+      console.log('nome lista scelta:',lista)
       setPdfPath(URL.createObjectURL(file));
       setLinesArray([]); // Resetta l'array quando il file cambia
       //leggiFile()
@@ -49,6 +50,21 @@ const SeePdf = ({
     flexDirection: 'column',
     marginTop:'10px',
     };
+    //++++++++++++RECUPERO EVENTUALE DATA++++++++++++++++++++++++++++++++
+    let dataLista="";
+    dataLista=RecuperaData(lista)
+    if(dataLista!==""){
+      //setAppData(dataLista)
+      console.log('e la lista è:',lista,' la data della lista è:',dataLista)
+    }else {
+      dataLista=""
+       //setAppData(dataLista)
+      console.log('e la lista è:',lista,' la data della lista è:',dataLista)
+    }
+
+    useEffect(()=>{
+      setAppData(dataLista)
+    },[dataLista])
   //*********RECUPERO DATI CLIENTE**************************************** */
   const recuperaDatiCliente = async (npagine) => {
   try {

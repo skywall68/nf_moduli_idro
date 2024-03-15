@@ -6,13 +6,14 @@ import './ScegliPjPDF.css'
 const ScegliPjPDF = ({setPjPdf,setSelectedFile}) => {
   const fileInputRef = useRef() //non viene modificato nei diversi render
   const [isGreen, setIsGreen]=useState(false)
+
   const handleFileChange = () => {
     // Puoi eseguire azioni aggiuntive quando il file viene selezionato
     setSelectedFile(fileInputRef.current.files[0].name)
     setPjPdf(fileInputRef.current);
     setIsGreen(true)
    
-    console.log("File selezionato:", fileInputRef.current.files[0].name);
+    console.log("File selezionato:", fileInputRef.current.files[0].name, 'nome:',fileInputRef.current);
   };
   
 

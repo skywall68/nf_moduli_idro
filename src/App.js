@@ -25,6 +25,7 @@ import ElencoCHView from './components/ch/ElencoCHView';
 
 
 
+
 function App() {
   const [appParametriStampa]=useState([])
   const [pj8App, setpj8App]=useState();//porto il file pdf preso da Impostazioni.js
@@ -33,9 +34,7 @@ function App() {
   const [numeroPages, setNumeroPages] = useState('0');
   const [appLista, setAppLista]= useState('');
   const [appData,setAppData]=useState('')
-  
   const [appInputValue, setAppInputValue] = useState(''); //serve per svuotare data inputvalue è dentro Data.js, setInputData è dentro Footer.js
-
   const [appCliente, setAppCliente] = useState('');
   const [appCantiere, setAppCantiere] = useState('');
   const [appOpera, setAppOpera] = useState('');
@@ -131,7 +130,7 @@ function App() {
               //leggiFile={leggiFile}   //non ricordo a xchè lo messo
               setNumeroPages={setNumeroPages}
               setAppLista={setAppLista}
-              
+              setAppData={setAppData}
               setAppCliente={setAppCliente}
               setAppCantiere={setAppCantiere}
               setAppOpera= {setAppOpera}
@@ -148,7 +147,7 @@ function App() {
               appOpera={appOpera}
               appPlan={appPlan}
                 />
-    data=<Data setAppData={setAppData}  appInputValue={appInputValue} setAppInputValue={setAppInputValue}  />
+    data=<Data appData={appData} setAppData={setAppData}  appInputValue={appInputValue} setAppInputValue={setAppInputValue}  />
     operatore = <Operatore setAppOperatore={setAppOperatore} />            
     //Scelta della scheda Saldatori o Macchine
                 if(sceltaModuloApp === '8pj'){
