@@ -25,7 +25,7 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
     },[])
     useEffect(()=>{
       if(appPulisciCampo){
-        //const filePj8Json1 =localStorage.getItem('jsonFilePj8') 
+        
         let fileArrayOggetti =[]
         if (filePj8Json1) {
           fileArrayOggetti = JSON.parse(filePj8Json1);
@@ -39,22 +39,9 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
         
       }
     },[appPulisciCampo])
-    console.log('chekdimensioni:',controlli)
-    console.log('valore di pulisciCampo:',appPulisciCampo)
+    // console.log('chekdimensioni:',controlli)
+    // console.log('valore di pulisciCampo:',appPulisciCampo)
     //******************************************************* */
-    //ULTIMO LAVORO DA FARE+++++++++++++++++++++++++++++++++++++++++++++++
-    //svuoto le checkbox dove creo una funzione con un tasto per eliminarle:
-    const svuotaCheckbox =()=>{
-      // Seleziona tutti gli elementi di input di tipo checkbox nella tabella
-    const checkboxes = document.querySelectorAll('table input[type="checkbox"]');
-    
-    // Itera attraverso ogni checkbox e deseleziona
-    checkboxes.forEach((checkbox) => {
-      checkbox.checked = false;
-    });
-    }
-    //++++++++++++++++++++++fine+++++++++++++++++++++++++++++++++++++++++++
-
     //******************mi permette di nascondere la tabella********************* */
     const [mostraTabella, setMostraTabella] = useState(true); //mi permette di nascondere la tabella
     //mostra tabella:

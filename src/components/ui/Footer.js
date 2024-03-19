@@ -19,7 +19,8 @@ const Footer = ({
   appOperatore,
   pj8App,//file pdf
   pj16App,//file pdf
-  
+  pjCH,
+  elementoCHSceltoApp, //elemento ch
   appElementoScelto,
   appControllatoNdi,
   listaPagina1Pj8App,//prima pagina di pj8 
@@ -166,15 +167,36 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
   
  const dataControllo =appData
   
-  const lista = appLista
+  let lista = ''
+  if(appElementoScelto !==''){
+    lista = appLista
+  } else if (elementoCHSceltoApp !==''){
+    lista ='CH'
+  }
   const operatore = appOperatore
   const cliente = appCliente
   const saldatori = saldatoreSceltoApp
   const macchina= macchinaSceltaApp
-  const tipologia = tipologiaSceltaApp
+  //se siamo con modulo CH non serve la tipologia e quindi non va stampata e visto che mi chiede la tipologia per stampare in fooder l'unica cosa che ho per sapere se 
+  //dobbiamo stampare i CH  è questo:elementoCHSceltoApp che se è '' vuol dire che non è un CH e quindi va scelta la tipologia
+
+  let tipologia = ''
+  if(appElementoScelto !==''){
+    tipologia = tipologiaSceltaApp
+  } else if(elementoCHSceltoApp !==''){
+    tipologia=''
+  }
+
   const opera = `${appOpera}  /`
   const plan = appPlan
-  const etichetta = appElementoScelto
+  
+  let etichetta 
+  if(appElementoScelto !==''){
+     etichetta = appElementoScelto
+  } else if(elementoCHSceltoApp !==''){
+    etichetta = elementoCHSceltoApp
+  }
+  
   const parametri_stampa = parametriStampa
   const nElementi = `n°1 di ${appControllatoNdi}`
   const spuntaFabbrica='x'
@@ -200,6 +222,13 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     listaPagina1=listaPagina1Pj16App
     listaPagina2=listaPagina2Pj16App
     nomeAbbreviatoPDF='pj16'
+    macchinaOsaldatori=macchina
+   }
+   if(pjCH){
+    pdfFile=pjCH
+    listaPagina1=listaPagina1Pj8App
+    listaPagina2=listaPagina2Pj8App
+    nomeAbbreviatoPDF='CH'
     macchinaOsaldatori=macchina
    }
    const paginaUnoAlto = [spuntaFabbrica,spuntaSuPiano,tipologia,cantiere,opera,cliente,plan,lista,etichetta,macchinaOsaldatori,] //cicla questi valori

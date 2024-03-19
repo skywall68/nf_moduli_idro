@@ -30,7 +30,7 @@ function App() {
   const [appParametriStampa]=useState([])
   const [pj8App, setpj8App]=useState();//porto il file pdf preso da Impostazioni.js
   const [pj16App, setpj16App]= useState();//porto il file pdf preso da Impostazioni.js
-  const [setPjCH]=useState();//porto il file pdf preso da Impostazioni.js
+  const [pjCH,setPjCH]=useState();//porto il file pdf preso da Impostazioni.js
   const [numeroPages, setNumeroPages] = useState('0');
   const [appLista, setAppLista]= useState('');
   const [appData,setAppData]=useState('')
@@ -121,8 +121,8 @@ function App() {
   let elencoCHView;
 
   let footer;
-  console.log('App 124 Visualizza modulo CH:',visualizzaModuloCHApp)
-  console.log('App 125 Visualizza modulo :',visualizzaModulo)
+  // console.log('App 124 Visualizza modulo CH:',visualizzaModuloCHApp)
+  // console.log('App 125 Visualizza modulo :',visualizzaModulo)
   
 
   if(visualizzaModulo){   //se il modulo è true allora...
@@ -153,7 +153,7 @@ function App() {
                 if(sceltaModuloApp === '8pj'){
                   //console.log('in App il modulo scelto è:',sceltaModuloApp)
                   saldatoriView = <SaldatoriView setSaldatoreSceltoApp={setSaldatoreSceltoApp}  />
-                  checkListPj8View1=<CheckListPj8View1  setListaPagina1Pj8App={setListaPagina1Pj8App} appLista={appLista}/> //mi carica la prima pagina per la spunta option
+                  checkListPj8View1= <CheckListPj8View1  setListaPagina1Pj8App={setListaPagina1Pj8App} appLista={appLista}/> //mi carica la prima pagina per la spunta option
                   checkListDimensioniPj8View=<CheckListDimensioniPj8View setListaPagina2Pj8App={setListaPagina2Pj8App} appPulisciCampo={appPulisciCampo} setAppPulisciCampo={setAppPulisciCampo} /> //mi carica la seconda pagina per la spunta checkbox
                   //Visualizza Elenco elementi saldati
                   elementiSaldati =<ElementiSaldati
@@ -188,12 +188,14 @@ function App() {
       appOperatore={appOperatore}
       pj8App={pj8App}
       pj16App={pj16App}
+      pjCH={pjCH}
       appParametriStampa={appParametriStampa}
       listaPagina1Pj8App={listaPagina1Pj8App}
       listaPagina2Pj8App={listaPagina2Pj8App}
       listaPagina1Pj16App={listaPagina1Pj16App}
       listaPagina2Pj16App={listaPagina2Pj16App}
       saldatoreSceltoApp={saldatoreSceltoApp}
+      elementoCHSceltoApp={elementoCHSceltoApp}
       appElementoScelto={appElementoScelto}
       tipologiaSceltaApp={tipologiaSceltaApp}
       macchinaSceltaApp={macchinaSceltaApp}
@@ -203,15 +205,41 @@ function App() {
       onCancel={handleCancel}//mi serve per eliminare il campo da Data.js
       setAppPulisciCampo={setAppPulisciCampo} //pulisce i campi di CheckListDimensioniPj8View/CheckListDimensioniPj16View
       />
-    //***************************fine raccolta per la stampa******************************************** */
+    //***************************fine raccolta per la stampa pj8 e pj16******************************************** */
     //SE UN MODULO CH
   } else if(visualizzaModuloCHApp){
     data=<Data setAppData={setAppData}  appInputValue={appInputValue} setAppInputValue={setAppInputValue} sceltaModuloApp={sceltaModuloApp}  />
     operatore = <Operatore setAppOperatore={setAppOperatore} sceltaModuloApp={sceltaModuloApp} /> 
     macchineView = <MacchineView setMacchinaSceltaApp={setMacchinaSceltaApp} sceltaModuloApp={sceltaModuloApp}  />
     checkListCHView=<CheckListCHView setListaPagina1Pj8App={setListaPagina1Pj8App} />
-    checkListCHDimensioniView=<CheckListCHDimensioniView />
+    checkListCHDimensioniView=<CheckListCHDimensioniView setListaPagina2Pj8App={setListaPagina2Pj8App} appPulisciCampo={appPulisciCampo} setAppPulisciCampo={setAppPulisciCampo}/>
     elencoCHView=<ElencoCHView setAppElementoCHScelto={setAppElementoCHScelto} />
+    footer=<Footer 
+    setAppRecuperaLista={setAppRecuperaLista}
+    appLista={appLista}
+    appCliente={appCliente} 
+    appCantiere={appCantiere}
+    appData={appData}
+    appOperatore={appOperatore}
+    pj8App={pj8App}
+    pj16App={pj16App}
+    pjCH={pjCH}
+    appParametriStampa={appParametriStampa}
+    listaPagina1Pj8App={listaPagina1Pj8App}
+    listaPagina2Pj8App={listaPagina2Pj8App}
+    listaPagina1Pj16App={listaPagina1Pj16App}
+    listaPagina2Pj16App={listaPagina2Pj16App}
+    saldatoreSceltoApp={saldatoreSceltoApp}
+    elementoCHSceltoApp={elementoCHSceltoApp}
+    appElementoScelto={appElementoScelto}
+    tipologiaSceltaApp={tipologiaSceltaApp}
+    macchinaSceltaApp={macchinaSceltaApp}
+    appControllatoNdi={appControllatoNdi}
+    appOpera={appOpera}
+    appPlan={appPlan}
+    onCancel={handleCancel}//mi serve per eliminare il campo da Data.js
+    setAppPulisciCampo={setAppPulisciCampo} //pulisce i campi di CheckListDimensioniPj8View/CheckListDimensioniPj16View
+    />
   }
    else {
     
@@ -288,8 +316,9 @@ function App() {
               {elencoCHView}
               {checkListCHView}
               {checkListCHDimensioniView}
+              {footer}
             </div>
-            : <p>WM</p>
+            : <p>&copy;2024 WM</p>
             }
             
        

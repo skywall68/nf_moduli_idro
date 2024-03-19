@@ -1,4 +1,4 @@
-6° salvare il codice su github:
+"6° salvare il codice su github:
  -crea un nuovo progetto chiamato pj8
  -vai sul tasto in alto <code> e sotto https copia il url:
  - https://github.com/skywall68/pj8.git

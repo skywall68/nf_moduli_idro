@@ -13,7 +13,7 @@ const ScegliPjPDF = ({setPjPdf,setSelectedFile}) => {
     setPjPdf(fileInputRef.current);
     setIsGreen(true)
    
-    console.log("File selezionato:", fileInputRef.current.files[0].name, 'nome:',fileInputRef.current);
+    //console.log("File selezionato:", fileInputRef.current.files[0].name, 'nome:',fileInputRef.current);
   };
   
 
