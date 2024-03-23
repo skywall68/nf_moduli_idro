@@ -22,22 +22,22 @@ const CheckListCHDimensioniView = ({setListaPagina2Pj8App, appPulisciCampo, setA
        console.log('chekdimensioni prima volta 2:',inizioControlli)
   
       },[])
-      //ricarico la tabella senza le spunte
-      useEffect(()=>{
-        if(appPulisciCampo){
+      // //ricarico la tabella senza le spunte
+      // useEffect(()=>{
+      //   if(appPulisciCampo){
          
-          let fileArrayOggetti =[]
-          if (filePj8CHJson1) {
-            fileArrayOggetti = JSON.parse(filePj8CHJson1);
-          }
-          const fileArrayObjFiltrato = fileArrayOggetti.filter(elemento => elemento.id >=8 && elemento.id <=15)
-           setControlli(fileArrayObjFiltrato)
-           setInizioControlli(fileArrayObjFiltrato)
-           //console.log('chekdimensioni prima volta 3:',controlli)
-           //console.log('chekdimensioni prima volta 4:',inizioControlli)
-           setAppPulisciCampo(false)
-          }
-      },[appPulisciCampo])
+      //     let fileArrayOggetti =[]
+      //     if (filePj8CHJson1) {
+      //       fileArrayOggetti = JSON.parse(filePj8CHJson1);
+      //     }
+      //     const fileArrayObjFiltrato = fileArrayOggetti.filter(elemento => elemento.id >=8 && elemento.id <=15)
+      //      setControlli(fileArrayObjFiltrato)
+      //      setInizioControlli(fileArrayObjFiltrato)
+      //      //console.log('chekdimensioni prima volta 3:',controlli)
+      //      //console.log('chekdimensioni prima volta 4:',inizioControlli)
+      //      setAppPulisciCampo(false)
+      //     }
+      // },[appPulisciCampo])
  //******************mi permette di nascondere la tabella********************* */
       const [mostraTabella, setMostraTabella] = useState(true); //mi permette di nascondere la tabella
       //mostra tabella:
@@ -54,7 +54,7 @@ const CheckListCHDimensioniView = ({setListaPagina2Pj8App, appPulisciCampo, setA
   }
   setControlli(newControlli);
   console.log('valore di checkbox:', id, controlli[id].conforme, 'id:', controlli[id].id) 
-  setListaPagina2Pj8App(controlli)
+  //setListaPagina2Pj8App(controlli)
 }
 //**************prende il valore del commento ******************* */
 const handleInputChangeCommenti = (id,field,value) =>{
@@ -64,7 +64,7 @@ const handleInputChangeCommenti = (id,field,value) =>{
   )
 )
 console.log(`(CheckCHDimensioni.js f:handleInputChangeCommenti)ID: ${id}, Campo: ${field}, Valore: ${value}`);
-setListaPagina2Pj8App(controlli)
+//setListaPagina2Pj8App(controlli)
 }
 //****************prende il valore dell'azione ********************* */
 const handleInputChangeAzione = (id,field,value) =>{
@@ -74,8 +74,13 @@ const handleInputChangeAzione = (id,field,value) =>{
   )
 )
 console.log(`(CheckCHDimensioni.js f:handleInputChangeAzione)ID: ${id}, Campo: ${field}, Valore: ${value}`);
-setListaPagina2Pj8App(controlli)
+//setListaPagina2Pj8App(controlli)
 }
+
+//aggiornamento prima di mandare il valori ad App.js
+useEffect(()=>{
+  setListaPagina2Pj8App(controlli)
+},[controlli])
 //*********************************fine******************************** */
 
 

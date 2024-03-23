@@ -4,14 +4,7 @@ import React, { useState, useEffect} from 'react'
 const CheckListPj8View1 = ({setListaPagina1Pj8App}) => {
 
    const [controlli, setControlli] = useState([])
-   
-  
-
- 
-     
-    //console.log('valore del file json:', filePj8Json1App)
-     //console.log('array di oggetti filtrato:',fileArrayObjFiltrato)
-    //uso  useEffect con la parentesi [] vuota perchè mi fa solo una volta il render, se è senza diventa un ciclo se invece ha un valore dentro viene ripetuto tutte le volte che il valore cambia
+   //uso  useEffect con la parentesi [] vuota perchè mi fa solo una volta il render, se è senza diventa un ciclo se invece ha un valore dentro viene ripetuto tutte le volte che il valore cambia
      useEffect(()=>{
        //prendo il file json da local storage recupero i primi sette valori e li metto dentro useState
       const filePj8Json1 =localStorage.getItem('jsonFilePj8')
@@ -43,7 +36,7 @@ const CheckListPj8View1 = ({setListaPagina1Pj8App}) => {
       setControlli(updatedItems)
       setListaPagina1Pj8App(updatedItems) //recupero i valori per portarli in App.js per poi stamparli
       }
-      console.log('valore Recupero i valori nella option box:',controlli)
+     // console.log('valore Recupero i valori nella option box:',controlli)
       
     //************************************************************************ */
     //******************Recupero i commenti ************************************* */
@@ -54,7 +47,7 @@ const CheckListPj8View1 = ({setListaPagina1Pj8App}) => {
         )
       )
       console.log(`ID: ${id}, Campo: ${field}, Valore: ${value}`);
-      setListaPagina1Pj8App(controlli) //recupero i valori per portarli in App.js per poi stamparli ??????????????????????????????????
+      //setListaPagina1Pj8App(controlli) //recupero i valori per portarli in App.js per poi stamparli ??????????????????????????????????
     }
     //*************************************************************************** */
     //***********************Recupero le azioni********************************** */
@@ -65,8 +58,12 @@ const CheckListPj8View1 = ({setListaPagina1Pj8App}) => {
          azione.id === id ? {...azione,[field]:value}: azione
         )
       )
-      setListaPagina1Pj8App(controlli) //recupero i valori per portarli in App.js per poi stamparli ???????????ma una sovrascrive l'altra, non è meglio mandare un array???????????????????????
+     // setListaPagina1Pj8App(controlli) //recupero i valori per portarli in App.js per poi stamparli ???????????ma una sovrascrive l'altra, non è meglio mandare un array???????????????????????
     }
+
+    useEffect(()=>{
+      setListaPagina1Pj8App(controlli)
+    },[controlli])
     //************************************************************************** */
     return (
     

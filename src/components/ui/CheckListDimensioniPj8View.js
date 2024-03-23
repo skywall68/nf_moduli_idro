@@ -10,8 +10,9 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
     const [inizioControlli, setInizioControlli]=useState([])
     //recupero il file memorizzato
     //*******prendo il file json da local storage recupero dal id7 al id20 dentro useState***************
-   const filePj8Json1 =localStorage.getItem('jsonFilePj8') 
+    const filePj8Json1 =localStorage.getItem('jsonFilePj8')  
     useEffect(()=>{
+    
     let fileArrayOggetti =[]
     if (filePj8Json1) {
       fileArrayOggetti = JSON.parse(filePj8Json1);
@@ -24,6 +25,7 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
 
     },[])
     useEffect(()=>{
+      
       if(appPulisciCampo){
         
         let fileArrayOggetti =[]
@@ -33,8 +35,6 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
         const fileArrayObjFiltrato = fileArrayOggetti.filter(elemento => elemento.id >=8 && elemento.id <=20)
          setControlli(fileArrayObjFiltrato)
          setInizioControlli(fileArrayObjFiltrato)
-         //console.log('chekdimensioni prima volta 3:',controlli)
-         //console.log('chekdimensioni prima volta 4:',inizioControlli)
          setAppPulisciCampo(false)
         
       }
@@ -59,30 +59,49 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
       }
       setControlli(newControlli);
       console.log('valore di checkbox:', id, controlli[id].conforme, 'id:', controlli[id].id) 
-      setListaPagina2Pj8App(controlli)
+      console.log('valore Recupero i valori spunta:',controlli)
+     // setListaPagina2Pj8App(controlli)
     }
     //**************prende il valore del commento ******************* */
     const handleInputChangeCommenti = (id,field,value) =>{
-      setControlli((prevControlli)=>
-        prevControlli.map((commento)=>
-         commento.id === id ? {...commento,[field]:value}: commento
-      )
-    )
+      
+      console.log('chiamo handleInputchangeCommenti')
+      setControlli(prevControlli=>{
+        // Creiamo un nuovo array mappando i commenti esistenti
+        const updatedControlli = prevControlli.map(commento => {
+          // Se l'ID corrisponde, creiamo un nuovo oggetto con il valore aggiornato
+          return commento.id === id ? { ...commento, [field]: value } : commento;
+        });
+      // Restituiamo il nuovo array aggiornato
+     // console.log('valore Recupero i valori COMMENTO in update:',updatedControlli)
+    return updatedControlli;
+  });
     console.log(`(CheckDimensioni.js f:handleInputChangeCommenti)ID: ${id}, Campo: ${field}, Valore: ${value}`);
-    setListaPagina2Pj8App(controlli)
+    //console.log('valore Recupero i valori commento:',controlli)
+   // setListaPagina2Pj8App(controlli)
   }
   //****************prende il valore dell'azione ********************* */
   const handleInputChangeAzione = (id,field,value) =>{
-    setControlli((prevControlli)=>
-      prevControlli.map((azione)=>
-       azione.id === id ? {...azione,[field]:value}: azione
-    )
-  )
+    setControlli(prevControlli=>{
+      // Creiamo un nuovo array mappando le azioni esistenti
+      const updatedControlli =  prevControlli.map(azione=>{
+        return azione.id === id ? {...azione,[field]:value}: azione
+        
+      })
+       //console.log('valore Recupero i valori AZIONI in update:',updatedControlli)
+      
+         return updatedControlli;
+    })
   console.log(`(CheckDimensioni.js f:handleInputChangeAzione)ID: ${id}, Campo: ${field}, Valore: ${value}`);
-  setListaPagina2Pj8App(controlli)
+  //console.log('valore Recupero i valori azioni:',controlli)
+ // setListaPagina2Pj8App(controlli)
   }
+  //aggiornamento prima di mandare il valori ad App.js
+  useEffect(()=>{
+    setListaPagina2Pj8App(controlli)
+  },[controlli])
   //*********************************fine******************************** */
-
+  
   
   return (
     <div className='checklist_dimensioni'>

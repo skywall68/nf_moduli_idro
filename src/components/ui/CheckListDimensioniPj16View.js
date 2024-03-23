@@ -56,7 +56,7 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
       }
       setControlli(newControlli);
       console.log('valore di checkbox:', id, controlli[id].conforme, 'id:', controlli[id].id) 
-      setListaPagina2Pj16App(controlli)
+      //setListaPagina2Pj16App(controlli)
     }
     //**************prende il valore del commento ******************* */
     const handleInputChangeCommenti = (id,field,value) =>{
@@ -66,7 +66,7 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
       )
     )
     console.log(`(CheckDimensioni.js f:handleInputChangeCommenti)ID: ${id}, Campo: ${field}, Valore: ${value}`);
-    setListaPagina2Pj16App(controlli)
+    //setListaPagina2Pj16App(controlli)
   }
   //****************prende il valore dell'azione ********************* */
   const handleInputChangeAzione = (id,field,value) =>{
@@ -76,8 +76,13 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
     )
   )
   console.log(`(CheckDimensioni.js f:handleInputChangeAzione)ID: ${id}, Campo: ${field}, Valore: ${value}`);
-  setListaPagina2Pj16App(controlli)
+  //setListaPagina2Pj16App(controlli)
   }
+ //aggiornamento prima di mandare il valori ad App.js
+  useEffect(()=>{
+    setListaPagina2Pj16App(controlli)
+  },[controlli])
+
   //*********************************fine******************************** */
 
   return (

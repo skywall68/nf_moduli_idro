@@ -43,8 +43,8 @@ const [nonConformeXpag1, setNonConformeXpag1]=useState()//valore asse x per in N
 const [nonConformeXpag2, setNonConformeXpag2]=useState()//valore asse x per in NON CONFORME
 const [idPagina1, setIdPagina1]= useState() //mi dice da dove partire (id) a recuperare i parametri per la stampa della 1° pagina il valore ricevuto esempio=10, parte id 11
 const [idPagina2, setIdPagina2]= useState() //mi dice da dove partire (id) a recuperare i parametri per la stampa della 2° pagina
-const [commentiXpag1, setCommentiXpag1]=useState() //valore commenti asse x
-const [commentiXpag2, setCommentiXpag2]=useState() //valore commenti asse x
+const [commentiXpag1, setCommentiXpag1]=useState('') //valore commenti asse x
+const [commentiXpag2, setCommentiXpag2]=useState('') //valore commenti asse x
 
 const [ azioneCurativaXpag1, setAzioneCurativaXpag1]= useState() //valore azione curativa asse x
 const [ azioneCurativaXpag2, setAzioneCurativaXpag2]= useState() //valore azione curativa asse x
@@ -99,6 +99,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     const azioneC_pag2 = paramStampa.find(ele => ele.nome==="azioni_pag2")
     const azionC_pag2 = azioneC_pag2 ? azioneC_pag2.x : "valore x di azione curativa non trovato"
     setAzioneCurativaXpag2(azionC_pag2)
+    console.log('azione curativa:',azioneCurativaXpag2)
 
     const controllato = paramStampa.find(ele => ele.nome==="controllato 1 di")
     if(controllato){
@@ -145,13 +146,14 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
    else {
     
     console.log('Dentro footer la data è in else:',appData)
+    console.log('sono dentro conferma e vediamo i dati:',listaPagina2Pj8App)
     setShowModalPrint(true)// mi apre una finestra modal quando premo tasto conferma
     // console.log('font:',fontSizeX)
     // console.log('non conforme:',nonConformeX)
     // console.log('id pagina 1:',idPagina1)
     // console.log('id pagina 2:',idPagina2)
     // console.log('commenti valore x:',commentiX)
-    // console.log('azione curativa:',azioneCurativaX)
+     //console.log('azione curativa:',azioneCurativaXpag2)
     // console.log('controllato 1 di:',controllato1DiYX[0],controllato1DiYX[1])
     // console.log('data controllo:',dataControlloYX[0],dataControlloYX[1],dataControllo)
     // console.log('operatore:',operatoreYX[0],operatoreYX[1],operatore)
@@ -187,7 +189,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     tipologia=''
   }
 
-  const opera = `${appOpera}  /`
+  const opera = `${appOpera}    /`
   const plan = appPlan
   
   let etichetta 
@@ -201,7 +203,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
   const nElementi = `n°1 di ${appControllatoNdi}`
   const spuntaFabbrica='x'
   const spuntaSuPiano = 'x'
-  const cantiere = `${appCantiere} /`
+  const cantiere = `${appCantiere}   /`
   let macchinaOsaldatori=''
   
   
@@ -232,6 +234,20 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     macchinaOsaldatori=macchina
    }
    const paginaUnoAlto = [spuntaFabbrica,spuntaSuPiano,tipologia,cantiere,opera,cliente,plan,lista,etichetta,macchinaOsaldatori,] //cicla questi valori
+   //DEVO CONTROLLARE LA LUNGHEZZA NOME CANTIERE - NOME CLIENTE - RIF.OPERA  se la lunghezza supera un determinato valore ACCORCIAMO o dimminuiamo il font
+   const indexNomeCantiere=paginaUnoAlto.indexOf(cantiere) //mi cerca l'indice dove si trova NOME CANTIERE
+   if (indexNomeCantiere !==-1){
+    const lunghezzaStringa = paginaUnoAlto[indexNomeCantiere].length
+     if(lunghezzaStringa > 25){
+      const parteIniziale = paginaUnoAlto[indexNomeCantiere].slice(0,25)
+      const nuovoNomeCantiere = parteIniziale.slice(0,24)+ '.'
+      paginaUnoAlto.splice(indexNomeCantiere,1) //rimuovi cantiere
+      paginaUnoAlto.splice(indexNomeCantiere,0,nuovoNomeCantiere) //aggiungi cantiere modificato
+      console.log('troncato:',nuovoNomeCantiere)
+
+     }
+   }
+
 
   //*************************FUNZIONE DI STAMPA************************************************************ */
   const stampaFilePdf = async ()=>{
@@ -301,6 +317,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
                 size:fontSizeX,
                 color: rgb(0, 0, 0),  
               })
+              console.log('sei dentro if di commenti,valore di azione è:',controllo.azioneCurativa)
               page1.drawText(controllo.azioneCurativa,{
                 x:azioneCurativaXpag1,
                 y: height -coordinate_pagina.y,
@@ -361,7 +378,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
             color: rgb(0, 0, 0),  
           })
         }
-     }
+     } //fine if NON CONFORME
      mioIdPagina2++
     })
     //data del controllo:
@@ -371,7 +388,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
       y: height - dataControlloYX[0],
       font,
       size:fontSizeX,
-      color: rgb(1, 0, 0),
+      color: rgb(0, 0, 0),
      })
      // //operatore:
      page2.drawText(operatore,{
@@ -379,12 +396,12 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
        y: height - operatoreYX[0],
        font,
        size:fontSizeX,
-       color: rgb(1, 0, 0),
+       color: rgb(0, 0, 0),
 
      })
      const modifiedPdfBytes = await pdfDoc.save(); //consente di salvare le modifiche apportate al documento PDF e ottenere i byte rappresentanti il PDF modificato
      const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });// crea un oggetto Blob  rappresenta un blocco di dati, in questo caso, l'array di byte che costituisce il documento PDF modificato
-     saveAs(blob, `${lista}-${dataControllo}_${nomeAbbreviatoPDF}.pdf`); /* utilizza FileSaver.js per avviare il processo di salvataggio del file nel browser. Il browser visualizzerà quindi una finestra di dialogo per il salvataggio, consentendo 
+     saveAs(blob, `${lista}-${nomeAbbreviatoPDF}.pdf`); /* utilizza FileSaver.js per avviare il processo di salvataggio del file nel browser. Il browser visualizzerà quindi una finestra di dialogo per il salvataggio, consentendo 
      all'utente di scaricare il file PDF modificato con il nome specificato ('output.pdf').*/ 
       //recupero la lista da visualizzare come ultima fatta:
       setAppRecuperaLista(appLista)

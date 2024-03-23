@@ -153,7 +153,7 @@ function App() {
                 if(sceltaModuloApp === '8pj'){
                   //console.log('in App il modulo scelto è:',sceltaModuloApp)
                   saldatoriView = <SaldatoriView setSaldatoreSceltoApp={setSaldatoreSceltoApp}  />
-                  checkListPj8View1= <CheckListPj8View1  setListaPagina1Pj8App={setListaPagina1Pj8App} appLista={appLista}/> //mi carica la prima pagina per la spunta option
+                  checkListPj8View1= <CheckListPj8View1  setListaPagina1Pj8App={setListaPagina1Pj8App} /> //mi carica la prima pagina per la spunta option
                   checkListDimensioniPj8View=<CheckListDimensioniPj8View setListaPagina2Pj8App={setListaPagina2Pj8App} appPulisciCampo={appPulisciCampo} setAppPulisciCampo={setAppPulisciCampo} /> //mi carica la seconda pagina per la spunta checkbox
                   //Visualizza Elenco elementi saldati
                   elementiSaldati =<ElementiSaldati
@@ -163,7 +163,7 @@ function App() {
                 } else if( sceltaModuloApp === '16pj') {
                 // console.log('in App il modulo scelto è:',sceltaModuloApp)
                   macchineView = <MacchineView setMacchinaSceltaApp={setMacchinaSceltaApp}  />
-                  checklistPj16View = <CheckListPj16View setListaPagina1Pj16App={setListaPagina1Pj16App}      />  //mi carica la prima pagina per la spunta option
+                  checklistPj16View = <CheckListPj16View setListaPagina1Pj16App={setListaPagina1Pj16App} />  //mi carica la prima pagina per la spunta option
                   checkListDimensioniPj16View=<CheckListDimensioniPj16View setListaPagina2Pj16App={setListaPagina2Pj16App} appPulisciCampo={appPulisciCampo} setAppPulisciCampo={setAppPulisciCampo}/> //mi carica la seconda pagina per la spunta checkbox
                   elementiLavorati=<ElementiLavorati
                               appElementi={appElementi} 
@@ -260,7 +260,7 @@ function App() {
  
   //console.log('pdf8 su App.js:',pj8App)
   //console.log('tipologia dentro App:',tipologiaSceltaApp, 'modulo:',sceltaModuloApp)
-  //console.log('Scelta del modulo:')
+  console.log('In checkdimensione8:',listaPagina2Pj8App)
 
   return (
     <div>

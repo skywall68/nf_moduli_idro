@@ -60,6 +60,11 @@ const handleOptionChange =(id, conformeValue)=>{
     )
     setListaPagina1Pj8App(controlli) //recupero i valori per portarli in App.js per poi stamparli ???????????ma una sovrascrive l'altra, non è meglio mandare un array???????????????????????
   }
+
+  //aggiornamento prima di mandare il valori ad App.js
+  useEffect(()=>{
+    setListaPagina1Pj8App(controlli)
+  },[controlli])
   //************************************************************************** */
   return (
     <div className='containerCheckListCHView'>
