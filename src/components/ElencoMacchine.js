@@ -47,7 +47,7 @@ const ElencoMacchine = ({setSelectMacchineOrsaldatori}) => {
 
   return (
     <div className={!isGreen ?'containerElencoMacchine':'containerElencoMacchineGreen'}><h2>Carico elenco Macchine</h2>
-    <label htmlFor="fileInput">Macchine:</label>
+    <label htmlFor="fileInput"></label>
     <input type='file' accept='.macchine' onChange={handleFileChange} style={{fontSize:20}}/>
     </div>
   )

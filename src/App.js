@@ -22,6 +22,9 @@ import CheckListCHView from './components/ch/CheckListCHView';
 import CheckListCHDimensioniView from './components/ch/CheckListCHDimensioniView';
 import ElencoCHView from './components/ch/ElencoCHView';
 
+import ElencoPanierView from './components/panier/ElencoPanierView'
+import CheckListPanierView from './components/panier/CheckListPanierView'
+import CheckListDimensioniPanierView from './components/panier/CheckListDimensioniPanierView'
 
 
 
@@ -31,6 +34,7 @@ function App() {
   const [pj8App, setpj8App]=useState();//porto il file pdf preso da Impostazioni.js
   const [pj16App, setpj16App]= useState();//porto il file pdf preso da Impostazioni.js
   const [pjCH,setPjCH]=useState();//porto il file pdf preso da Impostazioni.js
+  const [pjPanier, setPjPanier]=useState();//porto il file pdf preso da Impostazioni.js
   const [numeroPages, setNumeroPages] = useState('0');
   const [appLista, setAppLista]= useState('');
   const [appData,setAppData]=useState('')
@@ -49,6 +53,7 @@ function App() {
   const [appControllatoNdi, setAppControllatoNdi]= useState('') // al numero di elementi appartiene l'elemento controllato
   const [visualizzaModulo, setVisualizzaModulo]= useState(false)
   const [visualizzaModuloCHApp, setAppVisualizzaModuloCH]= useState(false) //se è true mi visualizza il modulo CH
+  const [visualizzaModuloPanierApp, setAppVisualizzaModuloPanier]= useState(false) //se è true mi visualizza il modulo Panier
   const [sceltaModuloApp, setSceltaModuloApp]= useState('0') //se è 8 pj8 se è 16 pj16 questo mi permette di creare moduli diversi a seconda della scelta
   //const [filePj8Json1App, setFilePj8Json1App]= useState([]) //recupero il modulo pj8 da visualizzare in una tabella CANCELLATO, HO USATO LOCAL STORAGE
   //const [filePj16JsonApp, setFilePj16JsonApp]= useState([]) //recupero il modulo pj16 da visualizzare in una tabella
@@ -58,6 +63,7 @@ function App() {
   const [listaPagina2Pj16App, setListaPagina2Pj16App]=useState([]) //recupero i valori pagina 2 pj16 da mandare in stampa
   const [appPulisciCampo, setAppPulisciCampo]=useState(false)
   const [elementoCHSceltoApp, setAppElementoCHScelto]= useState('') //recupero l'elemento scelto
+  const [elementoPanierSceltoApp, setAppElementoPanierScelto]=useState('')
   //cancello dati nella textbox di Data.js
    const handleCancel = ()=>{
     setAppInputValue('')
@@ -74,7 +80,7 @@ function App() {
   //   }
   
   // },[appLista])
-  console.log('elemento CH scelto:', elementoCHSceltoApp)
+  //console.log('elemento CH scelto:', elementoCHSceltoApp)
 
   //recupero il numero dopo N. di elementi dalla stringa ricevuta da appControllatoNdi che arriva da ElementiSaldati.js
   useEffect(()=>{
@@ -116,9 +122,15 @@ function App() {
   let checkListDimensioniPj8View;
   let checkListDimensioniPj16View
   let checklistPj16View;
+
   let checkListCHView;
   let checkListCHDimensioniView;
   let elencoCHView;
+
+  let checkListPanierView;
+  let checkListPanierDimensioniView;
+  let elencoPanierView;
+
 
   let footer;
   // console.log('App 124 Visualizza modulo CH:',visualizzaModuloCHApp)
@@ -239,7 +251,48 @@ function App() {
     appPlan={appPlan}
     onCancel={handleCancel}//mi serve per eliminare il campo da Data.js
     setAppPulisciCampo={setAppPulisciCampo} //pulisce i campi di CheckListDimensioniPj8View/CheckListDimensioniPj16View
+    appInputValue={appInputValue} //contiene data?
     />
+
+  }
+  //se sono PANIER allora eseguo:
+  else if(visualizzaModuloPanierApp){
+    data=<Data setAppData={setAppData}  appInputValue={appInputValue} setAppInputValue={setAppInputValue} sceltaModuloApp={sceltaModuloApp}  />
+    operatore = <Operatore setAppOperatore={setAppOperatore} sceltaModuloApp={sceltaModuloApp} /> 
+    macchineView = <MacchineView setMacchinaSceltaApp={setMacchinaSceltaApp} sceltaModuloApp={sceltaModuloApp}  />
+    checkListPanierView = <CheckListPanierView setListaPagina1Pj16App={setListaPagina1Pj16App} />
+    checkListPanierDimensioniView=<CheckListDimensioniPanierView setListaPagina2Pj16App={setListaPagina2Pj16App} />
+    elencoPanierView=<ElencoPanierView setAppElementoPanierScelto={setAppElementoPanierScelto} />
+    footer=<Footer 
+    setAppRecuperaLista={setAppRecuperaLista}
+    appLista={appLista}
+    appCliente={appCliente} 
+    appCantiere={appCantiere}
+    appData={appData}
+    appOperatore={appOperatore}
+    pj8App={pj8App}
+    pj16App={pj16App}
+    pjCH={pjCH}
+    pjPanier={pjPanier}
+    appParametriStampa={appParametriStampa}
+    listaPagina1Pj8App={listaPagina1Pj8App}
+    listaPagina2Pj8App={listaPagina2Pj8App}
+    listaPagina1Pj16App={listaPagina1Pj16App}
+    listaPagina2Pj16App={listaPagina2Pj16App}
+    saldatoreSceltoApp={saldatoreSceltoApp}
+    elementoCHSceltoApp={elementoCHSceltoApp}
+    elementoPanierSceltoApp={elementoPanierSceltoApp}
+    appElementoScelto={appElementoScelto}
+    tipologiaSceltaApp={tipologiaSceltaApp}
+    macchinaSceltaApp={macchinaSceltaApp}
+    appControllatoNdi={appControllatoNdi}
+    appOpera={appOpera}
+    appPlan={appPlan}
+    onCancel={handleCancel}//mi serve per eliminare il campo da Data.js
+    setAppPulisciCampo={setAppPulisciCampo} //pulisce i campi di CheckListDimensioniPj8View/CheckListDimensioniPj16View
+    appInputValue={appInputValue} //contiene data?
+    />
+
   }
    else {
     
@@ -248,8 +301,10 @@ function App() {
     setpj8App={setpj8App} 
     setpj16App={setpj16App} 
     setPjCH={setPjCH}
+    setPjPanier={setPjPanier}
     setVisualizzaModulo={setVisualizzaModulo} 
     setAppVisualizzaModuloCH={setAppVisualizzaModuloCH}
+    setAppVisualizzaModuloPanier={setAppVisualizzaModuloPanier}
     setSceltaModuloApp={setSceltaModuloApp}
     //setFilePj16JsonApp={setFilePj16JsonApp}
     />
@@ -318,7 +373,18 @@ function App() {
               {checkListCHDimensioniView}
               {footer}
             </div>
-            : <p>&copy;2024 WM</p>
+            : visualizzaModuloPanierApp ?
+            <div>
+            <h1 className='panier'>Controllo Panier</h1>
+            {data}
+            {operatore}
+            {macchineView}
+            {elencoPanierView}
+            {checkListPanierView}
+            {checkListPanierDimensioniView}
+            {footer}
+          </div>
+           :<p>&copy;2024 WM ver: 0.0.1</p>
             }
             
        

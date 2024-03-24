@@ -22,6 +22,20 @@ h2 {
     text-align: center;
     margin: 20px;
 }
+.containerOperatorePanier {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(240, 237, 162);
+    margin:20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */
+}
+
+.inputBoxOperatorePanier {
+    font-size: 25px;
+    font-weight: 400;
+    text-align: center;
+    margin: 20px;
+}
 .inputBoxOperatore {
     font-size: 15px;
     font-weight: 200;

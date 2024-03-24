@@ -43,9 +43,13 @@ const MacchineView = ({setMacchinaSceltaApp,sceltaModuloApp}) => {
 
 
   return (
-    <div className={sceltaModuloApp === 'ch' ? 'containerMacchineCH select_macchineCH' :'containerMacchine select_macchine'}>
+    <div className={sceltaModuloApp === 'ch' ? 'containerMacchineCH select_macchineCH' :
+    sceltaModuloApp === 'panier' ? 'containerMacchinePanier select_macchinePanier' :
+    'containerMacchine select_macchine'}>
         <h3>Macchine:</h3>
-        <select className={sceltaModuloApp === 'ch' ? 'select_macchineCH' :' select_macchine'} onChange={handleSelectChange} >
+        <select className={sceltaModuloApp === 'ch' ? 'select_macchineCH' :
+        sceltaModuloApp === 'panier' ? 'select_macchinePanier' :
+        ' select_macchine'} onChange={handleSelectChange} >
          {
             elencoMacchine.map((macchine, index)=>(
                 <option key={index} value={macchine}>

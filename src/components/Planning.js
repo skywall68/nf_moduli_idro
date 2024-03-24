@@ -79,7 +79,7 @@ const Planning = () => {
    //className={!isGreen ?'containerPjPdf':'containerPjPdfGreen'}>
   return (
     <div className={!isGreen ?'containerPlanning':'containerPlanningGreen'} ><h2>Planning</h2>
-    <label htmlFor="fileInput">Seleziona planning:</label>
+    <label htmlFor="fileInput"></label>
      <input type="file" accept='.xls' onChange={handleFileUpload} style={{fontSize:20}}/>
     </div>
   )

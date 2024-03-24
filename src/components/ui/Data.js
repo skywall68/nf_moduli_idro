@@ -1,4 +1,4 @@
-import React,{ useState} from 'react'
+import React,{ useState, useEffect} from 'react'
 
 import './Data.css'
 
@@ -15,12 +15,20 @@ const Data = ({appData, setAppData, appInputValue,setAppInputValue,sceltaModuloA
 const handleInputChange =(e)=>{
   setAppInputValue(e.target.value)
   setAppData(e.target.value)
+ 
 }
+
+
+
    return (
-         <div className={sceltaModuloApp === 'ch' ? 'containerDataCH' : 'containerData'}>
-             <h2>Data:</h2>
+         <div className={sceltaModuloApp === 'ch' ? 'containerDataCH' :
+          sceltaModuloApp === 'panier' ? 'containerDataPanier'
+          : 'containerData'}>
+             <h2>Data:{appInputValue}</h2>
              <input
-             className={sceltaModuloApp === 'ch' ? 'inputBoxCH' : 'inputBox'}
+             className={sceltaModuloApp === 'ch' ? 'inputBoxCH' :
+             sceltaModuloApp === 'panier' ? 'inputBoxPanier'
+             : 'inputBox'}
              type='text'
              value={appInputValue}
              onChange={handleInputChange}

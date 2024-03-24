@@ -6,7 +6,7 @@ const ElencoPanierSceltaFile = () => {
     const [elencoTxt, setElencoTxt]=useState([])
     const [isGreen, setIsGreen]=useState(false)
 
-     //memorizzo in localstorage
+     //memorizzo in localstorage elenco panier
     useEffect(()=>{
     localStorage.setItem('elencoPanier',JSON.stringify(elencoTxt))
    
@@ -49,8 +49,8 @@ const ElencoPanierSceltaFile = () => {
 
 
   return (
-    <div className={!isGreen ? 'containerPanierElenco' :'containerPanierElencoGreen'  }><h2>Carico elenco Panier</h2>
-    <label htmlFor="fileInput">Seleziona Panier:</label>
+    <div className={!isGreen ? 'containerPanierElenco' :'containerPanierElencoGreen'  }><h2>Carico elencoPanier</h2>
+    <label htmlFor="fileInput"></label>
     <input type='file' accept='.pan' onChange={handleFileChange} style={{fontSize:20}}/>
     </div>
   )

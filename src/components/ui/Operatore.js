@@ -11,10 +11,14 @@ const Operatore = ({setAppOperatore,sceltaModuloApp}) => {
  //setAppOperatore(operatore)
 
   return (
-    <div className={sceltaModuloApp ==='ch' ?'containerOperatoreCH':'containerOperatore'}>
+    <div className={sceltaModuloApp ==='ch' ?'containerOperatoreCH':
+    sceltaModuloApp ==='panier' ?'containerOperatorePanier':
+    'containerOperatore'}>
         <h2>Operatore:</h2>
         <input
-        className={sceltaModuloApp ==='ch' ?'inputBoxOperatoreCH':'inputBoxOperatore'}
+        className={sceltaModuloApp ==='ch' ?'inputBoxOperatoreCH':
+        sceltaModuloApp ==='panier' ?'inputBoxOperatorePanier':
+        'inputBoxOperatore'}
         type='text'
         onChange={handleInputChange}
          />

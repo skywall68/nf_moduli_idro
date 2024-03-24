@@ -20,7 +20,9 @@ const Footer = ({
   pj8App,//file pdf
   pj16App,//file pdf
   pjCH,
+  pjPanier,
   elementoCHSceltoApp, //elemento ch
+  elementoPanierSceltoApp, //elemento panier 
   appElementoScelto,
   appControllatoNdi,
   listaPagina1Pj8App,//prima pagina di pj8 
@@ -31,7 +33,8 @@ const Footer = ({
   tipologiaSceltaApp,
   macchinaSceltaApp,
   onCancel,
-  setAppPulisciCampo
+  setAppPulisciCampo,
+  appInputValue //data?
 
 }) => {
 
@@ -52,7 +55,10 @@ const [ azioneCurativaXpag2, setAzioneCurativaXpag2]= useState() //valore azione
 const [controllato1DiYX, setControllato1DiYX] = useState([]) //valori x e y di Controllato 1 elemento di
 const [dataControlloYX, setDataControlloYX]= useState([])  //valori x e y di data controllo
 const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
+
   
+
+
 
 //recupero parametri stampa:
   
@@ -131,7 +137,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
 
  
 
- //********************gestione del Modal************************ */
+ //********************gestione del Modal CONFERMA************************ */
  const openModalPrintHandler = ()=>{   //chiamata dal tasto CONFERMA
   
 
@@ -145,8 +151,8 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
   }
    else {
     
-    console.log('Dentro footer la data è in else:',appData)
-    console.log('sono dentro conferma e vediamo i dati:',listaPagina2Pj8App)
+    console.log('Dentro footer la data è in else:',appData, appInputValue)
+    //console.log('sono dentro conferma e vediamo i dati:',listaPagina2Pj8App)
     setShowModalPrint(true)// mi apre una finestra modal quando premo tasto conferma
     // console.log('font:',fontSizeX)
     // console.log('non conforme:',nonConformeX)
@@ -167,14 +173,20 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
  //************************************************************** */
   //elenco delle parti da stampare:
   
- const dataControllo =appData
+ let dataControllo = appData
   
   let lista = ''
   if(appElementoScelto !==''){
     lista = appLista
   } else if (elementoCHSceltoApp !==''){
     lista ='CH'
+    dataControllo = appInputValue
+  } else if (elementoPanierSceltoApp !==''){
+    lista ='Panier'
+    dataControllo = appInputValue
+   
   }
+    
   const operatore = appOperatore
   const cliente = appCliente
   const saldatori = saldatoreSceltoApp
@@ -185,7 +197,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
   let tipologia = ''
   if(appElementoScelto !==''){
     tipologia = tipologiaSceltaApp
-  } else if(elementoCHSceltoApp !==''){
+  } else if(elementoCHSceltoApp !=='' || elementoPanierSceltoApp !==''){  //??????????????????????????????
     tipologia=''
   }
 
@@ -197,6 +209,8 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
      etichetta = appElementoScelto
   } else if(elementoCHSceltoApp !==''){
     etichetta = elementoCHSceltoApp
+  } else if (elementoPanierSceltoApp !==''){
+    etichetta = elementoPanierSceltoApp  //mi stampa etichetta
   }
   
   const parametri_stampa = parametriStampa
@@ -230,9 +244,17 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     pdfFile=pjCH
     listaPagina1=listaPagina1Pj8App
     listaPagina2=listaPagina2Pj8App
-    nomeAbbreviatoPDF='CH'
+    nomeAbbreviatoPDF='ch'
     macchinaOsaldatori=macchina
    }
+   if(pjPanier){
+    pdfFile=pjPanier
+    listaPagina1=listaPagina1Pj16App
+    listaPagina2=listaPagina2Pj16App
+    nomeAbbreviatoPDF=`${dataControllo}_pan`
+    macchinaOsaldatori=macchina
+   }
+
    const paginaUnoAlto = [spuntaFabbrica,spuntaSuPiano,tipologia,cantiere,opera,cliente,plan,lista,etichetta,macchinaOsaldatori,] //cicla questi valori
    //DEVO CONTROLLARE LA LUNGHEZZA NOME CANTIERE - NOME CLIENTE - RIF.OPERA  se la lunghezza supera un determinato valore ACCORCIAMO o dimminuiamo il font
    const indexNomeCantiere=paginaUnoAlto.indexOf(cantiere) //mi cerca l'indice dove si trova NOME CANTIERE
@@ -246,11 +268,15 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
       console.log('troncato:',nuovoNomeCantiere)
 
      }
-   }
+   }//fine controllo lunghezza cantiere
 
 
   //*************************FUNZIONE DI STAMPA************************************************************ */
   const stampaFilePdf = async ()=>{
+    if(dataControllo===''){
+      alert('data mancante')
+      return
+    }
     let testoDaStampare=''
     
     try {
@@ -407,6 +433,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
       setAppRecuperaLista(appLista)
     } catch (error) {
       console.error("Errore durante l'analisi del documento PDF:", error.message);
+      console.log('data:',dataControllo, 'lista:',lista,'nome abbreviato:',nomeAbbreviatoPDF)
     }
 
   }
@@ -431,7 +458,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
   } else if(tipologia ==='Scegli') {
     alert('Scegliere la tipologia')
     closeModalPrintHandler();
-  }
+  } 
   
   else {
     alert('errore generico')
@@ -444,6 +471,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
   const handleCancel =()=>{
     onCancel();//metodo che arriva da App.js
     setAppPulisciCampo(true)
+    
   }
 
 const nodeRef = useRef(null);

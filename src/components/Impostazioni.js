@@ -14,6 +14,8 @@ import { blue, yellow } from '@mui/material/colors'
 import Planning from './Planning'
 import CheckListCH from './ch/CheckListCH'
 import ElencoCHSceltaFile from './ch/ElencoCHSceltaFile'
+import CheckListPanier from './panier/CheckListPanier'
+import ElencoPanierSceltaFile from './panier/ElencoPanierSceltaFile'
 import './Tasto.css'
 
 // PJ 8 - rev 6 - CH    Se scelgo i CH
@@ -23,9 +25,11 @@ const Impostazioni = ({
   setpj8App, 
   setpj16App,
   setPjCH,
+  setPjPanier,
   setVisualizzaModulo,
   setSceltaModuloApp,
   setAppVisualizzaModuloCH,
+  setAppVisualizzaModuloPanier,
 
   
   
@@ -35,7 +39,8 @@ const Impostazioni = ({
   const [selectedFile, setSelectedFile]= useState(null) //mi memorizza solo il nome
   const [selectedParametriStampa, setSelectedParametriStampa]= useState(false)//se il file è stato selezionato mi da 'true' per visualizzare il tasto 'OK'
   const [selectMacchineOrsaldatori,setSelectMacchineOrsaldatori]=useState(false)
-  const [selectCH, setSelectCH]=useState(false) //
+  const [selectCH, setSelectCH]=useState(false) //se viene selezionato CH
+  const [selectPanier, setSelectPanier]=useState(false)
   const [selectTipologia,setSelectTipologia]=useState(false) //controlla che abbia scelto il file tipologia
   // const [filePj8Json1, setFilePj8Json1] = useState([]) //memorizzo il file pj8 per la tabella
   // const [filePj16Json, setFilePj16Json] = useState([]) //memorizzo il file pj16 per la tabella
@@ -54,7 +59,7 @@ const Impostazioni = ({
     
     try {
       
-      // porto in App.js i valori dei 3 pdf 
+      // porto in App.js i valori dei 4 pdf 
       if(pdfFile.name === 'PJ 8 - rev 6 - IT.pdf'){
        modulo='8pj'
        setpj8App(pdfFile)
@@ -71,6 +76,12 @@ const Impostazioni = ({
         setPjCH(pdfFile)
         setSceltaModuloApp(modulo) // mi serve per modificare i css di operatore, macchine, data
         setAppVisualizzaModuloCH(true) //mi determina i moduli CH che si aprono in App.js
+
+      } else if (pdfFile.name === 'PJ 16 - rev 2 - PANIER.pdf'){
+        modulo='panier'
+        setPjPanier(pdfFile)
+        setSceltaModuloApp(modulo) // mi serve per modificare i css di operatore, macchine, data
+        setAppVisualizzaModuloPanier(true) //mi determina i moduli CH che si aprono in App.js
 
       }
 
@@ -91,6 +102,8 @@ const Impostazioni = ({
   let checlistpj16;
   let checklistCH;
   let elencoCHSceltaFile;
+  let checklistPanier;
+  let elencoPanierSceltaFile;
   let vuoto;
   let planning;
 
@@ -112,6 +125,12 @@ const Impostazioni = ({
     checklistCH=<CheckListCH setSelectCH={setSelectCH} />
     elencoCHSceltaFile = <ElencoCHSceltaFile/> //mi memorizza il file elenco CH
 
+  }else if (selectedFile === 'PJ 16 - rev 2 - PANIER.pdf'){
+    parametriStampa=<ParametriStampa setSelectedParametriStampa={setSelectedParametriStampa} selectedFile={selectedFile} />
+    elencoMacchine= <ElencoMacchine setSelectMacchineOrsaldatori={setSelectMacchineOrsaldatori} />
+    checklistPanier=<CheckListPanier setSelectPanier={setSelectPanier} />
+    elencoPanierSceltaFile = <ElencoPanierSceltaFile/> //mi memorizza il file elenco panier
+
   }
   else {
     vuoto="<h2>Nessun parametro scelto!!</h2>"
@@ -121,7 +140,7 @@ const Impostazioni = ({
   
 
  return (
-    <div className='containerImpostazioni'> <h1>Impostazioni:</h1>
+    <div className='containerImpostazioni'> <h1>Moduli:</h1>
 
       
      {/* {selectedParametriStampa ? <ScegliPjPDF setPjPdf={setPjPdf} setSelectedFile={setSelectedFile} /> : <h3></h3> } */}
@@ -139,6 +158,9 @@ const Impostazioni = ({
         {checlistpj16}
         {elencoCHSceltaFile}
         {checklistCH}
+         {elencoPanierSceltaFile}
+        {checklistPanier}
+       
        
         
       </div>
@@ -148,7 +170,8 @@ const Impostazioni = ({
       selectMacchineOrsaldatori && 
       selectedPj8OrPj16 && 
       selectTipologia || 
-      selectCH
+      selectCH ||
+      selectPanier
         ? <button className='button' onClick={importPDF} > OK </button> : <h3></h3> }
        {/* ? <Tasto onClick={importPDF}>OK</Tasto> : <h3></h3> } */}
        

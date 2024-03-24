@@ -1,29 +1,29 @@
-//visualizzo la prima parte della lista pj8 in tabella da 1 a 6
+//mi visualizza la prima pagina in formato tabellare
 import React, { useState, useEffect} from 'react'
 
-import './CheckListCHView.css'
+import './CheckListPanierView.css'
 
-const CheckListCHView = ({setListaPagina1Pj8App}) => {
-
+const CheckListPanierView = ({setListaPagina1Pj16App}) => {
   const [controlli, setControlli] = useState([])
+   //prendo il file json da local storage panierCompleto
+   const filePanierJson1 =localStorage.getItem('jsonFileCH')
 
-  useEffect(()=>{
-    //prendo il file ch_Completo json da local storage 
-   const fileCHJson1 =localStorage.getItem('jsonFileCH')
-   let fileArrayOggetti =[]
-   if (fileCHJson1) {
-     fileArrayOggetti = JSON.parse(fileCHJson1);
-   }
-   //recupero i primi sette valori e li metto dentro useState
-   const fileArrayObjFiltrato = fileArrayOggetti.filter(elemento => elemento.id >=1 && elemento.id <=7)
-    setControlli(fileArrayObjFiltrato)
-  },[])
+   useEffect(()=>{
+    let fileArrayOggetti =[]
+    if (filePanierJson1) {
+      fileArrayOggetti = JSON.parse(filePanierJson1);
+    }
+     //recupero i primi cinque valori e li metto dentro useState
+   const fileArrayObjFiltrato = fileArrayOggetti.filter(elemento => elemento.id >=1 && elemento.id <=5)
+   setControlli(fileArrayObjFiltrato)
+   },[])
 
- //***********mi permette di nascondere la tabella***********************
+   //***********mi permette di nascondere la tabella***********************
  const [mostraTabella, setMostraTabella] = useState(true);  
  const handleToggleTabella = () => {
    setMostraTabella((prev) => !prev);
 }; 
+
 //*************Recupero i valori nella option box********************** 
 const handleOptionChange =(id, conformeValue)=>{
   const updatedItems = controlli.map(item =>{
@@ -36,40 +36,48 @@ const handleOptionChange =(id, conformeValue)=>{
     return item;
   });
   setControlli(updatedItems)
-  setListaPagina1Pj8App(updatedItems) //recupero i valori per portarli in App.js per poi stamparli
+  setListaPagina1Pj16App(updatedItems) //recupero i valori per portarli in App.js per poi stamparli
   }
   console.log('valore Recupero i valori nella option box:',controlli)
   //************************************************************************ */
-    //******************Recupero i commenti ************************************* */
-    const handleInputChangeCommenti = (id,field,value) =>{
-      setControlli((prevControlli)=>
-      prevControlli.map((commento)=>
-      commento.id === id ? {...commento,[field]:value}: commento
-       )
+   //******************Recupero i commenti ************************************* */
+   const handleInputChangeCommenti = (id,field,value) =>{
+    setControlli((prevControlli)=>
+    prevControlli.map((commento)=>
+    commento.id === id ? {...commento,[field]:value}: commento
      )
-     console.log(`ID: ${id}, Campo: ${field}, Valore: ${value}`);
-     setListaPagina1Pj8App(controlli) //recupero i valori per portarli in App.js per poi stamparli ??????????????????????????????????
-   }
-   //*************************************************************************** */
-   //***********************Recupero le azioni********************************** */
-   const handleInputChangeAzione = (id,field,value) =>{
+   )
+   console.log(`ID: ${id}, Campo: ${field}, Valore: ${value}`);
+   setListaPagina1Pj16App(controlli) //recupero i valori per portarli in App.js per poi stamparli ??????????????????????????????????
+ }
+ //*************************************************************************** */
+  //***********************Recupero le azioni********************************** */
+  const handleInputChangeAzione = (id,field,value) =>{
    
     setControlli((prevControlli)=>
       prevControlli.map((azione)=>
        azione.id === id ? {...azione,[field]:value}: azione
       )
     )
-    setListaPagina1Pj8App(controlli) //recupero i valori per portarli in App.js per poi stamparli 
+    setListaPagina1Pj16App(controlli) //recupero i valori per portarli in App.js per poi stamparli 
   }
 
   //aggiornamento prima di mandare il valori ad App.js perchè se inserisco un solo valore non viene aggiornato
   useEffect(()=>{
-    setListaPagina1Pj8App(controlli)
+    setListaPagina1Pj16App(controlli)
   },[controlli])
   //************************************************************************** */
+
+
+
+
+
+
+
+
   return (
-    <div className='containerCheckListCHView'>
-        <div className='bottoneCH'>
+    <div className='containerCheckListPanierView'>
+      <div className='bottoneCH'>
            <button onClick={handleToggleTabella}>
            {mostraTabella ? 'O' : 'V'}
            </button>
@@ -144,8 +152,7 @@ const handleOptionChange =(id, conformeValue)=>{
           )}
          </div>
     </div>
-    
   )
 }
 
-export default CheckListCHView
+export default CheckListPanierView
