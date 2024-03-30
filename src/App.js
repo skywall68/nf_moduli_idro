@@ -64,6 +64,7 @@ function App() {
   const [appPulisciCampo, setAppPulisciCampo]=useState(false)
   const [elementoCHSceltoApp, setAppElementoCHScelto]= useState('') //recupero l'elemento scelto
   const [elementoPanierSceltoApp, setAppElementoPanierScelto]=useState('')
+  const [elencoAzioniApp, setElencoAzioniApp]=useState([])
   //cancello dati nella textbox di Data.js
    const handleCancel = ()=>{
     setAppInputValue('')
@@ -103,8 +104,23 @@ function App() {
   },
   [tipologiaSceltaApp,appElementoScelto])
 
-  
-
+  //creo una funzione che mi recupera da local storage la lista di Azioni
+  const elencoAzioniData = ()=>{
+    try {
+      const elencoStringa = localStorage.getItem('elencoAzioni')
+      if(elencoStringa){
+        const elencoArray = JSON.parse(elencoStringa)
+        setElencoAzioniApp(elencoArray)
+        console.log('Elenco AZIONI:',elencoAzioniApp)
+      }
+      
+    } catch (error) {
+      console.log('Errore nel recupero dati elenco Azioni da localStorage:', error);
+    }
+  }
+  useEffect(()=>{
+    elencoAzioniData()
+  },[])
 
   
   //creiamo la condizione di vedere o non vedere gli elementi :
@@ -165,8 +181,8 @@ function App() {
                 if(sceltaModuloApp === '8pj'){
                   //console.log('in App il modulo scelto è:',sceltaModuloApp)
                   saldatoriView = <SaldatoriView setSaldatoreSceltoApp={setSaldatoreSceltoApp}  />
-                  checkListPj8View1= <CheckListPj8View1  setListaPagina1Pj8App={setListaPagina1Pj8App} /> //mi carica la prima pagina per la spunta option
-                  checkListDimensioniPj8View=<CheckListDimensioniPj8View setListaPagina2Pj8App={setListaPagina2Pj8App} appPulisciCampo={appPulisciCampo} setAppPulisciCampo={setAppPulisciCampo} /> //mi carica la seconda pagina per la spunta checkbox
+                  checkListPj8View1= <CheckListPj8View1  setListaPagina1Pj8App={setListaPagina1Pj8App}  elencoAzioniApp={elencoAzioniApp} /> //mi carica la prima pagina per la spunta option  porto elenco azioni
+                  checkListDimensioniPj8View=<CheckListDimensioniPj8View setListaPagina2Pj8App={setListaPagina2Pj8App} appPulisciCampo={appPulisciCampo} setAppPulisciCampo={setAppPulisciCampo} elencoAzioniApp={elencoAzioniApp} /> //mi carica la seconda pagina per la spunta checkbox
                   //Visualizza Elenco elementi saldati
                   elementiSaldati =<ElementiSaldati
                               appElementi={appElementi} 
@@ -175,8 +191,8 @@ function App() {
                 } else if( sceltaModuloApp === '16pj') {
                 // console.log('in App il modulo scelto è:',sceltaModuloApp)
                   macchineView = <MacchineView setMacchinaSceltaApp={setMacchinaSceltaApp}  />
-                  checklistPj16View = <CheckListPj16View setListaPagina1Pj16App={setListaPagina1Pj16App} />  //mi carica la prima pagina per la spunta option
-                  checkListDimensioniPj16View=<CheckListDimensioniPj16View setListaPagina2Pj16App={setListaPagina2Pj16App} appPulisciCampo={appPulisciCampo} setAppPulisciCampo={setAppPulisciCampo}/> //mi carica la seconda pagina per la spunta checkbox
+                  checklistPj16View = <CheckListPj16View setListaPagina1Pj16App={setListaPagina1Pj16App} elencoAzioniApp={elencoAzioniApp} />  //mi carica la prima pagina per la spunta option
+                  checkListDimensioniPj16View=<CheckListDimensioniPj16View setListaPagina2Pj16App={setListaPagina2Pj16App} appPulisciCampo={appPulisciCampo} setAppPulisciCampo={setAppPulisciCampo} elencoAzioniApp={elencoAzioniApp}/> //mi carica la seconda pagina per la spunta checkbox
                   elementiLavorati=<ElementiLavorati
                               appElementi={appElementi} 
                               setAppElementoScelto={setAppElementoScelto} 
@@ -216,6 +232,7 @@ function App() {
       appPlan={appPlan}
       onCancel={handleCancel}//mi serve per eliminare il campo da Data.js
       setAppPulisciCampo={setAppPulisciCampo} //pulisce i campi di CheckListDimensioniPj8View/CheckListDimensioniPj16View
+     
       />
     //***************************fine raccolta per la stampa pj8 e pj16******************************************** */
     //SE UN MODULO CH
@@ -223,8 +240,8 @@ function App() {
     data=<Data setAppData={setAppData}  appInputValue={appInputValue} setAppInputValue={setAppInputValue} sceltaModuloApp={sceltaModuloApp}  />
     operatore = <Operatore setAppOperatore={setAppOperatore} sceltaModuloApp={sceltaModuloApp} /> 
     macchineView = <MacchineView setMacchinaSceltaApp={setMacchinaSceltaApp} sceltaModuloApp={sceltaModuloApp}  />
-    checkListCHView=<CheckListCHView setListaPagina1Pj8App={setListaPagina1Pj8App} />
-    checkListCHDimensioniView=<CheckListCHDimensioniView setListaPagina2Pj8App={setListaPagina2Pj8App} appPulisciCampo={appPulisciCampo} setAppPulisciCampo={setAppPulisciCampo}/>
+    checkListCHView=<CheckListCHView setListaPagina1Pj8App={setListaPagina1Pj8App} elencoAzioniApp={elencoAzioniApp} />
+    checkListCHDimensioniView=<CheckListCHDimensioniView setListaPagina2Pj8App={setListaPagina2Pj8App} appPulisciCampo={appPulisciCampo} setAppPulisciCampo={setAppPulisciCampo} elencoAzioniApp={elencoAzioniApp}/>
     elencoCHView=<ElencoCHView setAppElementoCHScelto={setAppElementoCHScelto} />
     footer=<Footer 
     setAppRecuperaLista={setAppRecuperaLista}
@@ -252,6 +269,7 @@ function App() {
     onCancel={handleCancel}//mi serve per eliminare il campo da Data.js
     setAppPulisciCampo={setAppPulisciCampo} //pulisce i campi di CheckListDimensioniPj8View/CheckListDimensioniPj16View
     appInputValue={appInputValue} //contiene data?
+    
     />
 
   }
@@ -260,8 +278,8 @@ function App() {
     data=<Data setAppData={setAppData}  appInputValue={appInputValue} setAppInputValue={setAppInputValue} sceltaModuloApp={sceltaModuloApp}  />
     operatore = <Operatore setAppOperatore={setAppOperatore} sceltaModuloApp={sceltaModuloApp} /> 
     macchineView = <MacchineView setMacchinaSceltaApp={setMacchinaSceltaApp} sceltaModuloApp={sceltaModuloApp}  />
-    checkListPanierView = <CheckListPanierView setListaPagina1Pj16App={setListaPagina1Pj16App} />
-    checkListPanierDimensioniView=<CheckListDimensioniPanierView setListaPagina2Pj16App={setListaPagina2Pj16App} />
+    checkListPanierView = <CheckListPanierView setListaPagina1Pj16App={setListaPagina1Pj16App} elencoAzioniApp={elencoAzioniApp} />
+    checkListPanierDimensioniView=<CheckListDimensioniPanierView setListaPagina2Pj16App={setListaPagina2Pj16App} elencoAzioniApp={elencoAzioniApp} />
     elencoPanierView=<ElencoPanierView setAppElementoPanierScelto={setAppElementoPanierScelto} />
     footer=<Footer 
     setAppRecuperaLista={setAppRecuperaLista}
@@ -291,6 +309,7 @@ function App() {
     onCancel={handleCancel}//mi serve per eliminare il campo da Data.js
     setAppPulisciCampo={setAppPulisciCampo} //pulisce i campi di CheckListDimensioniPj8View/CheckListDimensioniPj16View
     appInputValue={appInputValue} //contiene data?
+    
     />
 
   }
@@ -384,7 +403,7 @@ function App() {
             {checkListPanierDimensioniView}
             {footer}
           </div>
-           :<p>&copy;2024 WM ver: 0.0.1</p>
+           :<p>&copy;2024 WM ver: 0.0.2</p>
             }
             
        

@@ -4,7 +4,7 @@ import React, { useState, useEffect} from 'react'
 import './CheckListDimensioniPj8View.css'
 
 
-const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, setAppPulisciCampo}) => {
+const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, setAppPulisciCampo,elencoAzioniApp}) => {
     //recupero la seconda  parte del modulo pj8 da local storage
     const [controlli, setControlli] = useState([])
     const [inizioControlli, setInizioControlli]=useState([])

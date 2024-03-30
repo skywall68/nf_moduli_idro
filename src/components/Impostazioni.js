@@ -4,6 +4,7 @@ import { PDFDocument } from 'pdf-lib'
 import './Impostazioni.css'
 
 import ElencoMacchine from './ElencoMacchine'
+import ElencoAzioni from './ElencoAzioni'
 import ParametriStampa from './ParametriStampa'
 import ElencoSaldatori from './ElencoSaldatori';
 import CheckListPj8 from './CheckListPj8';
@@ -97,6 +98,7 @@ const Impostazioni = ({
  let parametriStampa;
   let elencoSaldatori;
   let elencoMacchine;
+  let elencoAzioni;
   let elencoTipologia;
   let checklistPj8;
   let checlistpj16;
@@ -109,24 +111,29 @@ const Impostazioni = ({
 
   if(selectedFile === 'PJ 8 - rev 6 - IT.pdf'){
     parametriStampa=<ParametriStampa setSelectedParametriStampa={setSelectedParametriStampa} selectedFile={selectedFile} />
+    elencoAzioni=<ElencoAzioni setSelectMacchineOrsaldatori={setSelectMacchineOrsaldatori} />
     elencoSaldatori= <ElencoSaldatori setSelectMacchineOrsaldatori={setSelectMacchineOrsaldatori}/>
     checklistPj8= <CheckListPj8 setSelectedPj8OrPj16={setSelectedPj8OrPj16} /> 
     elencoTipologia = <ElencoTipologia setSelectTipologia={setSelectTipologia} />
     planning=<Planning />
+    
   } else if (selectedFile === 'PJ 16 - rev 2 - IT.pdf'){
     parametriStampa=<ParametriStampa setSelectedParametriStampa={setSelectedParametriStampa} selectedFile={selectedFile} />
+    elencoAzioni=<ElencoAzioni setSelectMacchineOrsaldatori={setSelectMacchineOrsaldatori} />
     elencoMacchine= <ElencoMacchine setSelectMacchineOrsaldatori={setSelectMacchineOrsaldatori} />
     checlistpj16=<CheckListPj16 setSelectedPj8OrPj16={setSelectedPj8OrPj16} />
     elencoTipologia = <ElencoTipologia setSelectTipologia={setSelectTipologia} />
     planning=<Planning />
   } else if (selectedFile === 'PJ 8 - rev 6 - CH.pdf'){
     parametriStampa=<ParametriStampa setSelectedParametriStampa={setSelectedParametriStampa} selectedFile={selectedFile} />
+    elencoAzioni=<ElencoAzioni setSelectMacchineOrsaldatori={setSelectMacchineOrsaldatori} />
     elencoMacchine= <ElencoMacchine setSelectMacchineOrsaldatori={setSelectMacchineOrsaldatori} />
     checklistCH=<CheckListCH setSelectCH={setSelectCH} />
     elencoCHSceltaFile = <ElencoCHSceltaFile/> //mi memorizza il file elenco CH
 
   }else if (selectedFile === 'PJ 16 - rev 2 - PANIER.pdf'){
     parametriStampa=<ParametriStampa setSelectedParametriStampa={setSelectedParametriStampa} selectedFile={selectedFile} />
+    elencoAzioni=<ElencoAzioni setSelectMacchineOrsaldatori={setSelectMacchineOrsaldatori} />
     elencoMacchine= <ElencoMacchine setSelectMacchineOrsaldatori={setSelectMacchineOrsaldatori} />
     checklistPanier=<CheckListPanier setSelectPanier={setSelectPanier} />
     elencoPanierSceltaFile = <ElencoPanierSceltaFile/> //mi memorizza il file elenco panier
@@ -135,6 +142,7 @@ const Impostazioni = ({
   else {
     vuoto="<h2>Nessun parametro scelto!!</h2>"
   }
+  
   
   
   
@@ -153,6 +161,7 @@ const Impostazioni = ({
         {parametriStampa}
         {elencoSaldatori}
         {elencoMacchine}
+        {elencoAzioni}
         {elencoTipologia}
         {checklistPj8}
         {checlistpj16}

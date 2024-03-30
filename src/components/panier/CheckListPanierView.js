@@ -3,7 +3,7 @@ import React, { useState, useEffect} from 'react'
 
 import './CheckListPanierView.css'
 
-const CheckListPanierView = ({setListaPagina1Pj16App}) => {
+const CheckListPanierView = ({setListaPagina1Pj16App,elencoAzioniApp}) => {
   const [controlli, setControlli] = useState([])
    //prendo il file json da local storage panierCompleto
    const filePanierJson1 =localStorage.getItem('jsonFileCH')

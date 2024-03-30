@@ -2,10 +2,13 @@ import React, { useState, useEffect} from 'react'
 
 import './CheckListCHDimensioniView.css'
 
-const CheckListCHDimensioniView = ({setListaPagina2Pj8App, appPulisciCampo, setAppPulisciCampo}) => {
+const CheckListCHDimensioniView = ({setListaPagina2Pj8App, elencoAzioniApp, appPulisciCampo, setAppPulisciCampo}) => {
   //recupero la seconda  parte del modulo pj8 da local storage
   const [controlli, setControlli] = useState([])
   const [inizioControlli, setInizioControlli]=useState([])
+  const[ azioneSelezionata, setAzioneSelezionata]=useState('') //recupero l'azione
+  //console.log('Elenco azioni dentro CheckListCHDimensioniView:',elencoAzioniApp)
+
    //recupero il file memorizzato
     //*******prendo il file json da local storage recupero dal id7 al id20 dentro useState***************
     const filePj8CHJson1 =localStorage.getItem('jsonFileCH') 
@@ -23,21 +26,21 @@ const CheckListCHDimensioniView = ({setListaPagina2Pj8App, appPulisciCampo, setA
   
       },[])
       // //ricarico la tabella senza le spunte
-      // useEffect(()=>{
-      //   if(appPulisciCampo){
+      useEffect(()=>{
+        if(appPulisciCampo){
          
-      //     let fileArrayOggetti =[]
-      //     if (filePj8CHJson1) {
-      //       fileArrayOggetti = JSON.parse(filePj8CHJson1);
-      //     }
-      //     const fileArrayObjFiltrato = fileArrayOggetti.filter(elemento => elemento.id >=8 && elemento.id <=15)
-      //      setControlli(fileArrayObjFiltrato)
-      //      setInizioControlli(fileArrayObjFiltrato)
-      //      //console.log('chekdimensioni prima volta 3:',controlli)
-      //      //console.log('chekdimensioni prima volta 4:',inizioControlli)
-      //      setAppPulisciCampo(false)
-      //     }
-      // },[appPulisciCampo])
+          let fileArrayOggetti =[]
+          if (filePj8CHJson1) {
+            fileArrayOggetti = JSON.parse(filePj8CHJson1);
+          }
+          const fileArrayObjFiltrato = fileArrayOggetti.filter(elemento => elemento.id >=8 && elemento.id <=15)
+           setControlli(fileArrayObjFiltrato)
+           setInizioControlli(fileArrayObjFiltrato)
+           //console.log('chekdimensioni prima volta 3:',controlli)
+           //console.log('chekdimensioni prima volta 4:',inizioControlli)
+           setAppPulisciCampo(false)
+          }
+      },[appPulisciCampo])
  //******************mi permette di nascondere la tabella********************* */
       const [mostraTabella, setMostraTabella] = useState(true); //mi permette di nascondere la tabella
       //mostra tabella:
@@ -74,7 +77,7 @@ const handleInputChangeAzione = (id,field,value) =>{
   )
 )
 console.log(`(CheckCHDimensioni.js f:handleInputChangeAzione)ID: ${id}, Campo: ${field}, Valore: ${value}`);
-//setListaPagina2Pj8App(controlli)
+setListaPagina2Pj8App(controlli)
 }
 
 //aggiornamento prima di mandare il valori ad App.js
@@ -82,7 +85,7 @@ useEffect(()=>{
   setListaPagina2Pj8App(controlli)
 },[controlli])
 //*********************************fine******************************** */
-
+console.log('elenco checkListCHDimensioni:',controlli)
 
     
  return (
@@ -189,12 +192,21 @@ useEffect(()=>{
                                    />
                           </td>
                           <td>
-                             <input
+                             {/* <input
                                     type='text'
                                     value={controllo.azioneCurativa}
                                     onChange={(e)=>handleInputChangeAzione(controllo.id, 'azioneCurativa', e.target.value)}
                                     placeholder='azione curativa'
-                               />
+                               /> */}
+                               <select style={{ width: "30%", height:"60%", color: "red",cursor: "pointer" }} onChange={(e)=>handleInputChangeAzione(controllo.id, 'azioneCurativa', e.target.value)}>
+                                {
+                                  elencoAzioniApp.map((elenco, index)=>(
+                                    <option  key={index} value={elenco}>
+                                    {elenco}
+                                    </option>
+                                  ))
+                                }
+                               </select>
                           </td>
                     </tr>
                   ))

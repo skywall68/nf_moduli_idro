@@ -3,7 +3,7 @@ import React, { useState, useEffect} from 'react'
 
 import './CheckListDimensioniPanierView.css'
 
-const CheckListDimensioniPanierView = ({setListaPagina2Pj16App}) => {
+const CheckListDimensioniPanierView = ({setListaPagina2Pj16App,elencoAzioniApp}) => {
 //recupero la seconda  parte del modulo pj16 da local storage
 const [controlli, setControlli] = useState([])
 const [inizioControlli, setInizioControlli]=useState([])

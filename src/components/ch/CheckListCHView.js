@@ -3,9 +3,10 @@ import React, { useState, useEffect} from 'react'
 
 import './CheckListCHView.css'
 
-const CheckListCHView = ({setListaPagina1Pj8App}) => {
+const CheckListCHView = ({setListaPagina1Pj8App, elencoAzioniApp}) => {
 
   const [controlli, setControlli] = useState([])
+ 
 
   useEffect(()=>{
     //prendo il file ch_Completo json da local storage 

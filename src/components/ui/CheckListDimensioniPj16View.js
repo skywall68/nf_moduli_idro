@@ -1,7 +1,7 @@
 //visualizzo la seconda parte (pagina) modulo pj16
 import React, { useState, useEffect} from 'react'
 
-const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,setAppPulisciCampo}) => {
+const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,setAppPulisciCampo,elencoAzioniApp}) => {
    //recupero la seconda  parte del modulo pj8 da local storage
    const [controlli, setControlli] = useState([])
    const [inizioControlli, setInizioControlli]=useState([])

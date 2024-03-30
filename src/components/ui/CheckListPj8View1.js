@@ -1,7 +1,7 @@
 //visualizzo la prima parte della lista pj8 in tabella da 1 a 7
 import React, { useState, useEffect} from 'react'
 
-const CheckListPj8View1 = ({setListaPagina1Pj8App}) => {
+const CheckListPj8View1 = ({setListaPagina1Pj8App,elencoAzioniApp}) => {
 
    const [controlli, setControlli] = useState([])
    //uso  useEffect con la parentesi [] vuota perchè mi fa solo una volta il render, se è senza diventa un ciclo se invece ha un valore dentro viene ripetuto tutte le volte che il valore cambia

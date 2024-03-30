@@ -4,7 +4,7 @@ import React, { useState, useEffect} from 'react'
 
 import './CheckListPj16View1.css'
 
-const CheckListPj16View1 = ({setListaPagina1Pj16App}) => {
+const CheckListPj16View1 = ({setListaPagina1Pj16App,elencoAzioniApp}) => {
   const [controlli, setControlli] = useState([])
   
   

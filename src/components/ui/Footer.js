@@ -34,7 +34,8 @@ const Footer = ({
   macchinaSceltaApp,
   onCancel,
   setAppPulisciCampo,
-  appInputValue //data?
+  appInputValue,//data?
+  
 
 }) => {
 
@@ -152,6 +153,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
    else {
     
     console.log('Dentro footer la data è in else:',appData, appInputValue)
+    
     //console.log('sono dentro conferma e vediamo i dati:',listaPagina2Pj8App)
     setShowModalPrint(true)// mi apre una finestra modal quando premo tasto conferma
     // console.log('font:',fontSizeX)
@@ -179,7 +181,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
   if(appElementoScelto !==''){
     lista = appLista
   } else if (elementoCHSceltoApp !==''){
-    lista ='CH'
+    lista = elementoCHSceltoApp
     dataControllo = appInputValue
   } else if (elementoPanierSceltoApp !==''){
     lista ='Panier'
@@ -427,7 +429,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
      })
      const modifiedPdfBytes = await pdfDoc.save(); //consente di salvare le modifiche apportate al documento PDF e ottenere i byte rappresentanti il PDF modificato
      const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });// crea un oggetto Blob  rappresenta un blocco di dati, in questo caso, l'array di byte che costituisce il documento PDF modificato
-     saveAs(blob, `${lista}-${nomeAbbreviatoPDF}.pdf`); /* utilizza FileSaver.js per avviare il processo di salvataggio del file nel browser. Il browser visualizzerà quindi una finestra di dialogo per il salvataggio, consentendo 
+     saveAs(blob, `${lista}-${dataControllo}.pdf`); /* utilizza FileSaver.js per avviare il processo di salvataggio del file nel browser. Il browser visualizzerà quindi una finestra di dialogo per il salvataggio, consentendo 
      all'utente di scaricare il file PDF modificato con il nome specificato ('output.pdf').*/ 
       //recupero la lista da visualizzare come ultima fatta:
       setAppRecuperaLista(appLista)
@@ -445,7 +447,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
       //chiama la funzione di stampa:
       stampaFilePdf()
       //pulisci textbox di Data.js e CheckListDimensioniPj8View/CheckListDimensioniPj16View
-      handleCancel()
+      //handleCancel()
     //chiudi modal
     closeModalPrintHandler();
   } else if (operatore ==='') {
@@ -475,6 +477,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
   }
 
 const nodeRef = useRef(null);
+console.log('dentro footer elenco listaPagina2Pj8App ',listaPagina2Pj8App)
 
   return (
     <React.Fragment>
