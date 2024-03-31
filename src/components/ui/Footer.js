@@ -398,14 +398,18 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
             size:fontSizeX,
             color: rgb(0, 0, 0),  
           })
-          page2.drawText(controllo.azioneCurativa,{
+          }
+          if(controllo.azioneCurativa !== undefined){
+             page2.drawText(controllo.azioneCurativa,{
             x:azioneCurativaXpag2,
             y: height -coordinate_pagina.y,
             font,
             size:fontSizeX,
             color: rgb(0, 0, 0),  
           })
-        }
+          }
+         
+        
      } //fine if NON CONFORME
      mioIdPagina2++
     })
@@ -429,7 +433,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
      })
      const modifiedPdfBytes = await pdfDoc.save(); //consente di salvare le modifiche apportate al documento PDF e ottenere i byte rappresentanti il PDF modificato
      const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });// crea un oggetto Blob  rappresenta un blocco di dati, in questo caso, l'array di byte che costituisce il documento PDF modificato
-     saveAs(blob, `${lista}-${dataControllo}.pdf`); /* utilizza FileSaver.js per avviare il processo di salvataggio del file nel browser. Il browser visualizzerà quindi una finestra di dialogo per il salvataggio, consentendo 
+     saveAs(blob, `${dataControllo}-${lista}.pdf`); /* utilizza FileSaver.js per avviare il processo di salvataggio del file nel browser. Il browser visualizzerà quindi una finestra di dialogo per il salvataggio, consentendo 
      all'utente di scaricare il file PDF modificato con il nome specificato ('output.pdf').*/ 
       //recupero la lista da visualizzare come ultima fatta:
       setAppRecuperaLista(appLista)
@@ -469,6 +473,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
 
   }
   //****************************FINE*********************************************************************** */
+  //CANCEL
   //cancella la textbox della data e svuota CheckListDimensioniPj8View/CheckListDimensioniPj16View
   const handleCancel =()=>{
     onCancel();//metodo che arriva da App.js
@@ -478,7 +483,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
 
 const nodeRef = useRef(null);
 console.log('dentro footer elenco listaPagina2Pj8App ',listaPagina2Pj8App)
-
+console.log('dentro footer, la pagina listaPagina2Pj16App:',listaPagina2Pj16App)
   return (
     <React.Fragment>
       <Modal 

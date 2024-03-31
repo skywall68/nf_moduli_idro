@@ -21,8 +21,8 @@ const CheckListCHDimensioniView = ({setListaPagina2Pj8App, elencoAzioniApp, appP
       const fileArrayObjFiltrato = fileArrayOggetti.filter(elemento => elemento.id >=8 && elemento.id <=15) //recupera i valori dell'array da id7 a id14
        setControlli(fileArrayObjFiltrato)
        setInizioControlli(fileArrayObjFiltrato)
-       console.log('chekdimensioni prima volta 1:',controlli)
-       console.log('chekdimensioni prima volta 2:',inizioControlli)
+       //console.log('chekdimensioni prima volta 1:',controlli)
+       //console.log('chekdimensioni prima volta 2:',inizioControlli)
   
       },[])
       // //ricarico la tabella senza le spunte

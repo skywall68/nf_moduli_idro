@@ -1,12 +1,19 @@
 //importiamo la seconda pagina in formato tabellare
 import React, { useState, useEffect} from 'react'
 
+import ModalMio from '../ModalMio'
 import './CheckListDimensioniPanierView.css'
 
-const CheckListDimensioniPanierView = ({setListaPagina2Pj16App,elencoAzioniApp}) => {
+const CheckListDimensioniPanierView = ({setListaPagina2Pj16App,elencoAzioniApp,appPulisciCampo,setAppPulisciCampo}) => {
 //recupero la seconda  parte del modulo pj16 da local storage
 const [controlli, setControlli] = useState([])
 const [inizioControlli, setInizioControlli]=useState([])
+const [showModalMio, setShowModalMio]=useState(false)
+const [mioID, setMioID]=useState(0)
+const [commenti, setCommenti]=useState('')
+let idMio=0
+
+
  //recupero il file memorizzato
     //*******prendo il file json da local storage recupero dal id7 al id20 dentro useState***************
     const filePj16PanierJson1 =localStorage.getItem('jsonFilePanier') 
@@ -20,14 +27,33 @@ const [inizioControlli, setInizioControlli]=useState([])
        setControlli(fileArrayObjFiltrato)
        setInizioControlli(fileArrayObjFiltrato)
        },[])
+        // //ricarico la tabella senza le spunte
+      useEffect(()=>{
+        if(appPulisciCampo){
+         console.log('puliscicampo true:')
+          let fileArrayOggetti =[]
+          if (filePj16PanierJson1) {
+            fileArrayOggetti = JSON.parse(filePj16PanierJson1);
+          }
+          const fileArrayObjFiltrato = fileArrayOggetti.filter(elemento => elemento.id >=6 && elemento.id <=12)
+           setControlli(fileArrayObjFiltrato)
+           setInizioControlli(fileArrayObjFiltrato)
+           //console.log('chekdimensioni prima volta 3:',controlli)
+           console.log('chekdimensioni prima volta 4:',inizioControlli)
+           setAppPulisciCampo(false)
+          }
+      },[appPulisciCampo])
 //******************mi permette di nascondere la tabella********************* */
 const [mostraTabella, setMostraTabella] = useState(true); //mi permette di nascondere la tabella
 //mostra tabella:
 const handleToggleTabella =()=>{
 setMostraTabella((prev)=> !prev)
-} 
+}
+
+//useEffect(()=>{setMioID(idMio)},[idMio]) 
 //****************prende il valore della checkbox**************** */
 const handleCheckboxChange = (event,id)=>{
+  
   const newControlli = [...controlli];
   if (event.target.checked) {
     newControlli[id].conforme = event.target.name;
@@ -35,17 +61,35 @@ const handleCheckboxChange = (event,id)=>{
     newControlli[id].conforme = null;
   }
   setControlli(newControlli);
-  console.log('valore di checkbox:', id, controlli[id].conforme, 'id:', controlli[id].id) 
+  idMio=id
+  console.log('valore di checkbox:', id, controlli[id].conforme, 'id:', controlli[id].id,'mioID:',idMio)
+  setMioID(controlli[id].id) 
   //setListaPagina2Pj8App(controlli)
+
+  //APRE IL MODAL se è 'non conforme'
+  if(controlli[id].conforme ==='Non Conforme'){
+    //devo portare id nella modale
+    setShowModalMio(true)
+  }
 } 
+
 //**************prende il valore del commento ******************* */
 const handleInputChangeCommenti = (id,field,value) =>{
-  setControlli((prevControlli)=>
-    prevControlli.map((commento)=>
-     commento.id === id ? {...commento,[field]:value}: commento
-  )
-)
+  setControlli(prevControlli=>{
+    // Creiamo un nuovo array mappando i commenti esistenti
+    const updatedControlli = prevControlli.map(commento => {
+      // Se l'ID corrisponde, creiamo un nuovo oggetto con il valore aggiornato
+      return commento.id === id ? { ...commento, [field]: value } : commento;
+    });
+  // Restituiamo il nuovo array aggiornato
+ // console.log('valore Recupero i valori COMMENTO in update:',updatedControlli)
+return updatedControlli;
+});
+    
 console.log(`(CheckPanierDimensioni.js f:handleInputChangeCommenti)ID: ${id}, Campo: ${field}, Valore: ${value}`);
+console.log('dentro panier:', controlli)
+setCommenti('')
+//closeModalMio()
 
 }
 //****************prende il valore dell'azione ********************* */
@@ -63,8 +107,15 @@ console.log(`(CheckCHDimensioni.js f:handleInputChangeAzione)ID: ${id}, Campo: $
 useEffect(()=>{
   setListaPagina2Pj16App(controlli)
 },[controlli])
-//*********************************fine******************************** */     
 
+    
+//***********************Lavoro con ModalMio***************************
+//funzione che chiude Modal richiamata dal componente ModalMio
+const closeModalMio =()=>{
+  console.log('controlli.',controlli)
+  setShowModalMio(false)
+}
+//*********************************fine******************************** */ 
 
 
   return (
@@ -81,8 +132,8 @@ useEffect(()=>{
                   <th colSpan="2"> CONTROLLI DIMENSIONI</th>
                   <th colSpan="2">SCARTO PERMESSO</th>
                   <th colSpan="2">RISULTATO CONTROLLO</th>
-                  <th >COMMENTI/PRECISAZIONI</th>
-                  <th>AZIONE CURATIVA</th>
+                  {/* <th >COMMENTI/PRECISAZIONI</th>
+                  <th>AZIONE CURATIVA</th> */}
               </tr>
               <tr>
                   <th></th>
@@ -91,8 +142,8 @@ useEffect(()=>{
                   <th>PIU(mm)</th>
                   <th>CONFORME</th>
                   <th>NON CONFORME</th>
-                  <th></th>
-                  <th></th>
+                  {/* <th></th>
+                  <th></th> */}
               </tr>
           </thead>
           <tbody>
@@ -162,7 +213,7 @@ useEffect(()=>{
                                       )}
                              </label>         
                           </td>
-                          <td>
+                          {/* <td>
                              <input
                                   type='text'
                                   value={controllo.commenti}
@@ -177,14 +228,26 @@ useEffect(()=>{
                                     onChange={(e)=>handleInputChangeAzione(controllo.id, 'azioneCurativa', e.target.value)}
                                     placeholder='azione curativa'
                                />
-                          </td>
+                          </td> */}
                     </tr>
                   ))
               }
           </tbody>
        </table>
-       
-        )}
+        )} {/*fine mostra tabella*/}
+        <ModalMio 
+        showModalMio={showModalMio} 
+        closeModalMio={closeModalMio}
+        handleInputChangeCommenti={handleInputChangeCommenti}
+        handleInputChangeAzione={handleInputChangeAzione}
+        setControlli={setControlli}
+        controlli={controlli}
+        commenti={commenti}
+        setCommenti={setCommenti}
+        mioID={mioID}
+        elencoAzioniApp={elencoAzioniApp}
+        
+         /> 
       </div>
     </div>
   )

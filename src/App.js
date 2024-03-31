@@ -278,8 +278,16 @@ function App() {
     data=<Data setAppData={setAppData}  appInputValue={appInputValue} setAppInputValue={setAppInputValue} sceltaModuloApp={sceltaModuloApp}  />
     operatore = <Operatore setAppOperatore={setAppOperatore} sceltaModuloApp={sceltaModuloApp} /> 
     macchineView = <MacchineView setMacchinaSceltaApp={setMacchinaSceltaApp} sceltaModuloApp={sceltaModuloApp}  />
-    checkListPanierView = <CheckListPanierView setListaPagina1Pj16App={setListaPagina1Pj16App} elencoAzioniApp={elencoAzioniApp} />
-    checkListPanierDimensioniView=<CheckListDimensioniPanierView setListaPagina2Pj16App={setListaPagina2Pj16App} elencoAzioniApp={elencoAzioniApp} />
+    checkListPanierView = <CheckListPanierView
+     setListaPagina1Pj16App={setListaPagina1Pj16App}
+      elencoAzioniApp={elencoAzioniApp}
+      appPulisciCampo={appPulisciCampo} 
+      setAppPulisciCampo={setAppPulisciCampo}/>
+    checkListPanierDimensioniView=<CheckListDimensioniPanierView
+     setListaPagina2Pj16App={setListaPagina2Pj16App} 
+     elencoAzioniApp={elencoAzioniApp} 
+     appPulisciCampo={appPulisciCampo} 
+     setAppPulisciCampo={setAppPulisciCampo}/>
     elencoPanierView=<ElencoPanierView setAppElementoPanierScelto={setAppElementoPanierScelto} />
     footer=<Footer 
     setAppRecuperaLista={setAppRecuperaLista}
