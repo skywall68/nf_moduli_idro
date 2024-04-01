@@ -1,6 +1,7 @@
 //visualizzo la seconda parte (pagina) modulo pj8
 import React, { useState, useEffect} from 'react'
 
+import ModalMio from '../ModalMio'
 import './CheckListDimensioniPj8View.css'
 
 
@@ -8,11 +9,13 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
     //recupero la seconda  parte del modulo pj8 da local storage
     const [controlli, setControlli] = useState([])
     const [inizioControlli, setInizioControlli]=useState([])
+    const [showModalMio, setShowModalMio]=useState(false)
+    const [mioID, setMioID]=useState(0)
+    const [commenti, setCommenti]=useState('')
     //recupero il file memorizzato
     //*******prendo il file json da local storage recupero dal id7 al id20 dentro useState***************
     const filePj8Json1 =localStorage.getItem('jsonFilePj8')  
     useEffect(()=>{
-    
     let fileArrayOggetti =[]
     if (filePj8Json1) {
       fileArrayOggetti = JSON.parse(filePj8Json1);
@@ -20,14 +23,13 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
     const fileArrayObjFiltrato = fileArrayOggetti.filter(elemento => elemento.id >=8 && elemento.id <=20)
      setControlli(fileArrayObjFiltrato)
      setInizioControlli(fileArrayObjFiltrato)
-     console.log('chekdimensioni prima volta 1:',controlli)
-     console.log('chekdimensioni prima volta 2:',inizioControlli)
+     //console.log('chekdimensioni prima volta 1:',controlli)
+     //console.log('chekdimensioni prima volta 2:',inizioControlli)
 
     },[])
+    //ricarico la tabella senza le spunte
     useEffect(()=>{
-      
       if(appPulisciCampo){
-        
         let fileArrayOggetti =[]
         if (filePj8Json1) {
           fileArrayOggetti = JSON.parse(filePj8Json1);
@@ -58,14 +60,18 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
         newControlli[id].conforme = null;
       }
       setControlli(newControlli);
-      console.log('valore di checkbox:', id, controlli[id].conforme, 'id:', controlli[id].id) 
+      setMioID(controlli[id].id) 
+      //APRE IL MODAL se è 'non conforme'
+     if(controlli[id].conforme ==='Non Conforme'){
+    //devo portare id nella modale
+     setShowModalMio(true)
+  }
+      //console.log('valore di checkbox:', id, controlli[id].conforme, 'id:', controlli[id].id) 
       console.log('valore Recupero i valori spunta:',controlli)
      // setListaPagina2Pj8App(controlli)
     }
     //**************prende il valore del commento ******************* */
     const handleInputChangeCommenti = (id,field,value) =>{
-      
-      console.log('chiamo handleInputchangeCommenti')
       setControlli(prevControlli=>{
         // Creiamo un nuovo array mappando i commenti esistenti
         const updatedControlli = prevControlli.map(commento => {
@@ -77,8 +83,7 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
     return updatedControlli;
   });
     console.log(`(CheckDimensioni.js f:handleInputChangeCommenti)ID: ${id}, Campo: ${field}, Valore: ${value}`);
-    //console.log('valore Recupero i valori commento:',controlli)
-   // setListaPagina2Pj8App(controlli)
+    setCommenti('')
   }
   //****************prende il valore dell'azione ********************* */
   const handleInputChangeAzione = (id,field,value) =>{
@@ -100,6 +105,14 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
   useEffect(()=>{
     setListaPagina2Pj8App(controlli)
   },[controlli])
+   
+  //***********************ModalMio***************************
+  //funzione che chiude Modal richiamata dal componente ModalMio
+  const closeModalMio =()=>{
+  console.log('controlli.',controlli)
+  setShowModalMio(false)
+  }
+
   //*********************************fine******************************** */
   
   
@@ -111,14 +124,14 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
         </button>
         <div>
         { mostraTabella && (
-                <table className='tabella'>
+                <table className='tabellapj8 pj8'>
             <thead>
                 <tr>
                     <th colSpan="2"> CONTROLLI DIMENSIONI</th>
                     <th colSpan="2">SCARTO PERMESSO</th>
                     <th colSpan="2">RISULTATO CONTROLLO</th>
-                    <th >COMMENTI/PRECISAZIONI</th>
-                    <th>AZIONE CURATIVA</th>
+                    {/* <th >COMMENTI/PRECISAZIONI</th>
+                    <th>AZIONE CURATIVA</th> */}
                 </tr>
                 <tr>
                     <th></th>
@@ -127,8 +140,8 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
                     <th>PIU(mm)</th>
                     <th>CONFORME</th>
                     <th>NON CONFORME</th>
-                    <th></th>
-                    <th></th>
+                    {/* <th></th>
+                    <th></th> */}
                 </tr>
             </thead>
             <tbody>
@@ -198,7 +211,7 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
                                         )}
                                </label>         
                             </td>
-                            <td>
+                            {/* <td>
                                <input
                                     type='text'
                                     value={controllo.commenti}
@@ -213,14 +226,27 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
                                       onChange={(e)=>handleInputChangeAzione(controllo.id, 'azioneCurativa', e.target.value)}
                                       placeholder='azione curativa'
                                  />
-                            </td>
+                            </td> */}
                       </tr>
                     ))
                 }
             </tbody>
          </table>
          
-          )}
+          )}{/*fine mostra tabella*/}
+          <ModalMio 
+          showModalMio={showModalMio} 
+          closeModalMio={closeModalMio}
+          handleInputChangeCommenti={handleInputChangeCommenti}
+          handleInputChangeAzione={handleInputChangeAzione}
+          setControlli={setControlli}
+          controlli={controlli}
+          commenti={commenti}
+          setCommenti={setCommenti}
+          mioID={mioID}
+          elencoAzioniApp={elencoAzioniApp}
+          
+           /> 
         </div>
     </div>
   )

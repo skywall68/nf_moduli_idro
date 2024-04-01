@@ -184,7 +184,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     lista = elementoCHSceltoApp
     dataControllo = appInputValue
   } else if (elementoPanierSceltoApp !==''){
-    lista ='Panier'
+    lista = elementoPanierSceltoApp
     dataControllo = appInputValue
    
   }
@@ -451,7 +451,10 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
       //chiama la funzione di stampa:
       stampaFilePdf()
       //pulisci textbox di Data.js e CheckListDimensioniPj8View/CheckListDimensioniPj16View
-      //handleCancel()
+      if(pj8App || pj16App){
+        handleCancel()
+      }
+      
     //chiudi modal
     closeModalPrintHandler();
   } else if (operatore ==='') {

@@ -1,5 +1,5 @@
 .checklist_dimensioni {
-    background-color: rgb(247, 243, 164);
+    background-color: rgb(172, 172, 168);
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */
 }
 
@@ -10,7 +10,7 @@
     height: 40px;
 }
 
-.tabella {
+.tabellapj8 {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -24,5 +24,13 @@
   }
   
   th {
-    background-color: #f2f7a4;
+    background-color: #eceed7;
   }
+
+  .pj8 tr:nth-child(even){
+    background-color: #dbdada;
+}
+
+.pj8 tr:nth-child(odd){
+    background-color: #F0F0F0;
+}

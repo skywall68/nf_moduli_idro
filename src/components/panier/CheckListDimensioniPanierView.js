@@ -11,7 +11,7 @@ const [inizioControlli, setInizioControlli]=useState([])
 const [showModalMio, setShowModalMio]=useState(false)
 const [mioID, setMioID]=useState(0)
 const [commenti, setCommenti]=useState('')
-let idMio=0
+//let idMio=0
 
 
  //recupero il file memorizzato
@@ -50,7 +50,7 @@ const handleToggleTabella =()=>{
 setMostraTabella((prev)=> !prev)
 }
 
-//useEffect(()=>{setMioID(idMio)},[idMio]) 
+
 //****************prende il valore della checkbox**************** */
 const handleCheckboxChange = (event,id)=>{
   
@@ -61,8 +61,8 @@ const handleCheckboxChange = (event,id)=>{
     newControlli[id].conforme = null;
   }
   setControlli(newControlli);
-  idMio=id
-  console.log('valore di checkbox:', id, controlli[id].conforme, 'id:', controlli[id].id,'mioID:',idMio)
+  
+ 
   setMioID(controlli[id].id) 
   //setListaPagina2Pj8App(controlli)
 
@@ -109,7 +109,7 @@ useEffect(()=>{
 },[controlli])
 
     
-//***********************Lavoro con ModalMio***************************
+//***********************ModalMio***************************
 //funzione che chiude Modal richiamata dal componente ModalMio
 const closeModalMio =()=>{
   console.log('controlli.',controlli)

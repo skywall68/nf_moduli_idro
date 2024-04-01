@@ -1,14 +1,20 @@
 //visualizzo la seconda parte (pagina) modulo pj16
 import React, { useState, useEffect} from 'react'
 
+import ModalMio from '../ModalMio'
+import './CheckListDimensioniPj16View.css'
 const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,setAppPulisciCampo,elencoAzioniApp}) => {
    //recupero la seconda  parte del modulo pj8 da local storage
    const [controlli, setControlli] = useState([])
    const [inizioControlli, setInizioControlli]=useState([])
+   const [showModalMio, setShowModalMio]=useState(false)
+   const [mioID, setMioID]=useState(0)
+   const [commenti, setCommenti]=useState('')
    //recupero il file memorizzato
    //*******prendo il file json da local storage recupero dal id6 al id18 dentro useState***************
    //viene eseguito 1 sola volta
    const filePj16Json1 =localStorage.getItem('jsonFilePj16')
+   //Carico la tabella
    useEffect(()=>{
     let fileArrayOggetti =[]
     if (filePj16Json1) {
@@ -21,7 +27,7 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
   //viene eseguito ogni volta che cambia lo stato di appPulisciCampo
     useEffect(()=>{
       if(appPulisciCampo){
-        //const filePj8Json1 =localStorage.getItem('jsonFilePj8') 
+        
         let fileArrayOggetti =[]
         if (filePj16Json1) {
           fileArrayOggetti = JSON.parse(filePj16Json1);
@@ -29,16 +35,13 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
         const fileArrayObjFiltrato = fileArrayOggetti.filter(elemento => elemento.id >=6 && elemento.id <=18)
          setControlli(fileArrayObjFiltrato)
          setInizioControlli(fileArrayObjFiltrato)
-         console.log('chekdimensioni prima volta 3:',controlli)
-         console.log('chekdimensioni prima volta 4:',inizioControlli)
+         //console.log('chekdimensioni prima volta 3:',controlli)
+         //console.log('chekdimensioni prima volta 4:',inizioControlli)
          setAppPulisciCampo(false)
         
       }
     },[appPulisciCampo])
 
-
-   
-    //******************************************************* */
     //******************mi permette di nascondere la tabella********************* */
     const [mostraTabella, setMostraTabella] = useState(true); //mi permette di nascondere la tabella
     //mostra tabella:
@@ -55,18 +58,28 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
         newControlli[id].conforme = null;
       }
       setControlli(newControlli);
-      console.log('valore di checkbox:', id, controlli[id].conforme, 'id:', controlli[id].id) 
-      //setListaPagina2Pj16App(controlli)
-    }
+      setMioID(controlli[id].id) 
+    //APRE IL MODAL se è 'non conforme'
+    if(controlli[id].conforme ==='Non Conforme'){
+    //devo portare id nella modale
+    setShowModalMio(true)
+     }
+      
+  }
     //**************prende il valore del commento ******************* */
     const handleInputChangeCommenti = (id,field,value) =>{
-      setControlli((prevControlli)=>
-        prevControlli.map((commento)=>
-         commento.id === id ? {...commento,[field]:value}: commento
-      )
-    )
-    console.log(`(CheckDimensioni.js f:handleInputChangeCommenti)ID: ${id}, Campo: ${field}, Valore: ${value}`);
-    //setListaPagina2Pj16App(controlli)
+      setControlli(prevControlli=>{
+        // Creiamo un nuovo array mappando i commenti esistenti
+        const updatedControlli = prevControlli.map(commento => {
+          // Se l'ID corrisponde, creiamo un nuovo oggetto con il valore aggiornato
+          return commento.id === id ? { ...commento, [field]: value } : commento;
+        });
+      // Restituiamo il nuovo array aggiornato
+     // console.log('valore Recupero i valori COMMENTO in update:',updatedControlli)
+    return updatedControlli;
+    });
+   // console.log(`(CheckDimensioni.js f:handleInputChangeCommenti)ID: ${id}, Campo: ${field}, Valore: ${value}`);
+    setCommenti('')
   }
   //****************prende il valore dell'azione ********************* */
   const handleInputChangeAzione = (id,field,value) =>{
@@ -76,14 +89,20 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
     )
   )
   console.log(`(CheckDimensioni.js f:handleInputChangeAzione)ID: ${id}, Campo: ${field}, Valore: ${value}`);
-  //setListaPagina2Pj16App(controlli)
+  
   }
  //aggiornamento prima di mandare il valori ad App.js
   useEffect(()=>{
     setListaPagina2Pj16App(controlli)
   },[controlli])
+//***********************ModalMio***************************
+//funzione che chiude Modal richiamata dal componente ModalMio
+ const closeModalMio =()=>{
+  console.log('controlli.',controlli)
+  setShowModalMio(false)
+}
+//*********************************fine******************************** */ 
 
-  //*********************************fine******************************** */
 
   return (
     <div className='checklist_dimensioni'>
@@ -93,14 +112,14 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
         </button>
         <div>
         { mostraTabella && (
-                <table className='tabella'>
+                <table className='tabella pj16'>
             <thead>
                 <tr>
                     <th colSpan="2"> CONTROLLI DIMENSIONI</th>
                     <th colSpan="2">SCARTO PERMESSO</th>
                     <th colSpan="2">RISULTATO CONTROLLO</th>
-                    <th >COMMENTI/PRECISAZIONI</th>
-                    <th>AZIONE CURATIVA</th>
+                    {/* <th >COMMENTI/PRECISAZIONI</th>
+                    <th>AZIONE CURATIVA</th> */}
                 </tr>
                 <tr>
                     <th></th>
@@ -109,8 +128,8 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
                     <th>PIU(mm)</th>
                     <th>CONFORME</th>
                     <th>NON CONFORME</th>
-                    <th></th>
-                    <th></th>
+                    {/* <th></th>
+                    <th></th> */}
                 </tr>
             </thead>
             <tbody>
@@ -180,7 +199,7 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
                                         )}
                                </label>         
                             </td>
-                            <td>
+                            {/* <td>
                                <input
                                     type='text'
                                     value={controllo.commenti}
@@ -195,13 +214,25 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
                                       onChange={(e)=>handleInputChangeAzione(controllo.id, 'azioneCurativa', e.target.value)}
                                       placeholder='azione curativa'
                                  />
-                            </td>
+                            </td> */}
                       </tr>
                     ))
                 }
             </tbody>
          </table>
-          )}
+          )}{/*fine mostra tabella*/}
+          <ModalMio 
+          showModalMio={showModalMio} 
+          closeModalMio={closeModalMio}
+          handleInputChangeCommenti={handleInputChangeCommenti}
+          handleInputChangeAzione={handleInputChangeAzione}
+          setControlli={setControlli}
+          controlli={controlli}
+          commenti={commenti}
+          setCommenti={setCommenti}
+          mioID={mioID}
+          elencoAzioniApp={elencoAzioniApp}
+          /> 
         </div>
     </div>
   )

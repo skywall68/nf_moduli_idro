@@ -181,8 +181,14 @@ function App() {
                 if(sceltaModuloApp === '8pj'){
                   //console.log('in App il modulo scelto è:',sceltaModuloApp)
                   saldatoriView = <SaldatoriView setSaldatoreSceltoApp={setSaldatoreSceltoApp}  />
-                  checkListPj8View1= <CheckListPj8View1  setListaPagina1Pj8App={setListaPagina1Pj8App}  elencoAzioniApp={elencoAzioniApp} /> //mi carica la prima pagina per la spunta option  porto elenco azioni
-                  checkListDimensioniPj8View=<CheckListDimensioniPj8View setListaPagina2Pj8App={setListaPagina2Pj8App} appPulisciCampo={appPulisciCampo} setAppPulisciCampo={setAppPulisciCampo} elencoAzioniApp={elencoAzioniApp} /> //mi carica la seconda pagina per la spunta checkbox
+                  checkListPj8View1= <CheckListPj8View1
+                    setListaPagina1Pj8App={setListaPagina1Pj8App}  
+                    elencoAzioniApp={elencoAzioniApp} /> //mi carica la prima pagina per la spunta option  porto elenco azioni
+                  checkListDimensioniPj8View=<CheckListDimensioniPj8View 
+                  setListaPagina2Pj8App={setListaPagina2Pj8App} 
+                  appPulisciCampo={appPulisciCampo} 
+                  setAppPulisciCampo={setAppPulisciCampo} 
+                  elencoAzioniApp={elencoAzioniApp} /> //mi carica la seconda pagina per la spunta checkbox
                   //Visualizza Elenco elementi saldati
                   elementiSaldati =<ElementiSaldati
                               appElementi={appElementi} 
@@ -191,8 +197,14 @@ function App() {
                 } else if( sceltaModuloApp === '16pj') {
                 // console.log('in App il modulo scelto è:',sceltaModuloApp)
                   macchineView = <MacchineView setMacchinaSceltaApp={setMacchinaSceltaApp}  />
-                  checklistPj16View = <CheckListPj16View setListaPagina1Pj16App={setListaPagina1Pj16App} elencoAzioniApp={elencoAzioniApp} />  //mi carica la prima pagina per la spunta option
-                  checkListDimensioniPj16View=<CheckListDimensioniPj16View setListaPagina2Pj16App={setListaPagina2Pj16App} appPulisciCampo={appPulisciCampo} setAppPulisciCampo={setAppPulisciCampo} elencoAzioniApp={elencoAzioniApp}/> //mi carica la seconda pagina per la spunta checkbox
+                  checklistPj16View = <CheckListPj16View
+                   setListaPagina1Pj16App={setListaPagina1Pj16App} 
+                   elencoAzioniApp={elencoAzioniApp} />  //mi carica la prima pagina per la spunta option
+                  checkListDimensioniPj16View=<CheckListDimensioniPj16View 
+                  setListaPagina2Pj16App={setListaPagina2Pj16App} 
+                  appPulisciCampo={appPulisciCampo} 
+                  setAppPulisciCampo={setAppPulisciCampo} 
+                  elencoAzioniApp={elencoAzioniApp}/> //mi carica la seconda pagina per la spunta checkbox
                   elementiLavorati=<ElementiLavorati
                               appElementi={appElementi} 
                               setAppElementoScelto={setAppElementoScelto} 
@@ -240,8 +252,16 @@ function App() {
     data=<Data setAppData={setAppData}  appInputValue={appInputValue} setAppInputValue={setAppInputValue} sceltaModuloApp={sceltaModuloApp}  />
     operatore = <Operatore setAppOperatore={setAppOperatore} sceltaModuloApp={sceltaModuloApp} /> 
     macchineView = <MacchineView setMacchinaSceltaApp={setMacchinaSceltaApp} sceltaModuloApp={sceltaModuloApp}  />
-    checkListCHView=<CheckListCHView setListaPagina1Pj8App={setListaPagina1Pj8App} elencoAzioniApp={elencoAzioniApp} />
-    checkListCHDimensioniView=<CheckListCHDimensioniView setListaPagina2Pj8App={setListaPagina2Pj8App} appPulisciCampo={appPulisciCampo} setAppPulisciCampo={setAppPulisciCampo} elencoAzioniApp={elencoAzioniApp}/>
+    checkListCHView=<CheckListCHView
+     setListaPagina1Pj8App={setListaPagina1Pj8App}
+     elencoAzioniApp={elencoAzioniApp}
+     appPulisciCampo={appPulisciCampo} 
+     setAppPulisciCampo={setAppPulisciCampo}/>
+    checkListCHDimensioniView=<CheckListCHDimensioniView
+     setListaPagina2Pj8App={setListaPagina2Pj8App} 
+     appPulisciCampo={appPulisciCampo} 
+     setAppPulisciCampo={setAppPulisciCampo} 
+     elencoAzioniApp={elencoAzioniApp}/>
     elencoCHView=<ElencoCHView setAppElementoCHScelto={setAppElementoCHScelto} />
     footer=<Footer 
     setAppRecuperaLista={setAppRecuperaLista}
@@ -411,7 +431,7 @@ function App() {
             {checkListPanierDimensioniView}
             {footer}
           </div>
-           :<p>&copy;2024 WM ver: 0.0.2</p>
+           :<p>&copy;2024 WM ver: 0.0.3</p>
             }
             
        

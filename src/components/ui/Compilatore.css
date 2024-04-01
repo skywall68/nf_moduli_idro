@@ -1,7 +1,7 @@
 .bodyCompilatore {
     
     
-    background-color: rgb(246, 242, 205);
+    background-color: rgb(243, 243, 237);
     margin:10px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */
     
@@ -45,6 +45,6 @@ h3 {
   }
   
   th {
-    background-color: #f2f2f2;
+    background-color: #bfbfbf;
   }
   

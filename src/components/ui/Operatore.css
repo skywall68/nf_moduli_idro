@@ -11,7 +11,7 @@ h2 {
 .containerOperatoreCH {
     display: flex;
     justify-content: center;
-    background-color: rgb(240, 237, 162);
+    background-color: rgb(136, 137, 135);
     margin:20px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */
 }
@@ -25,7 +25,7 @@ h2 {
 .containerOperatorePanier {
     display: flex;
     justify-content: center;
-    background-color: rgb(240, 237, 162);
+    background-color: rgb(236, 235, 201);
     margin:20px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */
 }

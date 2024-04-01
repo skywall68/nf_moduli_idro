@@ -1,13 +1,15 @@
 import React, { useState, useEffect} from 'react'
 
+import ModalMio from '../ModalMio'
 import './CheckListCHDimensioniView.css'
 
 const CheckListCHDimensioniView = ({setListaPagina2Pj8App, elencoAzioniApp, appPulisciCampo, setAppPulisciCampo}) => {
   //recupero la seconda  parte del modulo pj8 da local storage
   const [controlli, setControlli] = useState([])
   const [inizioControlli, setInizioControlli]=useState([])
-  const[ azioneSelezionata, setAzioneSelezionata]=useState('') //recupero l'azione
-  //console.log('Elenco azioni dentro CheckListCHDimensioniView:',elencoAzioniApp)
+  const [showModalMio, setShowModalMio]=useState(false)
+  const [mioID, setMioID]=useState(0)
+  const [commenti, setCommenti]=useState('')
 
    //recupero il file memorizzato
     //*******prendo il file json da local storage recupero dal id7 al id20 dentro useState***************
@@ -57,17 +59,33 @@ const CheckListCHDimensioniView = ({setListaPagina2Pj8App, elencoAzioniApp, appP
   }
   setControlli(newControlli);
   console.log('valore di checkbox:', id, controlli[id].conforme, 'id:', controlli[id].id) 
+  setMioID(controlli[id].id) 
   //setListaPagina2Pj8App(controlli)
+  //APRE IL MODAL se è 'non conforme'
+  if(controlli[id].conforme ==='Non Conforme'){
+    //devo portare id nella modale
+    setShowModalMio(true)
+  }
+
 }
 //**************prende il valore del commento ******************* */
 const handleInputChangeCommenti = (id,field,value) =>{
-  setControlli((prevControlli)=>
-    prevControlli.map((commento)=>
-     commento.id === id ? {...commento,[field]:value}: commento
-  )
-)
+  setControlli(prevControlli=>{
+    // Creiamo un nuovo array mappando i commenti esistenti
+    const updatedControlli = prevControlli.map(commento => {
+      // Se l'ID corrisponde, creiamo un nuovo oggetto con il valore aggiornato
+      return commento.id === id ? { ...commento, [field]: value } : commento;
+    });
+  // Restituiamo il nuovo array aggiornato
+ // console.log('valore Recupero i valori COMMENTO in update:',updatedControlli)
+return updatedControlli;
+});
+    
 console.log(`(CheckCHDimensioni.js f:handleInputChangeCommenti)ID: ${id}, Campo: ${field}, Valore: ${value}`);
-//setListaPagina2Pj8App(controlli)
+console.log('dentro CH:', controlli)
+setCommenti('')
+
+
 }
 //****************prende il valore dell'azione ********************* */
 const handleInputChangeAzione = (id,field,value) =>{
@@ -84,8 +102,16 @@ setListaPagina2Pj8App(controlli)
 useEffect(()=>{
   setListaPagina2Pj8App(controlli)
 },[controlli])
-//*********************************fine******************************** */
+
+//***********************ModalMio***************************
+//funzione che chiude Modal richiamata dal componente ModalMio
+const closeModalMio =()=>{
+  console.log('controlli.',controlli)
+  setShowModalMio(false)
+}
 console.log('elenco checkListCHDimensioni:',controlli)
+//*********************************fine******************************** */
+
 
     
  return (
@@ -102,8 +128,8 @@ console.log('elenco checkListCHDimensioni:',controlli)
                   <th colSpan="2"> CONTROLLI DIMENSIONI</th>
                   <th colSpan="2">SCARTO PERMESSO</th>
                   <th colSpan="2">RISULTATO CONTROLLO</th>
-                  <th >COMMENTI/PRECISAZIONI</th>
-                  <th>AZIONE CURATIVA</th>
+                  {/* <th >COMMENTI/PRECISAZIONI</th>
+                  <th>AZIONE CURATIVA</th> */}
               </tr>
               <tr>
                   <th></th>
@@ -112,8 +138,8 @@ console.log('elenco checkListCHDimensioni:',controlli)
                   <th>PIU(mm)</th>
                   <th>CONFORME</th>
                   <th>NON CONFORME</th>
-                  <th></th>
-                  <th></th>
+                  {/* <th></th>
+                  <th></th> */}
               </tr>
           </thead>
           <tbody>
@@ -183,22 +209,22 @@ console.log('elenco checkListCHDimensioni:',controlli)
                                       )}
                              </label>         
                           </td>
-                          <td>
+                          {/* <td>
                              <input
                                   type='text'
                                   value={controllo.commenti}
                                   onChange={(e)=>handleInputChangeCommenti(controllo.id, 'commenti', e.target.value)}
                                   placeholder='commenti'
                                    />
-                          </td>
-                          <td>
+                          </td> */}
+                          {/* <td> */}
                              {/* <input
                                     type='text'
                                     value={controllo.azioneCurativa}
                                     onChange={(e)=>handleInputChangeAzione(controllo.id, 'azioneCurativa', e.target.value)}
                                     placeholder='azione curativa'
                                /> */}
-                               <select style={{ width: "30%", height:"60%", color: "red",cursor: "pointer" }} onChange={(e)=>handleInputChangeAzione(controllo.id, 'azioneCurativa', e.target.value)}>
+                               {/* <select style={{ width: "30%", height:"60%", color: "red",cursor: "pointer" }} onChange={(e)=>handleInputChangeAzione(controllo.id, 'azioneCurativa', e.target.value)}>
                                 {
                                   elencoAzioniApp.map((elenco, index)=>(
                                     <option  key={index} value={elenco}>
@@ -207,14 +233,26 @@ console.log('elenco checkListCHDimensioni:',controlli)
                                   ))
                                 }
                                </select>
-                          </td>
+                          </td> */}
                     </tr>
                   ))
               }
           </tbody>
        </table>
+       )}{/*fine mostra tabella*/}
+       <ModalMio 
+       showModalMio={showModalMio} 
+       closeModalMio={closeModalMio}
+       handleInputChangeCommenti={handleInputChangeCommenti}
+       handleInputChangeAzione={handleInputChangeAzione}
+       setControlli={setControlli}
+       controlli={controlli}
+       commenti={commenti}
+       setCommenti={setCommenti}
+       mioID={mioID}
+       elencoAzioniApp={elencoAzioniApp}
        
-        )}
+        /> 
       </div>
   </div>
 )

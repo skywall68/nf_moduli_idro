@@ -1,16 +1,22 @@
 //visualizzo la prima parte della lista pj8 in tabella da 1 a 6
 import React, { useState, useEffect} from 'react'
+import ModalMio from '../ModalMio'
 
 import './CheckListCHView.css'
 
-const CheckListCHView = ({setListaPagina1Pj8App, elencoAzioniApp}) => {
+const CheckListCHView = ({setListaPagina1Pj8App, elencoAzioniApp,appPulisciCampo,setAppPulisciCampo}) => {
 
   const [controlli, setControlli] = useState([])
+  const [inizioControlli, setInizioControlli]=useState([])
+  const [showModalMio, setShowModalMio]=useState(false)
+  const [mioID, setMioID]=useState(0)
+  const [commenti, setCommenti]=useState('')
  
+   //prendo il file ch_Completo json da local storage 
+   const fileCHJson1 =localStorage.getItem('jsonFileCH')
 
   useEffect(()=>{
-    //prendo il file ch_Completo json da local storage 
-   const fileCHJson1 =localStorage.getItem('jsonFileCH')
+  
    let fileArrayOggetti =[]
    if (fileCHJson1) {
      fileArrayOggetti = JSON.parse(fileCHJson1);
@@ -30,6 +36,13 @@ const handleOptionChange =(id, conformeValue)=>{
   const updatedItems = controlli.map(item =>{
     if (item.id === id) {
       console.log('sono dentro handleOptionChange, id: ',id,'valore:',conformeValue)
+      setMioID(item.id) //recupero il id della riga per mandarla nel modalMio per commenti/azioni
+       //APRE IL MODAL se è 'non conforme'
+       if(conformeValue === false){
+        console.log('dentro controlli!!!')
+      //devo portare id nella modale
+       setShowModalMio(true)
+       }
       return { ...item, conforme: conformeValue };
 
     }
@@ -37,19 +50,27 @@ const handleOptionChange =(id, conformeValue)=>{
     return item;
   });
   setControlli(updatedItems)
+  
   setListaPagina1Pj8App(updatedItems) //recupero i valori per portarli in App.js per poi stamparli
+  
   }
   console.log('valore Recupero i valori nella option box:',controlli)
   //************************************************************************ */
     //******************Recupero i commenti ************************************* */
     const handleInputChangeCommenti = (id,field,value) =>{
-      setControlli((prevControlli)=>
-      prevControlli.map((commento)=>
-      commento.id === id ? {...commento,[field]:value}: commento
-       )
-     )
+      setControlli(prevControlli=>{
+        // Creiamo un nuovo array mappando i commenti esistenti
+        const updatedControlli = prevControlli.map(commento => {
+          // Se l'ID corrisponde, creiamo un nuovo oggetto con il valore aggiornato
+          return commento.id === id ? { ...commento, [field]: value } : commento;
+        });
+      // Restituiamo il nuovo array aggiornato
+     // console.log('valore Recupero i valori COMMENTO in update:',updatedControlli)
+    return updatedControlli;
+    });
      console.log(`ID: ${id}, Campo: ${field}, Valore: ${value}`);
-     setListaPagina1Pj8App(controlli) //recupero i valori per portarli in App.js per poi stamparli ??????????????????????????????????
+     setListaPagina1Pj8App(controlli) //recupero i valori per portarli in App.js per poi stamparli
+     setCommenti('')
    }
    //*************************************************************************** */
    //***********************Recupero le azioni********************************** */
@@ -67,7 +88,14 @@ const handleOptionChange =(id, conformeValue)=>{
   useEffect(()=>{
     setListaPagina1Pj8App(controlli)
   },[controlli])
-  //************************************************************************** */
+//***********************Lavoro con ModalMio***************************
+//funzione che chiude Modal richiamata dal componente ModalMio
+const closeModalMio =()=>{
+  console.log('controlli.',controlli)
+  setShowModalMio(false)
+}
+
+  //******************************fine******************************************** */
   return (
     <div className='containerCheckListCHView'>
         <div className='bottoneCH'>
@@ -83,15 +111,15 @@ const handleOptionChange =(id, conformeValue)=>{
           <tr>
             <th>CONTROLLI</th>
             <th colSpan="2">RISULTATO CONTROLLO</th>
-            <th >COMMENTI/PRECISAZIONI</th>
-            <th>AZIONE CURATIVA</th>
+            {/* <th >COMMENTI/PRECISAZIONI</th>
+            <th>AZIONE CURATIVA</th> */}
           </tr>
           <tr>
             <th></th>
             <th>CONFORME</th>
             <th>NON CONFORME</th>
-            <th></th>
-            <th></th>
+            {/* <th></th>
+            <th></th> */}
           </tr>
         </thead>
         <tbody>
@@ -121,7 +149,7 @@ const handleOptionChange =(id, conformeValue)=>{
                        />
                     </label>
                   </td>
-                  <td>
+                  {/* <td>
                     <input
                       type='text'
                       value={controllo.commenti}
@@ -136,13 +164,26 @@ const handleOptionChange =(id, conformeValue)=>{
                       onChange={(e)=>handleInputChangeAzione(controllo.id, 'azioneCurativa', e.target.value)}
                       placeholder='azione curativa'
                     />
-                  </td>
+                  </td> */}
               </tr>
             ))
           }
          </tbody>
       </table>
           )}
+          <ModalMio 
+        showModalMio={showModalMio} 
+        closeModalMio={closeModalMio}
+        handleInputChangeCommenti={handleInputChangeCommenti}
+        handleInputChangeAzione={handleInputChangeAzione}
+        setControlli={setControlli}
+        controlli={controlli}
+        commenti={commenti}
+        setCommenti={setCommenti}
+        mioID={mioID}
+        elencoAzioniApp={elencoAzioniApp}
+        
+         /> 
          </div>
     </div>
     

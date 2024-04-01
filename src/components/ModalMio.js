@@ -39,7 +39,7 @@ const ModalMio = ({showModalMio, closeModalMio,commenti,setCommenti, mioID, setC
      
     
 
-     <div style={{display:'flex',backgroundColor:'yellow', margin:'30px -15px 0px -10px',justifyContent: 'space-between'}}>
+     <div style={{display:'flex', margin:'30px -15px 0px -10px',justifyContent: 'space-between'}}>
       <button className='button button--inverse' onClick={closeModalMio}>Annulla</button>
      <button className='button' style={{marginLeft: 'auto'}} onClick={handleInputChange}>Conferma</button>
      </div>
