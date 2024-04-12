@@ -19,12 +19,12 @@
   th, td {
     border: 1px solid #0c0b0b;
     padding: 8px;
-    text-align: left;
+    text-align: center;
     font-size: 14px;
   }
   
   th {
-    background-color: #eceed7;
+    background-color: #e6eed7;
   }
 
   .pj8 tr:nth-child(even){
@@ -32,5 +32,5 @@
 }
 
 .pj8 tr:nth-child(odd){
-    background-color: #F0F0F0;
+    background-color: #a3a1a1;
 }

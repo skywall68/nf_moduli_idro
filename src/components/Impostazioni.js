@@ -157,7 +157,7 @@ const Impostazioni = ({
    
       <div style={{backgroundColor:'lightgrey'}}>
         <ScegliPjPDF setPjPdf={setPjPdf} setSelectedFile={setSelectedFile} />
-        {planning}
+       
         {parametriStampa}
         {elencoSaldatori}
         {elencoMacchine}
@@ -169,7 +169,7 @@ const Impostazioni = ({
         {checklistCH}
          {elencoPanierSceltaFile}
         {checklistPanier}
-       
+        {planning}
        
         
       </div>

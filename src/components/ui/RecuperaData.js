@@ -1,5 +1,5 @@
 const RecuperaData = (lista)=>{
-let dataListamia = localStorage.getItem('dataLista')
+let dataListamia = localStorage.getItem('dataLista') //arriva il set da Planning.js
 const dataArray=JSON.parse(dataListamia)
 const filteredData = dataArray.filter(item => item.liste.includes(lista))
 let data=""

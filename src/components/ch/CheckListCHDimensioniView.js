@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react'
 
 import ModalMio from '../ModalMio'
+import Tasto from '../Tasto'
 import './CheckListCHDimensioniView.css'
 
 const CheckListCHDimensioniView = ({setListaPagina2Pj8App, elencoAzioniApp, appPulisciCampo, setAppPulisciCampo}) => {
@@ -68,6 +69,10 @@ const CheckListCHDimensioniView = ({setListaPagina2Pj8App, elencoAzioniApp, appP
   }
 
 }
+//comando che mi cattura solo il commento:
+const catturaCommento =()=>{
+  setShowModalMio(true)
+}
 //**************prende il valore del commento ******************* */
 const handleInputChangeCommenti = (id,field,value) =>{
   setControlli(prevControlli=>{
@@ -122,12 +127,12 @@ console.log('elenco checkListCHDimensioni:',controlli)
       </button>
       <div>
       { mostraTabella && (
-              <table className='tabella'>
+              <table className='tabellaCH'>
           <thead>
               <tr>
                   <th colSpan="2"> CONTROLLI DIMENSIONI</th>
                   <th colSpan="2">SCARTO PERMESSO</th>
-                  <th colSpan="2">RISULTATO CONTROLLO</th>
+                  <th colSpan="3">RISULTATO CONTROLLO</th>
                   {/* <th >COMMENTI/PRECISAZIONI</th>
                   <th>AZIONE CURATIVA</th> */}
               </tr>
@@ -138,6 +143,7 @@ console.log('elenco checkListCHDimensioni:',controlli)
                   <th>PIU(mm)</th>
                   <th>CONFORME</th>
                   <th>NON CONFORME</th>
+                  <th>COM.</th>
                   {/* <th></th>
                   <th></th> */}
               </tr>
@@ -208,6 +214,9 @@ console.log('elenco checkListCHDimensioni:',controlli)
                                        }}>✓</span>
                                       )}
                              </label>         
+                          </td>
+                          <td>
+                           <Tasto onClick={catturaCommento}></Tasto>
                           </td>
                           {/* <td>
                              <input

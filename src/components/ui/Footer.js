@@ -389,6 +389,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
          size:fontSizeX,
          color: rgb(0, 0, 0),
         })
+      } //fine if NON CONFORME
         //mettere if per commenti ed azioni
         if(controllo.commenti !==''){
           page2.drawText(controllo.commenti,{
@@ -410,10 +411,13 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
           }
          
         
-     } //fine if NON CONFORME
+     
      mioIdPagina2++
     })
-    //data del controllo:
+    //data del controllo da inglese a italiana:
+    let data = dataControllo;
+    dataControllo = data.replace(/(\d{2})-(\d{2})-(\d{2})/, "$3-$2-$1"); 
+    console.log('nuova data italiana:',dataControllo)   
     page2.drawText(dataControllo, {
       
       x:dataControlloYX[1],
@@ -433,7 +437,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
      })
      const modifiedPdfBytes = await pdfDoc.save(); //consente di salvare le modifiche apportate al documento PDF e ottenere i byte rappresentanti il PDF modificato
      const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });// crea un oggetto Blob  rappresenta un blocco di dati, in questo caso, l'array di byte che costituisce il documento PDF modificato
-     saveAs(blob, `${dataControllo}-${lista}.pdf`); /* utilizza FileSaver.js per avviare il processo di salvataggio del file nel browser. Il browser visualizzerà quindi una finestra di dialogo per il salvataggio, consentendo 
+     saveAs(blob, `${data}-${lista}-${nomeAbbreviatoPDF}.pdf`); /* utilizza FileSaver.js per avviare il processo di salvataggio del file nel browser. Il browser visualizzerà quindi una finestra di dialogo per il salvataggio, consentendo 
      all'utente di scaricare il file PDF modificato con il nome specificato ('output.pdf').*/ 
       //recupero la lista da visualizzare come ultima fatta:
       setAppRecuperaLista(appLista)

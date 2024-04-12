@@ -1,15 +1,15 @@
 .containerCheckListCHDimensioni {
-    background-color: rgb(250, 226, 189);
-    margin:20px;
+    background-color: rgb(224, 224, 224);
+    margin:15px;
 }
 .bottone_check_list {
  
     margin-top: 20px;
-    background-color: bisque;
+    background-color: rgb(169, 169, 169);
     height: 40px;
 }
 
-.tabella {
+.tabellaCH {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -17,11 +17,12 @@
   
   th, td {
     border: 1px solid #0c0b0b;
-    padding: 8px;
-    text-align: left;
+    padding: 4px;
+    text-align: center;
     font-size: 14px;
+    
   }
   
   th {
-    background-color: #f2f7a4;
+    background-color: #a7f586;
   }

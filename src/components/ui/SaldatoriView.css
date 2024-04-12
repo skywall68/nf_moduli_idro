@@ -1,11 +1,11 @@
 .ElencoSaldatori {
-    background-color: beige;
+    background-color: rgb(233, 247, 208);
     margin:10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Aggiungi ombra al lato destro e in basso */
 }
 
 .select_saldatori {
-    margin: 5px;
-    font-size: 20px;
+    margin: 5px 7px;
+    font-size: 17px;
     text-align: center;
 }

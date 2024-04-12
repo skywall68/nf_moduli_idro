@@ -39,7 +39,7 @@ const TipologiaView = ({setTipologiaSceltaApp}) => {
 
   return (
     <div className='tipologiaBody'>
-      <h2>Tipologia</h2>
+      <h2>Tipologia:</h2>
         <select className='select_tipologia' onChange={handleSelectChange} onClick={handleOptionClick}>
          {elencoTipologia.map((tipologie,index)=>(
           <option key={index} value={tipologie}>

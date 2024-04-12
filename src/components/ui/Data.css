@@ -2,7 +2,7 @@
     background-color: #dbdad5;
     justify-content: center;
     margin:10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Aggiungi ombra al lato destro e in basso */
 }
 
 .containerDataCH {
@@ -11,7 +11,7 @@
     justify-content: center;
     
     margin:20px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Aggiungi ombra al lato destro e in basso */
 }
 .containerDataPanier {
     display: flex;
@@ -19,7 +19,7 @@
     justify-content: center;
     
     margin:20px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Aggiungi ombra al lato destro e in basso */
 }
 
 

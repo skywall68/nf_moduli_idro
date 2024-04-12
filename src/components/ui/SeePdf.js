@@ -59,7 +59,7 @@ const SeePdf = ({
     }else {
       dataLista=""
        //setAppData(dataLista)
-      console.log('e la lista è:',lista,' la data della lista è:',dataLista)
+      console.log('e la lista è:',lista,' la data NON CE')
     }
 
     useEffect(()=>{
