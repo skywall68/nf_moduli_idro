@@ -58,7 +58,7 @@ const handleCheckboxChange = (event,id)=>{
   if (event.target.checked) {
     newControlli[id].conforme = event.target.name;
   } else {
-    newControlli[id].conforme = null;
+    newControlli[id].conforme = '';
   }
   setControlli(newControlli);
   
@@ -161,7 +161,7 @@ const closeModalMio =()=>{
                              type="checkbox"
                              name="Conforme"
                              value="true"
-                             checked={controllo.conforme === true}
+                             checked={controllo.conforme}
                              onChange={(event)=> handleCheckboxChange(event,index )}
                             
                              style={{

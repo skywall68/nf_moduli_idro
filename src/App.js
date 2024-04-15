@@ -111,7 +111,7 @@ function App() {
       if(elencoStringa){
         const elencoArray = JSON.parse(elencoStringa)
         setElencoAzioniApp(elencoArray)
-        console.log('Elenco AZIONI:',elencoAzioniApp)
+        //console.log('Elenco AZIONI:',elencoAzioniApp)
       }
       
     } catch (error) {
@@ -356,13 +356,13 @@ function App() {
     //setFilePj16JsonApp={setFilePj16JsonApp}
     />
   }
-  console.log('App 228 Visualizza modulo CH:',visualizzaModuloCHApp)
+  //console.log('App 228 Visualizza modulo CH:',visualizzaModuloCHApp)
 
   
  
   //console.log('pdf8 su App.js:',pj8App)
   //console.log('tipologia dentro App:',tipologiaSceltaApp, 'modulo:',sceltaModuloApp)
-  console.log('In checkdimensione8:',listaPagina2Pj8App)
+  //console.log('In checkdimensione8:',listaPagina2Pj8App)
 
   return (
     <div>
@@ -396,18 +396,20 @@ function App() {
                       {data}
                       {operatore}
                       {saldatoriView}
+                      {elementiLavorati}
                       {macchineView}
                       {elementiSaldati}
-                      {elementiLavorati}
                       {tipologia}
                     </div>
-                  
+                  <h2>{appElementoScelto}</h2>
                   {checkListPj8View1}
                   {checkListDimensioniPj8View}
                   {checklistPj16View}
                   {checkListDimensioniPj16View}
                   {footer}
+                   <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.0.4</div>
                   </div>
+                 
             </div>
             : visualizzaModuloCHApp ?
             <div>
@@ -419,6 +421,7 @@ function App() {
               {checkListCHView}
               {checkListCHDimensioniView}
               {footer}
+              <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.0.4</div>
             </div>
             : visualizzaModuloPanierApp ?
             <div>
@@ -430,8 +433,9 @@ function App() {
             {checkListPanierView}
             {checkListPanierDimensioniView}
             {footer}
+            <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.0.4</div>
           </div>
-           :<p>&copy;2024 WM ver: 0.0.3</p>
+           :<p>&copy;2024 WM ver: 0.0.5</p>
             }
             
        

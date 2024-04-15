@@ -5,3 +5,15 @@
 .noElementi{
     color: red;
 }
+.imputCommenti{
+    height: 20px;
+    width: 50px;
+    text-align: center;
+    margin-left: 5px;
+}
+
+.containerCommenti {
+    display: flex;
+    justify-content: center; /* allinea gli elementi al centro della riga */
+  align-items: center; /* allinea gli elementi verticalmente al centro */
+}

@@ -49,14 +49,17 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
         setMostraTabella((prev)=> !prev)
     }
     //******************************************************** */
+  
      //****************prende il valore della checkbox**************** */
      const handleCheckboxChange = (event,id)=>{
       const newControlli = [...controlli];
       if (event.target.checked) {
         newControlli[id].conforme = event.target.name;
       } else {
-        newControlli[id].conforme = null;
+        newControlli[id].conforme = '';
       }
+      
+
       setControlli(newControlli);
       setMioID(controlli[id].id) 
     //APRE IL MODAL se è 'non conforme'
@@ -66,7 +69,7 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
      }
       
   }
-    //**************prende il valore del commento ******************* */
+  //**************prende il valore del commento ******************* */
     const handleInputChangeCommenti = (id,field,value) =>{
       setControlli(prevControlli=>{
         // Creiamo un nuovo array mappando i commenti esistenti
@@ -98,7 +101,7 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
 //***********************ModalMio***************************
 //funzione che chiude Modal richiamata dal componente ModalMio
  const closeModalMio =()=>{
-  console.log('controlli.',controlli)
+  //console.log('controlli.',controlli)
   setShowModalMio(false)
 }
 //*********************************fine******************************** */ 
@@ -144,12 +147,13 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
                         <td>
                           <label>
                              <input
-                               id="myCheckbox"
+                               id={`${index}`}
                                type="checkbox"
                                name="Conforme"
                                value="true"
-                               checked={controllo.conforme === true}
+                               checked={controllo.conforme }
                                onChange={(event)=> handleCheckboxChange(event,index )}
+                              
                                style={{
                                 // display:"flex", 
                                 width: "50%", 

@@ -57,6 +57,7 @@ const [controllato1DiYX, setControllato1DiYX] = useState([]) //valori x e y di C
 const [dataControlloYX, setDataControlloYX]= useState([])  //valori x e y di data controllo
 const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
 
+
   
 
 
@@ -106,9 +107,8 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     const azioneC_pag2 = paramStampa.find(ele => ele.nome==="azioni_pag2")
     const azionC_pag2 = azioneC_pag2 ? azioneC_pag2.x : "valore x di azione curativa non trovato"
     setAzioneCurativaXpag2(azionC_pag2)
-    console.log('azione curativa:',azioneCurativaXpag2)
-
-    const controllato = paramStampa.find(ele => ele.nome==="controllato 1 di")
+   // console.log('azione curativa:',azioneCurativaXpag2)
+   const controllato = paramStampa.find(ele => ele.nome==="controllato 1 di")
     if(controllato){
       const {y,x} = controllato
       const controllatoXY = [y,x]
@@ -129,18 +129,13 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
       const operYX = [y,x]
       setOperatoreYX(operYX)
     } else { console.log('valore y e x di OPERATORE NON TROVATO')}
-    
 
+    },[])
 
-
-  },[])
-
-
- 
 
  //********************gestione del Modal CONFERMA************************ */
  const openModalPrintHandler = ()=>{   //chiamata dal tasto CONFERMA
-  
+  console.log('CONTROLLATO 1 DI:',appControllatoNdi)
 
  
    if (appData ===''){
@@ -181,10 +176,10 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
   if(appElementoScelto !==''){
     lista = appLista
   } else if (elementoCHSceltoApp !==''){
-    lista = elementoCHSceltoApp
+    lista = ''
     dataControllo = appInputValue
   } else if (elementoPanierSceltoApp !==''){
-    lista = elementoPanierSceltoApp
+    lista = ''
     dataControllo = appInputValue
    
   }
@@ -216,7 +211,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
   }
   
   const parametri_stampa = parametriStampa
-  const nElementi = `n°1 di ${appControllatoNdi}`
+  const nElementi = appControllatoNdi
   const spuntaFabbrica='x'
   const spuntaSuPiano = 'x'
   const cantiere = `${appCantiere}   /`
@@ -267,7 +262,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
       const nuovoNomeCantiere = parteIniziale.slice(0,24)+ '.'
       paginaUnoAlto.splice(indexNomeCantiere,1) //rimuovi cantiere
       paginaUnoAlto.splice(indexNomeCantiere,0,nuovoNomeCantiere) //aggiungi cantiere modificato
-      console.log('troncato:',nuovoNomeCantiere)
+      //console.log('troncato:',nuovoNomeCantiere)
 
      }
    }//fine controllo lunghezza cantiere
@@ -293,11 +288,12 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
         let coordinate=0
         let valoreY=0
         //inizia un ciclo
+        //console.log('elenco prima parte:',  paginaUnoAlto)
          paginaUnoAlto.forEach((testo, index)=>{  //è un array con i valori di intestazione
          coordinate = parametri_stampa[index]
          testoDaStampare=testo
          valoreY=coordinate.y 
-         console.log('testo da stampare:','testo:',testo,'coordinate:', coordinate.x,valoreY)
+         //console.log('testo da stampare:','testo:',testo,'coordinate:', coordinate.x,valoreY)
          page1.drawText(testoDaStampare, {
            x: coordinate.x,
            y: height  - coordinate.y, 
@@ -312,8 +308,8 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
        let mioIdPagina1 = idPagina1  //corrisponde id:11 del file paramentri stampa
        let coordinate_pagina = []
        //let xNonconforme = nonConformeX
-       console.log('lista pagina1:',listaPagina1)
-
+       //console.log('lista pagina1:',listaPagina1)
+      
        listaPagina1.forEach((controllo )=>{
        coordinate_pagina = parametri_stampa[mioIdPagina1]
         if(controllo.conforme === true) {
@@ -327,39 +323,45 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
           }
           
           )
-          console.log('stampo il testo:',testo_spuntato)
-         } else if (controllo.conforme === false) {
-          page1.drawText(testo_spuntato, {
-            x:coordinate_pagina.x + nonConformeXpag1,
-            y: height -coordinate_pagina.y,
-            font,
-            size:fontSizeX,
-            color: rgb(0, 0, 0),
-          })
-            //mettere if per commenti ed azioni
-            if(controllo.commenti !==''){
-              page1.drawText(controllo.commenti,{
-                x:commentiXpag1,
-                y: height -coordinate_pagina.y,
-                font,
-                size:fontSizeX,
-                color: rgb(0, 0, 0),  
-              })
-              console.log('sei dentro if di commenti,valore di azione è:',controllo.azioneCurativa)
-              page1.drawText(controllo.azioneCurativa,{
-                x:azioneCurativaXpag1,
-                y: height -coordinate_pagina.y,
-                font,
-                size:fontSizeX,
-                color: rgb(0, 0, 0),  
-              })
-            }
-          }
+          
+           //console.log('stampo il testo:',testo_spuntato)
+          } else if (controllo.conforme === false) {
+            page1.drawText(testo_spuntato, {
+              x:coordinate_pagina.x + nonConformeXpag1,
+              y: height -coordinate_pagina.y,
+              font,
+              size:fontSizeX,
+              color: rgb(0, 0, 0),
+            })
+              //mettere if per commenti ed azioni
+              if(controllo.commenti !==''){
+                page1.drawText(controllo.commenti,{
+                  x:commentiXpag1,
+                  y: height -coordinate_pagina.y,
+                  font,
+                  size:fontSizeX,
+                  color: rgb(0, 0, 0),  
+                })
+                //console.log('sei dentro if di commenti,valore di azione è:',controllo.azioneCurativa)
+                page1.drawText(controllo.azioneCurativa,{
+                  x:azioneCurativaXpag1,
+                  y: height -coordinate_pagina.y,
+                  font,
+                  size:fontSizeX,
+                  color: rgb(0, 0, 0),  
+                })
+              }
+              }
+              
+            
+             
           mioIdPagina1++
       })
+       console.log('stampo il testo2:')
       //se l'elemento controllato è maggiore di uno allora riportalo
       if(nElementi>1) {
         const testoCommento=`Controllato 1 elemento di ${nElementi}`
+        console.log('numero elementi:', nElementi)
        page1.drawText(testoCommento, {
          x:controllato1DiYX[1],
          y: height - controllato1DiYX[0],
@@ -372,7 +374,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
       let mioIdPagina2 = idPagina2 //corrisponde id:18(pj8) del file paramentri stampa
       listaPagina2.forEach((controllo)=>{
       coordinate_pagina = parametri_stampa[mioIdPagina2]
-      console.log('lista pagina2:',listaPagina2)
+      //console.log('lista pagina2:',listaPagina2)
       if(controllo.conforme === 'Conforme' ){
         page2.drawText(testo_spuntato, {
          x:coordinate_pagina.x,
@@ -414,10 +416,12 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
      
      mioIdPagina2++
     })
+
+    console.log('stampo il testo3:')
     //data del controllo da inglese a italiana:
     let data = dataControllo;
-    dataControllo = data.replace(/(\d{2})-(\d{2})-(\d{2})/, "$3-$2-$1"); 
-    console.log('nuova data italiana:',dataControllo)   
+    dataControllo = data.replace(/(\d{2})-(\d{2})-(\d{2})/, "$3_$2_$1"); 
+    console.log('nuova data italiana:',data)   
     page2.drawText(dataControllo, {
       
       x:dataControlloYX[1],
@@ -445,6 +449,17 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
       console.error("Errore durante l'analisi del documento PDF:", error.message);
       console.log('data:',dataControllo, 'lista:',lista,'nome abbreviato:',nomeAbbreviatoPDF)
     }
+    console.log('Prima di  pulire la lista1?:', listaPagina1)
+    console.log('Prima di  pulire la lista2?:', listaPagina2)
+    //PULIAMO I COMMENTI:
+    listaPagina1 = listaPagina1.map(oggetto =>{
+      oggetto.commenti=''
+      oggetto.azioneCurativa=''
+    })
+    listaPagina2 = listaPagina2.map(oggetto =>{
+      oggetto.commenti=''
+      oggetto.azioneCurativa=''
+    })
 
   }
   //****************************FINE*********************************************************************** */
@@ -458,7 +473,10 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
       if(pj8App || pj16App){
         handleCancel()
       }
-      
+     
+      console.log('Come posso pulire la lista?:', listaPagina1)
+      console.log('Come posso pulire la lista?:', listaPagina2)
+  
     //chiudi modal
     closeModalPrintHandler();
   } else if (operatore ==='') {
@@ -477,6 +495,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     alert('errore generico')
     closeModalPrintHandler();
   }
+  
 
   }
   //****************************FINE*********************************************************************** */

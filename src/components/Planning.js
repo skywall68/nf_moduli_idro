@@ -65,14 +65,14 @@ const Planning = () => {
  
          
        setExcelData(filteredRows);
-       console.log('Filtered Rows:', filteredRows);
+       //console.log('Filtered Rows:', filteredRows);
        localStorage.setItem('dataLista',JSON.stringify(filteredRows)) //memorizza l'array di oggetti data e liste[]
       
      };
      reader.readAsBinaryString(file);
     };
     ///////////////////////////////////////////////////////////
-     console.log('se è salvato in excelData',excelData )
+     //console.log('se è salvato in excelData',excelData )
   
      //////////////////comando click///////////////////////////
      

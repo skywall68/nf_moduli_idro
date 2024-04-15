@@ -24,7 +24,7 @@ const handleInputChange =(e)=>{
          <div className={sceltaModuloApp === 'ch' ? 'containerDataCH' :
           sceltaModuloApp === 'panier' ? 'containerDataPanier'
           : 'containerData'}>
-             <h2>Data:{appInputValue}</h2>
+             <h2>Data:</h2>
              <input
              className={sceltaModuloApp === 'ch' ? 'inputBoxCH' :
              sceltaModuloApp === 'panier' ? 'inputBoxPanier'

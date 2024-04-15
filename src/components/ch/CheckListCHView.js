@@ -1,7 +1,8 @@
 //visualizzo la prima parte della lista pj8 in tabella da 1 a 6
 import React, { useState, useEffect} from 'react'
-import ModalMio from '../ModalMio'
 
+import ModalMio from '../ModalMio'
+import Tasto from '../Tasto'
 import './CheckListCHView.css'
 
 const CheckListCHView = ({setListaPagina1Pj8App, elencoAzioniApp,appPulisciCampo,setAppPulisciCampo}) => {
@@ -56,6 +57,29 @@ const handleOptionChange =(id, conformeValue)=>{
   }
   console.log('valore Recupero i valori nella option box:',controlli)
   //************************************************************************ */
+  //comando che mi cattura solo il commento:
+const catturaCommento =(id, conformeValue)=>{
+  const updatedItems = controlli.map(item =>{
+    if (item.id === id) {
+      console.log('sono dentro handleOptionChange, id: ',id,'valore:',conformeValue)
+      setMioID(item.id) //recupero il id della riga per mandarla nel modalMio per commenti/azioni
+       //APRE IL MODAL se è 'conforme'
+       if(conformeValue === true){
+        console.log('dentro controlli!!!')
+      //devo portare id nella modale
+       setShowModalMio(true)
+       }
+      return { ...item, conforme: conformeValue };
+
+    }
+    console.log('sono fuori')
+    return item;
+  });
+  setControlli(updatedItems)
+  
+  setListaPagina1Pj8App(updatedItems) //recupero i valori per portarli in App.js per poi stamparli
+  
+}
     //******************Recupero i commenti ************************************* */
     const handleInputChangeCommenti = (id,field,value) =>{
       setControlli(prevControlli=>{
@@ -110,7 +134,7 @@ const closeModalMio =()=>{
           <thead>
           <tr>
             <th>CONTROLLI</th>
-            <th colSpan="2">RISULTATO CONTROLLO</th>
+            <th colSpan="3">RISULTATO CONTROLLO</th>
             {/* <th >COMMENTI/PRECISAZIONI</th>
             <th>AZIONE CURATIVA</th> */}
           </tr>
@@ -118,6 +142,7 @@ const closeModalMio =()=>{
             <th></th>
             <th>CONFORME</th>
             <th>NON CONFORME</th>
+            <th>COM.</th>
             {/* <th></th>
             <th></th> */}
           </tr>
@@ -149,6 +174,9 @@ const closeModalMio =()=>{
                        />
                     </label>
                   </td>
+                  <td>
+                  <Tasto onClick={()=>catturaCommento(controllo.id, true)}></Tasto>
+                 </td>
                   {/* <td>
                     <input
                       type='text'

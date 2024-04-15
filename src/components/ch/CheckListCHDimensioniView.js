@@ -56,7 +56,7 @@ const CheckListCHDimensioniView = ({setListaPagina2Pj8App, elencoAzioniApp, appP
   if (event.target.checked) {
     newControlli[id].conforme = event.target.name;
   } else {
-    newControlli[id].conforme = null;
+    newControlli[id].conforme = '';
   }
   setControlli(newControlli);
   console.log('valore di checkbox:', id, controlli[id].conforme, 'id:', controlli[id].id) 
@@ -69,9 +69,19 @@ const CheckListCHDimensioniView = ({setListaPagina2Pj8App, elencoAzioniApp, appP
   }
 
 }
-//comando che mi cattura solo il commento:
-const catturaCommento =()=>{
+
+//**************comando che mi cattura solo il commento:******************************
+const catturaCommento =(event,id)=>{
+  const newControlli = [...controlli];
+  if (event.target.checked) {
+    newControlli[id].conforme = event.target.name;
+    setControlli(newControlli);
+    setMioID(controlli[id].id) 
+  }
+ if(controlli[id].conforme ==='Conforme'){
+  //devo portare id nella modale
   setShowModalMio(true)
+ }
 }
 //**************prende il valore del commento ******************* */
 const handleInputChangeCommenti = (id,field,value) =>{
@@ -163,7 +173,7 @@ console.log('elenco checkListCHDimensioni:',controlli)
                              type="checkbox"
                              name="Conforme"
                              value="true"
-                             checked={controllo.conforme === true}
+                             checked={controllo.conforme}
                              onChange={(event)=> handleCheckboxChange(event,index )}
                             
                              style={{
@@ -216,7 +226,7 @@ console.log('elenco checkListCHDimensioni:',controlli)
                              </label>         
                           </td>
                           <td>
-                           <Tasto onClick={catturaCommento}></Tasto>
+                           <Tasto onClick={(event)=>catturaCommento(event,index)}></Tasto>
                           </td>
                           {/* <td>
                              <input
