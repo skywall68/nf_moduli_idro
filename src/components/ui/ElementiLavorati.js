@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 import './ElementiLavorati.css'
 
-const ElementiLavorati = ({appElementi,setAppElementoScelto}) => {
+const ElementiLavorati = ({appElementi,setAppElementoScelto,setAppControllatoNdi}) => {
     const[elementiLavorati, setElementiLavorati]=useState([])
     const[elementoScelto, setElementoScelto]=useState('')
     const [posizione,setPosizione]=useState('')
@@ -51,7 +51,9 @@ const ElementiLavorati = ({appElementi,setAppElementoScelto}) => {
         setAppElementoScelto(elementoScelto + '-pos.' + posizione)
       }
       else if (posizione !=='' && posizione !==0 && commenti !==''){
-        setAppElementoScelto(elementoScelto + '-pos.' + posizione + ' controllato 1 di n° ' + commenti)
+        setAppElementoScelto(elementoScelto + '-pos.' + posizione)
+        setAppControllatoNdi(commenti)
+      
       }
     },[elementoScelto,posizione,commenti])
 

@@ -208,6 +208,7 @@ function App() {
                   elementiLavorati=<ElementiLavorati
                               appElementi={appElementi} 
                               setAppElementoScelto={setAppElementoScelto} 
+                              setAppControllatoNdi={setAppControllatoNdi}
                               />
                 }
                 else {
@@ -407,7 +408,7 @@ function App() {
                   {checklistPj16View}
                   {checkListDimensioniPj16View}
                   {footer}
-                   <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.0.4</div>
+                   <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.0.5</div>
                   </div>
                  
             </div>
@@ -433,7 +434,7 @@ function App() {
             {checkListPanierView}
             {checkListPanierDimensioniView}
             {footer}
-            <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.0.4</div>
+            <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.0.5</div>
           </div>
            :<p>&copy;2024 WM ver: 0.0.5</p>
             }
