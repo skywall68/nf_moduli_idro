@@ -50,7 +50,8 @@ function App() {
   const[macchinaSceltaApp, setMacchinaSceltaApp]= useState('')
   const [appElementi, setAppElementi]= useState([]) //mi compila la dropdown list di elementi saldati o lavorati
   const [appElementoScelto,setAppElementoScelto]=useState('')
-  const [appControllatoNdi, setAppControllatoNdi]= useState('') // al numero di elementi appartiene l'elemento controllato
+  const [appControllatoNdi, setAppControllatoNdi]= useState('') // al numero di elementi appartiene l'elemento controllato preso dal pdf nell'etichetta
+  const [numeroElemento, setNumeroElemento]=useState('1') //mi serve per pj16 per segnare la qt di ferri
   const [visualizzaModulo, setVisualizzaModulo]= useState(false)
   const [visualizzaModuloCHApp, setAppVisualizzaModuloCH]= useState(false) //se è true mi visualizza il modulo CH
   const [visualizzaModuloPanierApp, setAppVisualizzaModuloPanier]= useState(false) //se è true mi visualizza il modulo Panier
@@ -208,7 +209,8 @@ function App() {
                   elementiLavorati=<ElementiLavorati
                               appElementi={appElementi} 
                               setAppElementoScelto={setAppElementoScelto} 
-                              setAppControllatoNdi={setAppControllatoNdi}
+                              //setAppControllatoNdi={setAppControllatoNdi}
+                              setNumeroElemento={setNumeroElemento}
                               />
                 }
                 else {
@@ -245,6 +247,7 @@ function App() {
       appPlan={appPlan}
       onCancel={handleCancel}//mi serve per eliminare il campo da Data.js
       setAppPulisciCampo={setAppPulisciCampo} //pulisce i campi di CheckListDimensioniPj8View/CheckListDimensioniPj16View
+      numeroElemento={numeroElemento}//mi porta il valore dei pz totali da pj16
      
       />
     //***************************fine raccolta per la stampa pj8 e pj16******************************************** */
@@ -422,7 +425,7 @@ function App() {
               {checkListCHView}
               {checkListCHDimensioniView}
               {footer}
-              <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.0.4</div>
+              <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.0.5</div>
             </div>
             : visualizzaModuloPanierApp ?
             <div>

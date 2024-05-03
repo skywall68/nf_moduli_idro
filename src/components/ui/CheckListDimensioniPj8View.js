@@ -117,7 +117,7 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
   
   
   return (
-    <div className='checklist_dimensioni'>
+    <div className='checklist_dimensionipj8'>
          <div className='bottone_check_list'></div>
          <button onClick={handleToggleTabella}>
         {mostraTabella ? 'O' : 'V'}

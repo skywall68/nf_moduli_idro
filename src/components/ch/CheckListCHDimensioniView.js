@@ -96,8 +96,8 @@ const handleInputChangeCommenti = (id,field,value) =>{
 return updatedControlli;
 });
     
-console.log(`(CheckCHDimensioni.js f:handleInputChangeCommenti)ID: ${id}, Campo: ${field}, Valore: ${value}`);
-console.log('dentro CH:', controlli)
+//console.log(`(CheckCHDimensioni.js f:handleInputChangeCommenti)ID: ${id}, Campo: ${field}, Valore: ${value}`);
+//console.log('dentro CH:', controlli)
 setCommenti('')
 
 
@@ -109,7 +109,7 @@ const handleInputChangeAzione = (id,field,value) =>{
      azione.id === id ? {...azione,[field]:value}: azione
   )
 )
-console.log(`(CheckCHDimensioni.js f:handleInputChangeAzione)ID: ${id}, Campo: ${field}, Valore: ${value}`);
+//console.log(`(CheckCHDimensioni.js f:handleInputChangeAzione)ID: ${id}, Campo: ${field}, Valore: ${value}`);
 setListaPagina2Pj8App(controlli)
 }
 
@@ -121,10 +121,10 @@ useEffect(()=>{
 //***********************ModalMio***************************
 //funzione che chiude Modal richiamata dal componente ModalMio
 const closeModalMio =()=>{
-  console.log('controlli.',controlli)
+  //console.log('controlli.',controlli)
   setShowModalMio(false)
 }
-console.log('elenco checkListCHDimensioni:',controlli)
+//console.log('elenco checkListCHDimensioni:',controlli)
 //*********************************fine******************************** */
 
 

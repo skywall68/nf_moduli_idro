@@ -8,7 +8,7 @@ import './CheckListCHView.css'
 const CheckListCHView = ({setListaPagina1Pj8App, elencoAzioniApp,appPulisciCampo,setAppPulisciCampo}) => {
 
   const [controlli, setControlli] = useState([])
-  const [inizioControlli, setInizioControlli]=useState([])
+  //const [inizioControlli, setInizioControlli]=useState([])
   const [showModalMio, setShowModalMio]=useState(false)
   const [mioID, setMioID]=useState(0)
   const [commenti, setCommenti]=useState('')
@@ -36,18 +36,18 @@ const CheckListCHView = ({setListaPagina1Pj8App, elencoAzioniApp,appPulisciCampo
 const handleOptionChange =(id, conformeValue)=>{
   const updatedItems = controlli.map(item =>{
     if (item.id === id) {
-      console.log('sono dentro handleOptionChange, id: ',id,'valore:',conformeValue)
+     // console.log('sono dentro handleOptionChange, id: ',id,'valore:',conformeValue)
       setMioID(item.id) //recupero il id della riga per mandarla nel modalMio per commenti/azioni
        //APRE IL MODAL se è 'non conforme'
        if(conformeValue === false){
-        console.log('dentro controlli!!!')
+        //console.log('dentro controlli!!!')
       //devo portare id nella modale
        setShowModalMio(true)
        }
       return { ...item, conforme: conformeValue };
 
     }
-    console.log('sono fuori')
+    //console.log('sono fuori')
     return item;
   });
   setControlli(updatedItems)
@@ -55,24 +55,24 @@ const handleOptionChange =(id, conformeValue)=>{
   setListaPagina1Pj8App(updatedItems) //recupero i valori per portarli in App.js per poi stamparli
   
   }
-  console.log('valore Recupero i valori nella option box:',controlli)
+ // console.log('valore Recupero i valori nella option box:',controlli)
   //************************************************************************ */
   //comando che mi cattura solo il commento:
 const catturaCommento =(id, conformeValue)=>{
   const updatedItems = controlli.map(item =>{
     if (item.id === id) {
-      console.log('sono dentro handleOptionChange, id: ',id,'valore:',conformeValue)
+      ///console.log('sono dentro handleOptionChange, id: ',id,'valore:',conformeValue)
       setMioID(item.id) //recupero il id della riga per mandarla nel modalMio per commenti/azioni
        //APRE IL MODAL se è 'conforme'
        if(conformeValue === true){
-        console.log('dentro controlli!!!')
+        //console.log('dentro controlli!!!')
       //devo portare id nella modale
        setShowModalMio(true)
        }
       return { ...item, conforme: conformeValue };
 
     }
-    console.log('sono fuori')
+    //console.log('sono fuori')
     return item;
   });
   setControlli(updatedItems)
@@ -115,7 +115,7 @@ const catturaCommento =(id, conformeValue)=>{
 //***********************Lavoro con ModalMio***************************
 //funzione che chiude Modal richiamata dal componente ModalMio
 const closeModalMio =()=>{
-  console.log('controlli.',controlli)
+  //console.log('controlli.',controlli)
   setShowModalMio(false)
 }
 

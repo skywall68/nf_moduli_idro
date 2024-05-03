@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 import './ElementiLavorati.css'
 
-const ElementiLavorati = ({appElementi,setAppElementoScelto,setAppControllatoNdi}) => {
+const ElementiLavorati = ({appElementi,setAppElementoScelto,setNumeroElemento}) => {
     const[elementiLavorati, setElementiLavorati]=useState([])
     const[elementoScelto, setElementoScelto]=useState('')
     const [posizione,setPosizione]=useState('')
@@ -38,21 +38,23 @@ const ElementiLavorati = ({appElementi,setAppElementoScelto,setAppControllatoNdi
     const handleSelectChange=(e)=>{
       setElementoScelto(e.target.value) //recupero il valore selezionato
       setAppElementoScelto(e.target.value)
-      console.log('elemento scelto:',e.target.value)
+      // console.log('elemento scelto:',e.target.value)
 
     }
 
     const handleSelectPosizione=(event)=>{
       setPosizione(event.target.value)
-      console.log('POSIZIONE sceltA:',event.target.value)
+      // console.log('POSIZIONE sceltA:',event.target.value)
     }
     useEffect(()=>{
       if(posizione !=='' && posizione !==0 && commenti ===''){
         setAppElementoScelto(elementoScelto + '-pos.' + posizione)
+       
       }
       else if (posizione !=='' && posizione !==0 && commenti !==''){
         setAppElementoScelto(elementoScelto + '-pos.' + posizione)
-        setAppControllatoNdi(commenti)
+        setNumeroElemento(commenti)
+        // console.log('controllato elemento dentro elementiLavorati:',commenti)
       
       }
     },[elementoScelto,posizione,commenti])

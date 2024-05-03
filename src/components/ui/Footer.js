@@ -35,6 +35,7 @@ const Footer = ({
   onCancel,
   setAppPulisciCampo,
   appInputValue,//data?
+  numeroElemento,
   
 
 }) => {
@@ -56,7 +57,7 @@ const [ azioneCurativaXpag2, setAzioneCurativaXpag2]= useState() //valore azione
 const [controllato1DiYX, setControllato1DiYX] = useState([]) //valori x e y di Controllato 1 elemento di
 const [dataControlloYX, setDataControlloYX]= useState([])  //valori x e y di data controllo
 const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
-
+//console.log('controllato   appControllatoNdi: ',  appControllatoNdi)
 
   
 
@@ -135,7 +136,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
 
  //********************gestione del Modal CONFERMA************************ */
  const openModalPrintHandler = ()=>{   //chiamata dal tasto CONFERMA
-  console.log('CONTROLLATO 1 DI:',appControllatoNdi)
+  //console.log('CONTROLLATO 1 DI:',appControllatoNdi)
 
  
    if (appData ===''){
@@ -147,22 +148,11 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
   }
    else {
     
-    console.log('Dentro footer la data è in else:',appData, appInputValue)
+    //console.log('Dentro footer la data è in else:',appData, appInputValue)
     
     //console.log('sono dentro conferma e vediamo i dati:',listaPagina2Pj8App)
     setShowModalPrint(true)// mi apre una finestra modal quando premo tasto conferma
-    // console.log('font:',fontSizeX)
-    // console.log('non conforme:',nonConformeX)
-    // console.log('id pagina 1:',idPagina1)
-    // console.log('id pagina 2:',idPagina2)
-    // console.log('commenti valore x:',commentiX)
-     //console.log('azione curativa:',azioneCurativaXpag2)
-    // console.log('controllato 1 di:',controllato1DiYX[0],controllato1DiYX[1])
-    // console.log('data controllo:',dataControlloYX[0],dataControlloYX[1],dataControllo)
-    // console.log('operatore:',operatoreYX[0],operatoreYX[1],operatore)
-
-    // console.log('dentro modal!!!!',parametri_stampa,'pdf:',nomeAbbreviatoPDF)
-
+   
      
   }
  } 
@@ -211,7 +201,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
   }
   
   const parametri_stampa = parametriStampa
-  const nElementi = appControllatoNdi
+  let nElementi = '1'
   const spuntaFabbrica='x'
   const spuntaSuPiano = 'x'
   const cantiere = `${appCantiere}   /`
@@ -229,6 +219,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     listaPagina2=listaPagina2Pj8App
     nomeAbbreviatoPDF='pj8'
     macchinaOsaldatori=saldatori
+    nElementi=appControllatoNdi
    }
   if(pj16App){
     pdfFile=pj16App
@@ -236,6 +227,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     listaPagina2=listaPagina2Pj16App
     nomeAbbreviatoPDF='pj16'
     macchinaOsaldatori=macchina
+    nElementi=numeroElemento
    }
    if(pjCH){
     pdfFile=pjCH
@@ -286,7 +278,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
         const font = await pdfDoc.embedFont(StandardFonts.Helvetica);//utilizzato per disegnare testo sulla pagina del PDF utilizzando quel font specifico
         //prima parte pagina 1 in alto
         let coordinate=0
-        let valoreY=0
+        let valoreY=0 
         //inizia un ciclo
         //console.log('elenco prima parte:',  paginaUnoAlto)
          paginaUnoAlto.forEach((testo, index)=>{  //è un array con i valori di intestazione
@@ -357,11 +349,11 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
              
           mioIdPagina1++
       })
-       console.log('stampo il testo2:')
+       //console.log('stampo il testo2:')
       //se l'elemento controllato è maggiore di uno allora riportalo
       if(nElementi>1) {
-        const testoCommento=`Controllato 1 elemento di ${nElementi}`
-        console.log('numero elementi:', nElementi)
+        const testoCommento='Controllato n°1 elem. di ' + nElementi
+        //console.log('numero elementi da stampa:', nElementi)
        page1.drawText(testoCommento, {
          x:controllato1DiYX[1],
          y: height - controllato1DiYX[0],
@@ -417,11 +409,11 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
      mioIdPagina2++
     })
 
-    console.log('stampo il testo3:')
+   // console.log('stampo il testo3:')
     //data del controllo da inglese a italiana:
     let data = dataControllo;
     dataControllo = data.replace(/(\d{2})-(\d{2})-(\d{2})/, "$3_$2_$1"); 
-    console.log('nuova data italiana:',data)   
+    //console.log('nuova data italiana:',data)   
     page2.drawText(dataControllo, {
       
       x:dataControlloYX[1],
@@ -447,10 +439,10 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
       setAppRecuperaLista(appLista)
     } catch (error) {
       console.error("Errore durante l'analisi del documento PDF:", error.message);
-      console.log('data:',dataControllo, 'lista:',lista,'nome abbreviato:',nomeAbbreviatoPDF)
+      //console.log('data:',dataControllo, 'lista:',lista,'nome abbreviato:',nomeAbbreviatoPDF)
     }
-    console.log('Prima di  pulire la lista1?:', listaPagina1)
-    console.log('Prima di  pulire la lista2?:', listaPagina2)
+    //console.log('Prima di  pulire la lista1?:', listaPagina1)
+   // console.log('Prima di  pulire la lista2?:', listaPagina2)
     //PULIAMO I COMMENTI:
     listaPagina1 = listaPagina1.map(oggetto =>{
       oggetto.commenti=''
@@ -474,8 +466,8 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
         handleCancel()
       }
      
-      console.log('Come posso pulire la lista?:', listaPagina1)
-      console.log('Come posso pulire la lista?:', listaPagina2)
+      //console.log('Come posso pulire la lista?:', listaPagina1)
+      //console.log('Come posso pulire la lista?:', listaPagina2)
   
     //chiudi modal
     closeModalPrintHandler();
@@ -508,8 +500,8 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
   }
 
 const nodeRef = useRef(null);
-console.log('dentro footer elenco listaPagina2Pj8App ',listaPagina2Pj8App)
-console.log('dentro footer, la pagina listaPagina2Pj16App:',listaPagina2Pj16App)
+//console.log('dentro footer elenco listaPagina2Pj8App ',listaPagina2Pj8App)
+//console.log('dentro footer, la pagina listaPagina2Pj16App:',listaPagina2Pj16App)
   return (
     <React.Fragment>
       <Modal 
