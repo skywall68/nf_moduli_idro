@@ -59,7 +59,7 @@ const CheckListCHDimensioniView = ({setListaPagina2Pj8App, elencoAzioniApp, appP
     newControlli[id].conforme = '';
   }
   setControlli(newControlli);
-  console.log('valore di checkbox:', id, controlli[id].conforme, 'id:', controlli[id].id) 
+  //console.log('valore di checkbox:', id, controlli[id].conforme, 'id:', controlli[id].id) 
   setMioID(controlli[id].id) 
   //setListaPagina2Pj8App(controlli)
   //APRE IL MODAL se è 'non conforme'

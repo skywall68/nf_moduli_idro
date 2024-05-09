@@ -8,25 +8,22 @@ const CheckListPj8 = ({setSelectedPj8OrPj16}) => {
   const [isGreen, setIsGreen]=useState(false)
   
   const handleFileRead = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
+    if(fileJson===null) {
+       const file = e.target.files[0];
+       const reader = new FileReader();
+       reader.onload = (event) => {
       const content = event.target.result;
       setFileJson(content);
-
-      // Memorizza il contenuto del file JSON in App.js
-      //setFilePj8Json1(content)
       // Memorizza il contenuto del file JSON pj8 in localStorage
       localStorage.setItem('jsonFilePj8', content);
        //assegna true perchè è stato selezionato, questo per far apparire il tasto 'ok' su impostazioni.js
        setSelectedPj8OrPj16(true)
        setIsGreen(true)
-      
-      
+    }
+       reader.readAsText(file);
     };
 
-    reader.readAsText(file);
+    
   };
 
  

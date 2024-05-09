@@ -1,5 +1,5 @@
-import React,{ useRef, useState, useEffect} from 'react'
-import { PDFDocument } from 'pdf-lib'
+import React,{ useState} from 'react'
+//import { PDFDocument } from 'pdf-lib'
 
 import './Impostazioni.css'
 
@@ -11,7 +11,7 @@ import CheckListPj8 from './CheckListPj8';
 import CheckListPj16 from './CheckListPj16'
 import ScegliPjPDF from './ScegliPjPDF'
 import ElencoTipologia from './ElencoTipologia'
-import { blue, yellow } from '@mui/material/colors'
+//import { blue, yellow } from '@mui/material/colors'
 import Planning from './Planning'
 import CheckListCH from './ch/CheckListCH'
 import ElencoCHSceltaFile from './ch/ElencoCHSceltaFile'
@@ -94,7 +94,7 @@ const Impostazioni = ({
   }
    
  //creiamo la condizione di vedere o non vedere gli elementi :
- let sceltaPdf;
+ //let sceltaPdf;
  let parametriStampa;
   let elencoSaldatori;
   let elencoMacchine;
@@ -140,7 +140,7 @@ const Impostazioni = ({
 
   }
   else {
-    vuoto="<h2>Nessun parametro scelto!!</h2>"
+    vuoto="Nessun parametro scelto!!"
   }
   
   
@@ -170,18 +170,18 @@ const Impostazioni = ({
          {elencoPanierSceltaFile}
         {checklistPanier}
         {planning}
+        
        
         
       </div>
     
-      {selectedFile && 
-      selectedParametriStampa && 
-      selectMacchineOrsaldatori && 
-      selectedPj8OrPj16 && 
-      selectTipologia || 
-      selectCH ||
-      selectPanier
-        ? <button className='button' onClick={importPDF} > OK </button> : <h3></h3> }
+      { (selectedFile && 
+  selectedParametriStampa && 
+  selectMacchineOrsaldatori && 
+  selectedPj8OrPj16 && 
+  (selectTipologia || selectCH || selectPanier))
+    ? <button className='button' onClick={importPDF}> OK </button>
+    : <h3>{vuoto}</h3> }
        {/* ? <Tasto onClick={importPDF}>OK</Tasto> : <h3></h3> } */}
        
      

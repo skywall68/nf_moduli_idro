@@ -92,7 +92,7 @@ const catturaCommento =(id, conformeValue)=>{
      // console.log('valore Recupero i valori COMMENTO in update:',updatedControlli)
     return updatedControlli;
     });
-     console.log(`ID: ${id}, Campo: ${field}, Valore: ${value}`);
+    // console.log(`ID: ${id}, Campo: ${field}, Valore: ${value}`);
      setListaPagina1Pj8App(controlli) //recupero i valori per portarli in App.js per poi stamparli
      setCommenti('')
    }

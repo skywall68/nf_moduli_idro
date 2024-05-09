@@ -67,7 +67,7 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
      setShowModalMio(true)
   }
       //console.log('valore di checkbox:', id, controlli[id].conforme, 'id:', controlli[id].id) 
-      console.log('valore Recupero i valori spunta:',controlli)
+     // console.log('valore Recupero i valori spunta:',controlli)
      // setListaPagina2Pj8App(controlli)
     }
     //**************prende il valore del commento ******************* */
@@ -82,7 +82,7 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
      // console.log('valore Recupero i valori COMMENTO in update:',updatedControlli)
     return updatedControlli;
   });
-    console.log(`(CheckDimensioni.js f:handleInputChangeCommenti)ID: ${id}, Campo: ${field}, Valore: ${value}`);
+    //console.log(`(CheckDimensioni.js f:handleInputChangeCommenti)ID: ${id}, Campo: ${field}, Valore: ${value}`);
     setCommenti('')
   }
   //****************prende il valore dell'azione ********************* */
@@ -97,7 +97,7 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
       
          return updatedControlli;
     })
-  console.log(`(CheckDimensioni.js f:handleInputChangeAzione)ID: ${id}, Campo: ${field}, Valore: ${value}`);
+  //console.log(`(CheckDimensioni.js f:handleInputChangeAzione)ID: ${id}, Campo: ${field}, Valore: ${value}`);
   //console.log('valore Recupero i valori azioni:',controlli)
  // setListaPagina2Pj8App(controlli)
   }
@@ -109,7 +109,7 @@ const CheckListDimensioniPj8View = ({setListaPagina2Pj8App, appPulisciCampo, set
   //***********************ModalMio***************************
   //funzione che chiude Modal richiamata dal componente ModalMio
   const closeModalMio =()=>{
-  console.log('controlli.',controlli)
+  //console.log('controlli.',controlli)
   setShowModalMio(false)
   }
 

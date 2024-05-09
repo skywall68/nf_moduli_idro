@@ -91,7 +91,7 @@ const CheckListDimensioniPj16View = ({setListaPagina2Pj16App,appPulisciCampo,set
        azione.id === id ? {...azione,[field]:value}: azione
     )
   )
-  console.log(`(CheckDimensioni.js f:handleInputChangeAzione)ID: ${id}, Campo: ${field}, Valore: ${value}`);
+  //console.log(`(CheckDimensioni.js f:handleInputChangeAzione)ID: ${id}, Campo: ${field}, Valore: ${value}`);
   
   }
  //aggiornamento prima di mandare il valori ad App.js

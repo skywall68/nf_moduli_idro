@@ -21,7 +21,7 @@ const ElencoMacchine = ({setSelectMacchineOrsaldatori}) => {
         setElencoTxt(lines)
         setSelectMacchineOrsaldatori(true) //mi permette di visualizzare il dato OK su Impostazioni.js
         setIsGreen(true) //mi rende il componente verde
-        console.log('dentro ElencoMacchine.js.',lines)
+        //console.log('dentro ElencoMacchine.js.',lines)
 
         
       } catch (error) {

@@ -8,6 +8,7 @@ const Planning = () => {
     const [isGreen,setIsGreen]=useState(false) //mi determina se è aperto
     /////////////////vado a cercare il file xls/////////////////////////////////
  const handleFileUpload = async (e) => {
+   if (excelData.length === 0){
     setIsGreen(true)
     const file = e.target.files[0];
 
@@ -55,7 +56,7 @@ const Planning = () => {
                }
                
               }
-             } //fine ciclo for
+              } //fine ciclo for
              return { data:dataMia, liste:listeMia}
          }
          return null
@@ -67,10 +68,15 @@ const Planning = () => {
        setExcelData(filteredRows);
        //console.log('Filtered Rows:', filteredRows);
        localStorage.setItem('dataLista',JSON.stringify(filteredRows)) //memorizza l'array di oggetti data e liste[]
-      
+       setIsGreen(true)
      };
      reader.readAsBinaryString(file);
-    };
+    } //fine if
+   if(excelData.length !==0) {
+     setIsGreen(true)
+  //    console.log('liste di PLANNING:',excelData)
+     };
+  }
     ///////////////////////////////////////////////////////////
      //console.log('se è salvato in excelData',excelData )
   

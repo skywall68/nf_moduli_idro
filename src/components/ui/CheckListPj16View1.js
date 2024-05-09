@@ -38,7 +38,7 @@ const CheckListPj16View1 = ({setListaPagina1Pj16App,elencoAzioniApp}) => {
       setMioID(item.id) //recupero il id della riga per mandarla nel modalMio per commenti/azioni
        //APRE IL MODAL se è 'non conforme'
        if(conformeValue === false){
-        console.log('dentro controlli!!!')
+        //console.log('dentro controlli!!!')
       //devo portare id nella modale
        setShowModalMio(true)
         }
@@ -81,12 +81,12 @@ return updatedControlli;
 
  useEffect(()=>{
   setListaPagina1Pj16App(controlli)
-  console.log('valore di AZIONE PJ16:',controlli)
+  //console.log('valore di AZIONE PJ16:',controlli)
 },[controlli])
 //***********************Lavoro con ModalMio***************************
 //funzione che chiude Modal richiamata dal componente ModalMio
 const closeModalMio =()=>{
-  console.log('controlli.',controlli)
+  //console.log('controlli.',controlli)
   setShowModalMio(false)
 }
 //*********************************fine******************************** */ 
