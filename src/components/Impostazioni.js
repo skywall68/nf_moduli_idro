@@ -36,7 +36,7 @@ const Impostazioni = ({
   
 }) => {
   
-  const [pjPdf, setPjPdf] = useState() //memorizzo il file pdf
+  const [pjPdf, setPjPdf] = useState(null) //memorizzo il file pdf
   const [selectedFile, setSelectedFile]= useState(null) //mi memorizza solo il nome
   const [selectedParametriStampa, setSelectedParametriStampa]= useState(false)//se il file è stato selezionato mi da 'true' per visualizzare il tasto 'OK'
   const [selectMacchineOrsaldatori,setSelectMacchineOrsaldatori]=useState(false)
@@ -58,7 +58,7 @@ const Impostazioni = ({
     const pdfFile = fileInput.files[0]; 
     //setVisualizzaModulo(true)
     
-    try {
+      try {
       
       // porto in App.js i valori dei 4 pdf 
       if(pdfFile.name === 'PJ 8 - rev 6 - IT.pdf'){
@@ -84,12 +84,13 @@ const Impostazioni = ({
         setSceltaModuloApp(modulo) // mi serve per modificare i css di operatore, macchine, data
         setAppVisualizzaModuloPanier(true) //mi determina i moduli CH che si aprono in App.js
 
-      }
-
+      } 
       
     } catch (error) {
       console.error("Errore durante l'analisi del documento PDF:", error.message);  
     } 
+    
+    
 
   }
    
@@ -178,7 +179,7 @@ const Impostazioni = ({
       { (selectedFile && 
   selectedParametriStampa && 
   selectMacchineOrsaldatori && 
-  selectedPj8OrPj16 && 
+  selectedPj8OrPj16 || 
   (selectTipologia || selectCH || selectPanier))
     ? <button className='button' onClick={importPDF}> OK </button>
     : <h3>{vuoto}</h3> }

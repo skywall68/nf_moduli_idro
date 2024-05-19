@@ -28,10 +28,13 @@ h2 {
 }
 
 .inputBoxCH {
-    font-size: 20px;
+    
     text-align: center;
     font-weight: 400;
     margin: 20px;
+}
+input.inputBoxCH {
+    padding-left: 30px;
 }
 .inputBoxPanier {
     font-size: 20px;

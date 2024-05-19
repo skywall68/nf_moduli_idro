@@ -9,9 +9,19 @@ const ScegliPjPDF = ({setPjPdf,setSelectedFile}) => {
 
   const handleFileChange = () => {
     // Puoi eseguire azioni aggiuntive quando il file viene selezionato
-    setSelectedFile(fileInputRef.current.files[0].name)
-    setPjPdf(fileInputRef.current);
-    setIsGreen(true)
+    const file = fileInputRef.current.files[0];
+    if(file){
+       setSelectedFile(file.name)
+       setPjPdf(fileInputRef.current);
+       setIsGreen(true)
+    }else {
+      setSelectedFile(null);
+      setPjPdf(null);
+      setIsGreen(false);
+    }
+   
+    
+   
    
     //console.log("File selezionato:", fileInputRef.current.files[0].name, 'nome:',fileInputRef.current);
   };
