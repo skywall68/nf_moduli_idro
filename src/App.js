@@ -411,7 +411,7 @@ function App() {
                   {checklistPj16View}
                   {checkListDimensioniPj16View}
                   {footer}
-                   <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.0.7</div>
+                   <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.0.9</div>
                   </div>
                  
             </div>
@@ -425,7 +425,7 @@ function App() {
               {checkListCHView}
               {checkListCHDimensioniView}
               {footer}
-              <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.0.8</div>
+              <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.0.9</div>
             </div>
             : visualizzaModuloPanierApp ?
             <div>
@@ -437,9 +437,9 @@ function App() {
             {checkListPanierView}
             {checkListPanierDimensioniView}
             {footer}
-            <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.0.8</div>
+            <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.0.9</div>
           </div>
-           :<p>&copy;2024 WM ver: 0.0.7</p>
+           :<p>&copy;2024 WM ver: 0.0.9</p>
             }
             
        
