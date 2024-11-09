@@ -235,6 +235,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     listaPagina2=listaPagina2Pj8App
     nomeAbbreviatoPDF='ch'
     macchinaOsaldatori=macchina
+    lista=etichetta
    }
    if(pjPanier){
     pdfFile=pjPanier
@@ -242,6 +243,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     listaPagina2=listaPagina2Pj16App
     nomeAbbreviatoPDF=`${dataControllo}_pan`
     macchinaOsaldatori=macchina
+    lista=etichetta
    }
 
    const paginaUnoAlto = [spuntaFabbrica,spuntaSuPiano,tipologia,cantiere,opera,cliente,plan,lista,etichetta,macchinaOsaldatori,] //cicla questi valori

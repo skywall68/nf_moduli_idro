@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import './SeePdf.css';
 import RecuperaData from './RecuperaData';
@@ -107,7 +107,13 @@ const SeePdf = ({
     const agiungiScegli = [scegli, ...risultato];
     setAppElementi(agiungiScegli);
   };
-
+// ++++++++++RECUPERO DATA PER AUTOMATIZZARE PROCESSO++++++++++++++++
+let dataLista=""
+dataLista = RecuperaData(lista) //chiamo la funzione e gli do la lista in pasto
+useEffect(()=>{
+  setAppData(dataLista)
+},[dataLista,lista]) // ogni volta che cambia la data e la lista devi aggiornare
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
   const recuperaDatiCliente = async () => {
     try {
       const pdfDocument = await pdfjs.getDocument(pdfPath).promise;
