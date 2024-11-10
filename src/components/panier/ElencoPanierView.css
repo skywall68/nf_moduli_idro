@@ -1,6 +1,6 @@
 .containerListaPanier {
     display: flex;
-    background-color: rgb(65, 64, 64);
+    background-color: rgb(124, 122, 122);
     justify-content: center;
     margin:20px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */

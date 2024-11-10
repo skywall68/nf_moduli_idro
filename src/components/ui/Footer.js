@@ -59,7 +59,7 @@ const [dataControlloYX, setDataControlloYX]= useState([])  //valori x e y di dat
 const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
 //console.log('controllato   appControllatoNdi: ',  appControllatoNdi)
 
-  
+ 
 
 
 
@@ -161,7 +161,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
   //elenco delle parti da stampare:
   
  let dataControllo = appData
-  
+ let dataItaliana ="" 
   let lista = ''
   if(appElementoScelto !==''){
     lista = appLista
@@ -241,7 +241,7 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     pdfFile=pjPanier
     listaPagina1=listaPagina1Pj16App
     listaPagina2=listaPagina2Pj16App
-    nomeAbbreviatoPDF=`${dataControllo}_pan`
+    nomeAbbreviatoPDF=`pan`
     macchinaOsaldatori=macchina
     lista=etichetta
    }
@@ -412,10 +412,11 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
     })
 
    // console.log('stampo il testo3:')
-    //data del controllo da inglese a italiana:
+    
+
     let data = dataControllo;
     dataControllo = data.replace(/(\d{2})-(\d{2})-(\d{2})/, "$3_$2_$1"); 
-    //console.log('nuova data italiana:',data)   
+      
     page2.drawText(dataControllo, {
       
       x:dataControlloYX[1],
@@ -504,10 +505,15 @@ const [operatoreYX, setOperatoreYX]= useState([]) //valori x e y di operatore
 const nodeRef = useRef(null);
 //console.log('dentro footer elenco listaPagina2Pj8App ',listaPagina2Pj8App)
 //console.log('dentro footer, la pagina listaPagina2Pj16App:',listaPagina2Pj16App)
+//data del controllo da inglese a italiana:
+    
+const [giorno, mese, anno]=appData.split("-");
+dataItaliana = `${anno +'/'}${mese +'/'}${giorno}`;
+console.log('nuova data italiana:',dataItaliana)
   return (
     <React.Fragment>
       <Modal 
-      // header={<h2>Stampa pdf</h2>}
+      header={<><h2>{etichetta}</h2>data:<h3>{dataItaliana}</h3></>}
       show={showModalPrint} 
       onCancel={closeModalPrintHandler} 
       contentClass ="place-item__modal-content"

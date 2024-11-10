@@ -1,6 +1,6 @@
 .containerListaCH {
     display: flex;
-    background-color: rgb(155, 155, 155);
+    background-color: rgb(183, 181, 181);
     justify-content: center;
     margin:20px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Aggiungi ombra al lato destro e in basso */

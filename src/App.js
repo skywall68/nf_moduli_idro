@@ -411,7 +411,7 @@ function App() {
                   {checklistPj16View}
                   {checkListDimensioniPj16View}
                   {footer}
-                   <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.1.0</div>
+                   <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 1.0.0</div>
                   </div>
                  
             </div>
@@ -420,26 +420,26 @@ function App() {
               <h1 style={{textAlign:'center'}}>Controllo CH</h1>
               {data}
               {operatore}
-              {macchineView}
               {elencoCHView}
+              {macchineView}
               {checkListCHView}
               {checkListCHDimensioniView}
               {footer}
-              <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.1.0</div>
+              <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 1.0.0</div>
             </div>
             : visualizzaModuloPanierApp ?
             <div>
             <h1 className='panier'>Controllo Panier</h1>
             {data}
             {operatore}
-            {macchineView}
             {elencoPanierView}
+            {macchineView}
             {checkListPanierView}
             {checkListPanierDimensioniView}
             {footer}
-            <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 0.1.0</div>
+            <div style={{display:'flex',flexDirection: 'column', width:'500px',marginTop:'200px'}}>&copy;2024 WM ver: 1.0.0</div>
           </div>
-           :<p>&copy;2024 WM ver: 0.1.0</p>
+           :<p>&copy;2024 WM ver: 1.0.0</p>
             }
             
        

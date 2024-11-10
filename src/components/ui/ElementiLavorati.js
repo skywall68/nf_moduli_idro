@@ -7,7 +7,7 @@ const ElementiLavorati = ({appElementi,setAppElementoScelto,setNumeroElemento}) 
     const[elementoScelto, setElementoScelto]=useState('')
     const [posizione,setPosizione]=useState('')
     const [commenti, setCommenti]=useState('')
-    const numbers = Array.from({ length: 101 }, (_, index) => index); //cre un elenco di numeri da 0 a 100
+    const numbers = Array.from({ length: 1000 }, (_, index) => index); //cre un elenco di numeri da 0 a 100
     
     //Catturiamo gli elementi che arrivano da App.js che a sua volta arrivano da SeePdf.js
     useEffect(()=>{
